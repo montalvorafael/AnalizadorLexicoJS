@@ -135,24 +135,23 @@ t_AND = r'\&\&'
 t_OR = r'\|\|'
 
 # Tipos de datos primitivos.
-t_BOOLEAN = r'(true|false)'
 t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_NULL = r'null'
+t_BIGINT = r'\d+n'
 
 def t_NUMBER(t):
     r'([+-]?\d+(?:\.?\d*(?:[eE][+-]?\d+)?)?|0[bB][\b[01]+\b]{1,}|0[xX][0-9a-fA-F]+|-\d*\.?\d+|\d*\.?\d+)$'
     return t
 
-# def t_BOOL(t):
-# r'true|false'
-# return t
+def t_BOOLEAN(t):
+    r'true|false'
+    return t
 
 def t_VARIABLE(t):
     r'[a-zA-Z_$][\w$]*'
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
-# Funciones para expresiones regulares.
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
@@ -163,8 +162,7 @@ t_ignore = ' \t'                    #para ignorar lo que no es importante
 t_ignore_CM1 = r"//.*"              # t_ignore_nombre = ""
 t_ignore_CM2 = r"^(\/\*).*(\*\/)$"
 
-
-# Error handling rule
+# Componente léxico no reconocido.
 def t_error(t):
     print("Componente léxico no reconocido '%s'" % t.value[0])
     t.lexer.skip(1)
@@ -175,17 +173,17 @@ def t_error(t):
 # =========================================================================================
 # Construcción de lexer.
 # =========================================================================================
-lexer = lex.lex()
-
-# Test it out
+# Entradas para el test
 data = '''
 var nueva = 0xfff
-var _nueva = 0xfff
-var NuevaVariable = 0xfff
-var $otranueva = 0xfff
+let _nueva = true
+var NuevaVariable = null
+let $otranueva = "grupo 8"
+let $_$0 = 49318471394913n
+var nueva = 0xfff
 '''
 
-# Give the lexer some input
+lexer = lex.lex()
 lexer.input(data)
 
 # Tokenize
