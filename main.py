@@ -36,5 +36,26 @@ reserved = {
     'await' : 'AWAT',
     'break' : 'BREAK',
     'debugger' : 'DEBUGGER'
-
 }
+
+# Error handling rule
+def t_error(t):
+    print("Componente léxico no reconocido '%s'" % t.value[0])
+    t.lexer.skip(1)
+
+    # Build the lexer
+lexer = lex.lex()
+
+# Test it out
+data = ''' var t = 1'''
+
+# Give the lexer some input
+lexer.input(data)
+
+# Tokenize
+while True:
+    tok = lexer.token()
+    if not tok:
+        break      # No more input
+  print(tok)
+
