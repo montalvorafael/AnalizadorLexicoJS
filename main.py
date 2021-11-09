@@ -80,8 +80,6 @@ t_MULT = r'\*'
 t_DIV = r'/'
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
-t_NUMERO = r'\d+'
-t_FLOTANTE = r'\d+\.\d+'
 t_BOOLEAN = r'(true|false)'
 t_IGUAL = r'='
 t_MASIGUAL = r'\+='
@@ -108,6 +106,10 @@ t_NULL = r'null'
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
+
+def t_NUMBER(t):
+    r'([+-]?\d+(?:\.?\d*(?:[eE][+-]?\d+)?)?|0[bB][\b[01]+\b]{1,}|0[xX][0-9a-fA-F]+|-\d*\.?\d+|\d*\.?\d+)$'
+    return t
 
 def t_BOOL(t):
     r'true|false'
@@ -136,7 +138,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = 'var t = null'
+data = 'var t = 0xfff'
 
 # Give the lexer some input
 lexer.input(data)
