@@ -4,10 +4,18 @@
 # RAFAEL MONTALVO
 # WILLY MATEO
 
+# Por hacer/revisar:
+# Bigint
+# Symbol
+# tipo undefined
+# Regla de variables
 
 import ply.lex as lex
 
-# 2 palabras reservadas del LP asignado a su proyecto
+# =========================================================================================
+# Palabras reservadas.
+# =========================================================================================
+# Palabras reservadas fuertes.
 reserved = {
     'class': 'CLASS',
     'new': 'NEW',
@@ -38,41 +46,65 @@ reserved = {
     'null': 'NULL'
 }
 
-# List of token names.   This is always required
-tokens = (
-             'NUMERO',
-             'MAS',
-             'MENOS',
-             'MULT',
-             'DIV',
-             'LPAREN',
-             'RPAREN',
-             'FLOTANTE',
-             'VARIABLE',
-             'IGUAL',
-             'MASIGUAL',
-             'MENOSIGUAL',
-             'MULTIGUAL',
-             'DIVIGUAL',
-             'MODIGUAL',
-             'IGUALIGUAL',
-             'NOIGUALQUE',
-             'MAYORQUE',
-             'MENORQUE',
-             'MAYORIGUALQUE',
-             'MENORIGUALQUE',
-             'AND',
-             'OR',
-             'BOOLEAN',
-             'STRING',
-             'UNDEFINED',
-             'SYMBOL',
-             'BIGINT',
-             'NUMBER',
-             'BOOL',
-         ) + tuple(reserved.values())
+# Palabras reservadas suaves.
+reserved_soft = {
+    'constructor': 'CONSTRUCTOR',
+    'get': 'GET',
+    'init': 'INIT',
+    'set': 'SET',
+    'public': 'PUBLIC',
+    'interface': 'INTERFACE',
+    'implements': 'IMPLEMENTS',
+    'private': 'PRIVATE',
+    'protected': 'PROTECTED',
+    'package': 'PACKAGE'
+}
+# =========================================================================================
 
-# Regular expression rules for simple tokens
+
+
+# =========================================================================================
+# Tokens.
+# =========================================================================================
+tokens = (
+    'NUMERO',
+    'MAS',
+    'MENOS',
+    'MULT',
+    'DIV',
+    'LPAREN',
+    'RPAREN',
+    'FLOTANTE',
+    'VARIABLE',
+    'IGUAL',
+    'MASIGUAL',
+    'MENOSIGUAL',
+    'MULTIGUAL',
+    'DIVIGUAL',
+    'MODIGUAL',
+    'IGUALIGUAL',
+    'NOIGUALQUE',
+    'MAYORQUE',
+    'MENORQUE',
+    'MAYORIGUALQUE',
+    'MENORIGUALQUE',
+    'AND',
+    'OR',
+    'BOOLEAN',
+    'STRING',
+    'UNDEFINED',
+    'SYMBOL',
+    'BIGINT',
+    'NUMBER',
+    'BOOL',
+) + tuple(reserved.values())
+# =========================================================================================
+
+
+
+# =========================================================================================
+# Expresiones regulares.
+# =========================================================================================
 t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_MAS = r'\+'
 t_MENOS = r'-'
@@ -97,12 +129,7 @@ t_AND = r'\&\&'
 t_OR = r'\|\|'
 t_NULL = r'null'
 
-
-# t_ESTRUCTURACONTROL = r'(if|else)'
-
-# t_VARIABLE = r'^(var |let| )[a-zA-Z]\d+'
-
-# Define a rule so we can track line numbers
+# Funciones para expresiones regulares.
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
@@ -132,9 +159,13 @@ t_ignore_CM2 = r"^(\/\*).*(\*\/)$"
 def t_error(t):
     print("Componente léxico no reconocido '%s'" % t.value[0])
     t.lexer.skip(1)
+# =========================================================================================
 
 
-# Build the lexer
+
+# =========================================================================================
+# Construcción de lexer.
+# =========================================================================================
 lexer = lex.lex()
 
 # Test it out
@@ -149,3 +180,5 @@ while True:
     if not tok:
         break  # No more input
     print(tok)
+# =========================================================================================
+
