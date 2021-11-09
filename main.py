@@ -35,8 +35,6 @@ reserved = {
     'extends': 'EXTENDS',
     'case': 'CASE',
     'super': 'SUPER',
-    'true': 'TRUE',
-    'false': 'FALSE'
 }
 
 # List of token names.   This is always required
@@ -71,10 +69,11 @@ tokens = (
              'SYMBOL',
              'BIGINT',
              'NUMBER',
-             'BOOL'
+             'BOOL',
          ) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
+t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_MAS = r'\+'
 t_MENOS = r'-'
 t_MULT = r'\*'
@@ -110,19 +109,21 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
+def t_BOOL(t):
+    r'true|false'
+    return t
 
 def t_VARIABLE(t):
     r'[a-zA-Z]+\d*'
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
-def t_BOOL(t):
-    r'true|false'
-    return t
 
 # A string containing ignored characters (spaces and tabs)
-t_ignore = '\t'
-t_ignore_CommentLine = '//'
+t_ignore = ' \t'                    #para ignorar lo que no es importante
+# t_ignore_nombre = ""
+t_ignore_CM1 = r"//.*"              # t_ignore_nombre = ""
+t_ignore_CM2 = r"^(\/\*).*(\*\/)$"
 
 
 # Error handling rule
@@ -135,7 +136,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = ''' var t = 1'''
+data = 'var t = "hola"'
 
 # Give the lexer some input
 lexer.input(data)
