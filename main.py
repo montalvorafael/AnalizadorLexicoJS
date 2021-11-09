@@ -35,6 +35,7 @@ reserved = {
     'extends': 'EXTENDS',
     'case': 'CASE',
     'super': 'SUPER',
+    'null': 'NULL'
 }
 
 # List of token names.   This is always required
@@ -62,7 +63,6 @@ tokens = (
              'MENORIGUALQUE',
              'AND',
              'OR',
-             'NULL',
              'BOOLEAN',
              'STRING',
              'UNDEFINED',
@@ -136,7 +136,7 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = 'var t = "hola"'
+data = 'var t = null'
 
 # Give the lexer some input
 lexer.input(data)
