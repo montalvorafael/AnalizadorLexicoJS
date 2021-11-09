@@ -5,10 +5,9 @@
 # WILLY MATEO
 
 # Por hacer/revisar:
-# Bigint
 # Symbol
 # tipo undefined
-# Regla de variables
+# Bigint
 
 import ply.lex as lex
 
@@ -105,48 +104,58 @@ tokens = (
 # =========================================================================================
 # Expresiones regulares.
 # =========================================================================================
-t_STRING= r'("[^"]*"|\'[^\']*\')'
+
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+
+# Operadores matemáticos.
 t_MAS = r'\+'
 t_MENOS = r'-'
 t_MULT = r'\*'
 t_DIV = r'/'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_BOOLEAN = r'(true|false)'
+
+# Operadores de asignación.
 t_IGUAL = r'='
 t_MASIGUAL = r'\+='
 t_MENOSIGUAL = r'-='
 t_MULTIGUAL = r'\*='
 t_DIVIGUAL = r'\/='
 t_MODIGUAL = r'%='
+
+# Operadores de comparación.
 t_IGUALIGUAL = r'=='
 t_NOIGUALQUE = r'\!='
 t_MAYORQUE = r'>'
 t_MENORQUE = r'<'
-t_MAYORIGUALQUE = r'>'
+t_MAYORIGUALQUE = r'>='
 t_MENORIGUALQUE = r'<='
+
+# Operadores lógicos.
 t_AND = r'\&\&'
 t_OR = r'\|\|'
-t_NULL = r'null'
 
-# Funciones para expresiones regulares.
-def t_newline(t):
-    r'\n+'
-    t.lexer.lineno += len(t.value)
+# Tipos de datos primitivos.
+t_BOOLEAN = r'(true|false)'
+t_STRING= r'("[^"]*"|\'[^\']*\')'
+t_NULL = r'null'
 
 def t_NUMBER(t):
     r'([+-]?\d+(?:\.?\d*(?:[eE][+-]?\d+)?)?|0[bB][\b[01]+\b]{1,}|0[xX][0-9a-fA-F]+|-\d*\.?\d+|\d*\.?\d+)$'
     return t
 
-def t_BOOL(t):
-    r'true|false'
-    return t
+# def t_BOOL(t):
+# r'true|false'
+# return t
 
 def t_VARIABLE(t):
-    r'[a-zA-Z]+\d*'
+    r'[a-zA-Z_$][\w$]*'
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
+# Funciones para expresiones regulares.
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
 
 # A string containing ignored characters (spaces and tabs)
 t_ignore = ' \t'                    #para ignorar lo que no es importante
@@ -169,7 +178,12 @@ def t_error(t):
 lexer = lex.lex()
 
 # Test it out
-data = 'var t = 0xfff'
+data = '''
+var nueva = 0xfff
+var _nueva = 0xfff
+var NuevaVariable = 0xfff
+var $otranueva = 0xfff
+'''
 
 # Give the lexer some input
 lexer.input(data)
