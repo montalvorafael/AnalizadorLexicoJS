@@ -7,46 +7,127 @@
 
 import ply.lex as lex
 
-#Palabras reservadas JS
+# 2 palabras reservadas del LP asignado a su proyecto
 reserved = {
-    'class' : 'CLASS',
-    'var' : 'VAR',
-    'new' : 'NEW',
-    'break' : 'BREAK',
-    'function' : 'FUNCTION',
-    'else' : 'ELSE',
-    'catch' : 'CATCH',
-    'while' : 'WHILE',
-    'void' : 'VOID',
-    'const' : 'CONST',
-    'import' : 'IMPORT',
-    'null' : 'NULL',
-    'let' : 'LET',
-    'default' : 'DEFAULT',
-    'continue' : 'CONTINUE',
-    'debugger' : 'DEBUGGER',
-    'for' : 'FOR',
-    'return' : 'RETURN',
-    'switch' : 'SWITCH',
-    'delete' : 'DELETE',
-    'await' : 'AWAT',
-    'export' : 'EXPORT',
-    'if' : 'IF',
-    'var' : 'VAR',
-    'do' : 'DO',
-    'extends' : 'EXTENDS',
-    'case' : 'CASE',
-    'super' : 'SUPER',
-    'true' : 'TRUE',
-    'false' : 'FALSE'
+    'class': 'CLASS',
+    'new': 'NEW',
+    'break': 'BREAK',
+    'function': 'FUNCTION',
+    'else': 'ELSE',
+    'catch': 'CATCH',
+    'while': 'WHILE',
+    'void': 'VOID',
+    'const': 'CONST',
+    'import': 'IMPORT',
+    'default': 'DEFAULT',
+    'continue': 'CONTINUE',
+    'debugger': 'DEBUGGER',
+    'for': 'FOR',
+    'return': 'RETURN',
+    'switch': 'SWITCH',
+    'delete': 'DELETE',
+    'await': 'AWAT',
+    'export': 'EXPORT',
+    'if': 'IF',
+    'var': 'VAR',
+    'let': 'LET',
+    'do': 'DO',
+    'extends': 'EXTENDS',
+    'case': 'CASE',
+    'super': 'SUPER',
+    'true': 'TRUE',
+    'false': 'FALSE'
 }
+
+# List of token names.   This is always required
+tokens = (
+             'NUMERO',
+             'MAS',
+             'MENOS',
+             'MULT',
+             'DIV',
+             'LPAREN',
+             'RPAREN',
+             'FLOTANTE',
+             'VARIABLE',
+             'IGUAL',
+             'MASIGUAL',
+             'MENOSIGUAL',
+             'MULTIGUAL',
+             'DIVIGUAL',
+             'MODIGUAL',
+             'IGUALIGUAL',
+             'NOIGUALQUE',
+             'MAYORQUE',
+             'MENORQUE',
+             'MAYORIGUALQUE',
+             'MENORIGUALQUE',
+             'AND',
+             'OR',
+             'NULL',
+             'BOOLEAN',
+             'STRING',
+             'UNDEFINED',
+             'SYMBOL',
+             'BIGINT',
+             'NUMBER'
+         ) + tuple(reserved.values())
+
+# Regular expression rules for simple tokens
+t_MAS = r'\+'
+t_MENOS = r'-'
+t_MULT = r'\*'
+t_DIV = r'/'
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
+t_NUMERO = r'\d+'
+t_FLOTANTE = r'\d+\.\d+'
+t_BOOLEAN = r'(true|false)'
+t_IGUAL = r'='
+t_MASIGUAL = r'\+='
+t_MENOSIGUAL = r'-='
+t_MULTIGUAL = r'\*='
+t_DIVIGUAL = r'\/='
+t_MODIGUAL = r'%='
+t_IGUALIGUAL = r'=='
+t_NOIGUALQUE = r'\!='
+t_MAYORQUE = r'>'
+t_MENORQUE = r'<'
+t_MAYORIGUALQUE = r'>'
+t_MENORIGUALQUE = r'<='
+t_AND = r'\&\&'
+t_OR = r'\|\|'
+t_NULL = r'null'
+
+
+# t_ESTRUCTURACONTROL = r'(if|else)'
+
+# t_VARIABLE = r'^(var |let| )[a-zA-Z]\d+'
+
+# Define a rule so we can track line numbers
+def t_newline(t):
+    r'\n+'
+    t.lexer.lineno += len(t.value)
+
+
+def t_VARIABLE(t):
+    r'[a-zA-Z]+\d*'
+    t.type = reserved.get(t.value, 'VARIABLE')
+    return t
+
+
+# A string containing ignored characters (spaces and tabs)
+t_ignore = '\t'
+t_ignore_CommentLine = '//'
+
 
 # Error handling rule
 def t_error(t):
     print("Componente léxico no reconocido '%s'" % t.value[0])
     t.lexer.skip(1)
 
-    # Build the lexer
+
+# Build the lexer
 lexer = lex.lex()
 
 # Test it out
@@ -59,6 +140,5 @@ lexer.input(data)
 while True:
     tok = lexer.token()
     if not tok:
-        break      # No more input
-  print(tok)
-
+        break  # No more input
+    print(tok)
