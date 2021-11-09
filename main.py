@@ -70,7 +70,8 @@ tokens = (
              'UNDEFINED',
              'SYMBOL',
              'BIGINT',
-             'NUMBER'
+             'NUMBER',
+             'BOOL'
          ) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
@@ -115,6 +116,9 @@ def t_VARIABLE(t):
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
+def t_BOOL(t):
+    r'true|false'
+    return t
 
 # A string containing ignored characters (spaces and tabs)
 t_ignore = '\t'
