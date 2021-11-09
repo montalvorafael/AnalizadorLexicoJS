@@ -37,11 +37,18 @@ reserved = {
     'extends' : 'EXTENDS',
     'case' : 'CASE',
     'super' : 'SUPER',
-    'true' : 'TRUE',
-    'false' : 'FALSE'
 }
 
+
+
+
 # Error handling rule
+
+#funciones
+def t_BOOL(t):
+    r'true|false'
+    return t
+
 def t_error(t):
     print("Componente léxico no reconocido '%s'" % t.value[0])
     t.lexer.skip(1)
