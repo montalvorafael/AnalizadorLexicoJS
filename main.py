@@ -136,10 +136,14 @@ t_OR = r'\|\|'
 # Tipos de datos primitivos.
 t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_NULL = r'null'
-t_BIGINT = r'\d+n'
+
+def t_BIGINT(t):
+    r'\d+n'
+    return t
+
 
 def t_NUMBER(t):
-    r'([+-]?\d+(?:\.?\d*(?:[eE][+-]?\d+)?)?|0[bB][\b[01]+\b]{1,}|0[xX][0-9a-fA-F]+|-\d*\.?\d+|\d*\.?\d+)$'
+    r'([+-]?\d+(?:\.?\d*(?:[eE][+-]?\d+)?)?$|0[bB][\b[01]+\b]{1,}|0[xX][0-9a-fA-F]+|-\d*\.?\d+|\d*\.?\d+)'
     return t
 
 def t_BOOLEAN(t):
@@ -175,7 +179,7 @@ def t_error(t):
 # Entradas para el test
 data = '''
 var let t1posdat0s _nueva NuevaVariable $otranueva $_$0
-0xfff 789.8 true false null "grupo 8" 9318471394913n
+0xfff 789.8 true false null "grupo 8" 9318471394913n -200 10 -893.2 23e-8 040 0b010010011110 789n
 '''
 
 lexer = lex.lex()
