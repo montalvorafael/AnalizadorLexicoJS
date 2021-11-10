@@ -7,7 +7,6 @@
 # Por hacer/revisar:
 # Symbol
 # tipo undefined
-# Bigint
 
 import ply.lex as lex
 
@@ -175,18 +174,14 @@ def t_error(t):
 # =========================================================================================
 # Entradas para el test
 data = '''
-var nueva = 0xfff
-let _nueva = true
-var NuevaVariable = null
-let $otranueva = "grupo 8"
-let $_$0 = 49318471394913n
-var nueva = 0xfff
+var let t1posdat0s _nueva NuevaVariable $otranueva $_$0
+0xfff 789.8 true false null "grupo 8" 9318471394913n
 '''
 
 lexer = lex.lex()
 lexer.input(data)
 
-# Tokenize
+# Comprobar búsqueda de tokens.
 while True:
     tok = lexer.token()
     if not tok:
