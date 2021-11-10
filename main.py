@@ -137,7 +137,11 @@ t_OR = r'\|\|'
 # Tipos de datos primitivos.
 t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_NULL = r'null'
-t_BIGINT = r'\d+n'
+
+def t_BIGINT(t):
+    r'\d+n'
+    return t
+
 
 def t_NUMBER(t):
     r'([+-]?\d+(?:\.?\d*(?:[eE][+-]?\d+)?)?$|0[bB][\b[01]+\b]{1,}|0[xX][0-9a-fA-F]+|-\d*\.?\d+|\d*\.?\d+)'
