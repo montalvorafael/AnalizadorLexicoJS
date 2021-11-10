@@ -138,7 +138,7 @@ t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_NULL = r'null'
 
 def t_BIGINT(t):
-    r'\d+n'
+    r'-?\d+n'
     return t
 
 
@@ -179,7 +179,7 @@ def t_error(t):
 # Entradas para el test
 data = '''
 var let t1posdat0s _nueva NuevaVariable $otranueva $_$0
-0xfff 789.8 true false null "grupo 8" 9318471394913n -200 10 -893.2 23e-8 040 0b010010011110 789n
+0xfff 789.8 true false null "grupo 8" 9318471394913n -200 10 -893.2 23e-8 040 0b010010011110 -789n
 '''
 
 lexer = lex.lex()
