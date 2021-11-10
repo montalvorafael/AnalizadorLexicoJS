@@ -140,7 +140,7 @@ t_NULL = r'null'
 t_BIGINT = r'\d+n'
 
 def t_NUMBER(t):
-    r'([+-]?\d+(?:\.?\d*(?:[eE][+-]?\d+)?)?|0[bB][\b[01]+\b]{1,}|0[xX][0-9a-fA-F]+|-\d*\.?\d+|\d*\.?\d+)$'
+    r'([+-]?\d+(?:\.?\d*(?:[eE][+-]?\d+)?)?$|0[bB][\b[01]+\b]{1,}|0[xX][0-9a-fA-F]+|-\d*\.?\d+|\d*\.?\d+)'
     return t
 
 def t_BOOLEAN(t):
@@ -180,7 +180,7 @@ let _nueva = true
 var NuevaVariable = null
 let $otranueva = "grupo 8"
 let $_$0 = 49318471394913n
-var nueva = 0xfff
+var nueva = -200
 '''
 
 lexer = lex.lex()
