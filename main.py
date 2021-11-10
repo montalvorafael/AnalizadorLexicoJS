@@ -70,8 +70,13 @@ tokens = (
     'MENOS',
     'MULT',
     'DIV',
-    'LPAREN',
-    'RPAREN',
+    'IZQPAREN',
+    'DERPAREN',
+    'IZQLLAVE',
+    'DERLLAVE',
+    'IZQCORCHETE',
+    'DERCORCHETE',
+    'FINALDELINEA',
     'FLOTANTE',
     'VARIABLE',
     'IGUAL',
@@ -104,8 +109,13 @@ tokens = (
 # Expresiones regulares.
 # =========================================================================================
 
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
+t_IZQPAREN = r'\('
+t_DERPAREN = r'\)'
+t_IZQLLAVE = r'\{'
+t_DERLLAVE = r'\}'
+t_IZQCORCHETE = r'\['
+t_DERCORCHETE = r'\]'
+t_FINALDELINEA = r'\;'
 
 # Operadores matemáticos.
 t_MAS = r'\+'
@@ -136,6 +146,14 @@ t_OR = r'\|\|'
 # Tipos de datos primitivos.
 t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_NULL = r'null'
+
+def t_SYMBOL(t):
+    r'Symbol\(\)|Symbol\("[^"]*"\)'
+    return t
+
+def t_UNDEFINED(t):
+    r'var\s[a-zA-Z_$][\w$]*\;'
+    return t
 
 def t_BIGINT(t):
     r'-?\d+n'
@@ -180,6 +198,10 @@ def t_error(t):
 data = '''
 var let t1posdat0s _nueva NuevaVariable $otranueva $_$0
 0xfff 789.8 true false null "grupo 8" 9318471394913n -200 10 -893.2 23e-8 040 0b010010011110 -789n
+var sym1 = Symbol();
+var sym2 = Symbol("foo");
+var x;
+[]{}
 '''
 
 lexer = lex.lex()
