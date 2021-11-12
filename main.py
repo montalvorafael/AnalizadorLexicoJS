@@ -151,14 +151,9 @@ def t_SYMBOL(t):
     r'Symbol\(\)|Symbol\("[^"]*"\)'
     return t
 
-def t_UNDEFINED(t):
-    r'var\s[a-zA-Z_$][\w$]*\;'
-    return t
-
 def t_BIGINT(t):
     r'-?\d+n'
     return t
-
 
 def t_NUMBER(t):
     r'(0[bB][(0|1)+]{1,}|0[xX][0-9a-fA-F]+|[+-]?\d+[eE][+-]?\d+|-\d*\.?\d+|\d*\.?\d+)'
