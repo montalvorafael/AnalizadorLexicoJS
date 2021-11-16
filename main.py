@@ -77,6 +77,7 @@ tokens = (
     'IZQCORCHETE',
     'DERCORCHETE',
     'FINALDELINEA',
+    'COMA',
     'FLOTANTE',
     'VARIABLE',
     'IGUAL',
@@ -116,6 +117,7 @@ t_DERLLAVE = r'\}'
 t_IZQCORCHETE = r'\['
 t_DERCORCHETE = r'\]'
 t_FINALDELINEA = r'\;'
+t_COMA = r'\,'
 
 # Operadores matemáticos.
 t_MAS = r'\+'
@@ -197,6 +199,7 @@ var sym1 = Symbol();
 var sym2 = Symbol("foo");
 var x;
 []{}
+1,TRUE,hola, false
 '''
 
 lexer = lex.lex()
