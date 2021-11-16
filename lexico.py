@@ -189,13 +189,24 @@ def t_error(t):
 # =========================================================================================
 # Entradas para el test
 data = '''
-var let t1posdat0s _nueva NuevaVariable $otranueva $_$0
-0xfff 789.8 true false null "grupo 8" 9318471394913n -200 10 -893.2 23e-8 040 0b010010011110 -789n
+var _nueva = 0xfff
+let t1posdat0s = 789.8
+var NuevaVariable = true
+let $otranueva = false
+var $_$0 = "grupo 8"
+if (9318471394913n > -200) { 
+    var varNum = 0b010010011110;
+}
+while (n < 3) {
+  n ++;
+  x += n;
+}
+var pruebaE = 23e-8 
+arreglo[0] = -893.2
+let pruebasNega = -789n
 var sym1 = Symbol();
 var sym2 = Symbol("foo");
 var x;
-[]{}
-1,TRUE,hola, false
 '''
 
 lexer = lex.lex()
