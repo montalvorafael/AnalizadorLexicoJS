@@ -4,10 +4,6 @@
 # RAFAEL MONTALVO
 # WILLY MATEO
 
-# Por hacer/revisar:
-# Symbol
-# tipo undefined
-
 import ply.lex as lex
 
 # =========================================================================================
