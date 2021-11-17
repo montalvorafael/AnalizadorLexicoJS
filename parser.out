@@ -13,6 +13,7 @@ Unused terminals:
     CLASS
     COMA
     CONST
+    CONSTRUCTOR
     CONTINUE
     DEBUGGER
     DEFAULT
@@ -20,7 +21,6 @@ Unused terminals:
     DERCORCHETE
     DERLLAVE
     DERPAREN
-    DIV
     DIVIGUAL
     DO
     ELSE
@@ -30,22 +30,20 @@ Unused terminals:
     FLOTANTE
     FOR
     FUNCTION
+    GET
     IF
     IGUALIGUAL
+    IMPLEMENTS
     IMPORT
+    INIT
+    INTERFACE
     IZQCORCHETE
     IZQLLAVE
     IZQPAREN
-    MAS
     MASIGUAL
-    MAYORIGUALQUE
-    MAYORQUE
-    MENORIGUALQUE
     MENORQUE
-    MENOS
     MENOSIGUAL
     MODIGUAL
-    MULT
     MULTIGUAL
     NEW
     NOIGUALQUE
@@ -53,7 +51,12 @@ Unused terminals:
     NUMBER
     NUMERO
     OR
+    PACKAGE
+    PRIVATE
+    PROTECTED
+    PUBLIC
     RETURN
+    SET
     STRING
     SUPER
     SWITCH
@@ -65,8 +68,21 @@ Unused terminals:
 Grammar
 
 Rule 0     S' -> asignacion
-Rule 1     asignacion -> VAR IGUAL BARIABLE
+Rule 1     asignacion -> VAR IGUAL VARIABLE
 Rule 2     asignacion -> LET IGUAL VARIABLE
+Rule 3     expresion -> expresion MAS VARIABLE
+Rule 4     expresion -> expresion MAS term
+Rule 5     expresion -> expresion MENOS term
+Rule 6     expresion -> term
+Rule 7     term -> term MULT factor
+Rule 8     term -> term DIV factor
+Rule 9     term -> factor
+Rule 10    comparacion -> expresion comparador term
+Rule 11    comparador -> MAYORQUE
+Rule 12    comparador -> MENOSQUE
+Rule 13    comparador -> MAYORIGUALQUE
+Rule 14    comparador -> MENORIGUALQUE
+Rule 15    comparador -> NOIGUAL
 
 Terminals, with rules where they appear
 
@@ -81,6 +97,7 @@ CATCH                :
 CLASS                : 
 COMA                 : 
 CONST                : 
+CONSTRUCTOR          : 
 CONTINUE             : 
 DEBUGGER             : 
 DEFAULT              : 
@@ -88,7 +105,7 @@ DELETE               :
 DERCORCHETE          : 
 DERLLAVE             : 
 DERPAREN             : 
-DIV                  : 
+DIV                  : 8
 DIVIGUAL             : 
 DO                   : 
 ELSE                 : 
@@ -98,24 +115,28 @@ FINALDELINEA         :
 FLOTANTE             : 
 FOR                  : 
 FUNCTION             : 
+GET                  : 
 IF                   : 
 IGUAL                : 1 2
 IGUALIGUAL           : 
+IMPLEMENTS           : 
 IMPORT               : 
+INIT                 : 
+INTERFACE            : 
 IZQCORCHETE          : 
 IZQLLAVE             : 
 IZQPAREN             : 
 LET                  : 2
-MAS                  : 
+MAS                  : 3 4
 MASIGUAL             : 
-MAYORIGUALQUE        : 
-MAYORQUE             : 
-MENORIGUALQUE        : 
+MAYORIGUALQUE        : 13
+MAYORQUE             : 11
+MENORIGUALQUE        : 14
 MENORQUE             : 
-MENOS                : 
+MENOS                : 5
 MENOSIGUAL           : 
 MODIGUAL             : 
-MULT                 : 
+MULT                 : 7
 MULTIGUAL            : 
 NEW                  : 
 NOIGUALQUE           : 
@@ -123,20 +144,31 @@ NULL                 :
 NUMBER               : 
 NUMERO               : 
 OR                   : 
+PACKAGE              : 
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
 RETURN               : 
+SET                  : 
 STRING               : 
 SUPER                : 
 SWITCH               : 
 SYMBOL               : 
 UNDEFINED            : 
 VAR                  : 1
-VARIABLE             : 2
+VARIABLE             : 1 2 3
 VOID                 : 
 WHILE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-BARIABLE             : 1
+MENOSQUE             : 12
+NOIGUAL              : 15
 asignacion           : 0
+comparacion          : 
+comparador           : 10
+expresion            : 3 4 5 10
+factor               : 7 8 9
+term                 : 4 5 6 7 8 10
 

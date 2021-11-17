@@ -1,36 +1,32 @@
 import ply.yacc as yacc
 from lexico import tokens
-from lexico import lexer
 
+
+# =========================================================================================
+# Componentes sintácticos.
+# =========================================================================================
 def p_asignacion(p):
     '''asignacion : VAR IGUAL VARIABLE
-            | LET IGUAL VARIABLE'''
-
-
+    | LET IGUAL VARIABLE'''
 
 def p_expresion(p):
     '''expresion : expresion MAS VARIABLE'''
-
 
 def p_expresion_mas(p):
     'expresion : expresion MAS term'
     p[0] = p[1] + p[3]
 
-
 def p_expresion_menos(p):
     'expresion : expresion MENOS term'
     p[0] = p[1] - p[3]
-
 
 def p_expresion_term(p):
     'expresion : term'
     p[0] = p[1]
 
-
 def p_term_mult(p):
     'term : term MULT factor'
     p[0] = p[1] * p[3]
-
 
 def p_term_div(p):
     'term : term DIV factor'
@@ -45,17 +41,22 @@ def p_comparacion(p):
 
 def p_comparador(p):
     '''comparador : MAYORQUE
-                | MENOSQUE
-                | MAYORIGUALQUE
-                | MENORIGUALQUE
-                | NOIGUAL'''
+    | MENOSQUE
+    | MAYORIGUALQUE
+    | MENORIGUALQUE
+    | NOIGUAL'''
+# =========================================================================================
 
-# Error rule for syntax errors
+
+# =========================================================================================
+# Error de sintaxis.
+# =========================================================================================
 def p_error(p):
     print("Error de sintaxis!")
 
-
-# Build the parser
+# =========================================================================================
+# Construcción del parser.
+# =========================================================================================
 parser = yacc.yacc()
 
 while True:
@@ -66,3 +67,5 @@ while True:
     if not s: continue
     result = parser.parse(s)
     print(result)
+# =========================================================================================
+

@@ -97,7 +97,8 @@ tokens = (
     'BIGINT',
     'NUMBER',
     'BOOL',
-) + tuple(reserved.values())
+) + tuple(reserved.values()) + tuple(reserved_soft.values())
+
 # =========================================================================================
 
 
