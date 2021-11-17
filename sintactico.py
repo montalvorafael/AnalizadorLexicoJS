@@ -12,13 +12,13 @@ def p_expresion(p):
     '''expresion : expresion MAS VARIABLE'''
 
 
-def p_expression_plus(p):
-    'expresion : expresion PLUS term'
+def p_expresion_mas(p):
+    'expresion : expresion MAS term'
     p[0] = p[1] + p[3]
 
 
-def p_expression_minus(p):
-    'expresion : expresion MINUS term'
+def p_expresion_menos(p):
+    'expresion : expresion MENOS term'
     p[0] = p[1] - p[3]
 
 
@@ -27,15 +27,14 @@ def p_expresion_term(p):
     p[0] = p[1]
 
 
-def p_term_times(p):
-    'term : term TIMES factor'
+def p_term_mult(p):
+    'term : term MULT factor'
     p[0] = p[1] * p[3]
 
 
 def p_term_div(p):
-    'term : term DIVIDE factor'
+    'term : term DIV factor'
     p[0] = p[1] / p[3]
-
 
 def p_term_factor(p):
     'term : factor'
