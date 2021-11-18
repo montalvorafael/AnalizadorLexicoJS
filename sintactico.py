@@ -7,7 +7,8 @@ def p_js(p):
         | instrucciones js'''
 
 def p_instrucciones(p):
-    '''instrucciones : asignacion
+    '''instrucciones : tipo
+                | asignacion
                 | funcion
                 | expresion
                 | comparacion
@@ -16,8 +17,8 @@ def p_instrucciones(p):
                 | switch'''
 
 def p_asignacion(p):
-    '''asignacion : VAR IGUAL VARIABLE
-            | LET IGUAL VARIABLE'''
+    '''asignacion : VAR VARIABLE IGUAL tipo
+            | LET VARIABLE IGUAL tipo'''
 
 #FUNCION QUE ACEPTA UN PARAMETRO SOLAMENTE
 def p_funcion_unparametro(p):
@@ -32,9 +33,15 @@ def p_if(p):
 #if (num > mun2) { 4*4} else {4*4}
 
 def p_switch(p):
-    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE CASE DOSPUNTOS js DERLLAVE
-        | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
+    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE CASE tipo DOSPUNTOS js DERLLAVE'''
 
+#switch (expr) { case 1: 4+4}
+def p_tipo(p):
+    '''tipo : NUMBER
+                | STRING
+                | BOOLEAN
+                | BIGINT
+                | SYMBOL'''
 def p_comparacion(p):
     '''comparacion : VARIABLE comparador VARIABLE
             | expresion comparador expresion'''
