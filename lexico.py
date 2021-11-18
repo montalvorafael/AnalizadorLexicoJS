@@ -117,7 +117,7 @@ t_COMA = r'\,'
 
 # Operadores matemáticos.
 t_MAS = r'\+'
-t_MENOS = r'-'
+t_MENOS = r'\-'
 t_MULT = r'\*'
 t_DIV = r'/'
 
