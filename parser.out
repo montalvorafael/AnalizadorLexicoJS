@@ -20,7 +20,6 @@ Unused terminals:
     DELETE
     DERCORCHETE
     DERLLAVE
-    DERPAREN
     DIVIGUAL
     DO
     ELSE
@@ -39,16 +38,12 @@ Unused terminals:
     INTERFACE
     IZQCORCHETE
     IZQLLAVE
-    IZQPAREN
     MASIGUAL
-    MENORQUE
     MENOSIGUAL
     MODIGUAL
     MULTIGUAL
     NEW
-    NOIGUALQUE
     NULL
-    NUMBER
     NUMERO
     OR
     PACKAGE
@@ -77,12 +72,14 @@ Rule 6     expresion -> term
 Rule 7     term -> term MULT factor
 Rule 8     term -> term DIV factor
 Rule 9     term -> factor
-Rule 10    comparacion -> expresion comparador term
-Rule 11    comparador -> MAYORQUE
-Rule 12    comparador -> MENOSQUE
-Rule 13    comparador -> MAYORIGUALQUE
-Rule 14    comparador -> MENORIGUALQUE
-Rule 15    comparador -> NOIGUAL
+Rule 10    factor -> NUMBER
+Rule 11    factor -> IZQPAREN expresion DERPAREN
+Rule 12    comparacion -> expresion comparador term
+Rule 13    comparador -> MAYORQUE
+Rule 14    comparador -> MENORQUE
+Rule 15    comparador -> MAYORIGUALQUE
+Rule 16    comparador -> MENORIGUALQUE
+Rule 17    comparador -> NOIGUALQUE
 
 Terminals, with rules where they appear
 
@@ -104,7 +101,7 @@ DEFAULT              :
 DELETE               : 
 DERCORCHETE          : 
 DERLLAVE             : 
-DERPAREN             : 
+DERPAREN             : 11
 DIV                  : 8
 DIVIGUAL             : 
 DO                   : 
@@ -125,23 +122,23 @@ INIT                 :
 INTERFACE            : 
 IZQCORCHETE          : 
 IZQLLAVE             : 
-IZQPAREN             : 
+IZQPAREN             : 11
 LET                  : 2
 MAS                  : 3 4
 MASIGUAL             : 
-MAYORIGUALQUE        : 13
-MAYORQUE             : 11
-MENORIGUALQUE        : 14
-MENORQUE             : 
+MAYORIGUALQUE        : 15
+MAYORQUE             : 13
+MENORIGUALQUE        : 16
+MENORQUE             : 14
 MENOS                : 5
 MENOSIGUAL           : 
 MODIGUAL             : 
 MULT                 : 7
 MULTIGUAL            : 
 NEW                  : 
-NOIGUALQUE           : 
+NOIGUALQUE           : 17
 NULL                 : 
-NUMBER               : 
+NUMBER               : 10
 NUMERO               : 
 OR                   : 
 PACKAGE              : 
@@ -163,12 +160,70 @@ error                :
 
 Nonterminals, with rules where they appear
 
-MENOSQUE             : 12
-NOIGUAL              : 15
 asignacion           : 0
 comparacion          : 
-comparador           : 10
-expresion            : 3 4 5 10
+comparador           : 12
+expresion            : 3 4 5 11 12
 factor               : 7 8 9
-term                 : 4 5 6 7 8 10
+term                 : 4 5 6 7 8 12
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . asignacion
+    (1) asignacion -> . VAR IGUAL VARIABLE
+    (2) asignacion -> . LET IGUAL VARIABLE
+
+    VAR             shift and go to state 2
+    LET             shift and go to state 3
+
+    asignacion                     shift and go to state 1
+
+state 1
+
+    (0) S' -> asignacion .
+
+
+
+state 2
+
+    (1) asignacion -> VAR . IGUAL VARIABLE
+
+    IGUAL           shift and go to state 4
+
+
+state 3
+
+    (2) asignacion -> LET . IGUAL VARIABLE
+
+    IGUAL           shift and go to state 5
+
+
+state 4
+
+    (1) asignacion -> VAR IGUAL . VARIABLE
+
+    VARIABLE        shift and go to state 6
+
+
+state 5
+
+    (2) asignacion -> LET IGUAL . VARIABLE
+
+    VARIABLE        shift and go to state 7
+
+
+state 6
+
+    (1) asignacion -> VAR IGUAL VARIABLE .
+
+    $end            reduce using rule 1 (asignacion -> VAR IGUAL VARIABLE .)
+
+
+state 7
+
+    (2) asignacion -> LET IGUAL VARIABLE .
+
+    $end            reduce using rule 2 (asignacion -> LET IGUAL VARIABLE .)
 
