@@ -8,6 +8,7 @@ def p_js(p):
 
 def p_instrucciones(p):
     '''instrucciones : tipo
+                | declaracionVar
                 | asignacion
                 | funcion
                 | expresion
@@ -16,9 +17,11 @@ def p_instrucciones(p):
                 | if
                 | switch'''
 
-def p_asignacion(p):
-    '''asignacion : VAR VARIABLE IGUAL tipo
+def p_declaracionVar(p):
+    '''declaracionVar : VAR VARIABLE IGUAL tipo
             | LET VARIABLE IGUAL tipo'''
+def p_asignacion(p):
+    'asignacion : VARIABLE IGUAL tipo'
 
 #FUNCION QUE ACEPTA UN PARAMETRO SOLAMENTE
 def p_funcion_unparametro(p):
