@@ -2,15 +2,24 @@ import ply.yacc as yacc
 from lexico import tokens
 from lexico import lexer
 
+def p_js(p):
+    '''js : instrucciones
+        | instrucciones js'''
+
 def p_instrucciones(p):
     '''instrucciones : asignacion
+                | funcion
                 | expresion
                 | comparacion
-                | arreglo '''
+                | arreglo'''
 
 def p_asignacion(p):
     '''asignacion : VAR IGUAL VARIABLE
             | LET IGUAL VARIABLE'''
+
+def p_funcion_unparametro(p):
+    'funcion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE'
+#function cuadrado (numero){ 5* 5 }
 
 def p_comparacion(p):
     'comparacion : VARIABLE comparador VARIABLE'
@@ -34,6 +43,8 @@ def p_lista(p):
                 | BIGINT
                 | BOOLEAN'''
 #let arreglo = ["Manzana", "Banana",false, 1, 0b01,555n]
+
+
 
 def p_expresion_mas(p):
     'expresion : expresion MAS term'

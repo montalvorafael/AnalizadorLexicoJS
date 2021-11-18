@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'AND AWAT BIGINT BOOL BOOLEAN BREAK CASE CATCH CLASS COMA CONST CONSTRUCTOR CONTINUE DEBUGGER DEFAULT DELETE DERCORCHETE DERLLAVE DERPAREN DIV DIVIGUAL DO ELSE EXPORT EXTENDS FINALDELINEA FLOTANTE FOR FUNCTION GET IF IGUAL IGUALIGUAL IMPLEMENTS IMPORT INIT INTERFACE IZQCORCHETE IZQLLAVE IZQPAREN LET MAS MASIGUAL MAYORIGUALQUE MAYORQUE MENORIGUALQUE MENORQUE MENOS MENOSIGUAL MODIGUAL MULT MULTIGUAL NEW NOIGUALQUE NULL NUMBER NUMERO OR PACKAGE PRIVATE PROTECTED PUBLIC RETURN SET STRING SUPER SWITCH SYMBOL UNDEFINED VAR VARIABLE VOID WHILEinstrucciones : asignacion\n                | expresion\n                | comparacion\n                | arreglo asignacion : VAR IGUAL VARIABLE\n            | LET IGUAL VARIABLEcomparacion : VARIABLE comparador VARIABLEcomparador : MAYORQUE\n                | MENORQUE\n                | MAYORIGUALQUE\n                | MENORIGUALQUE\n                | NOIGUALQUEarreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE\n                | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE lista : lista COMA lista\n                | STRING\n                | SYMBOL\n                | NUMBER\n                | BIGINT\n                | BOOLEANexpresion : expresion MAS termexpresion : expresion MENOS termexpresion : termterm : term MULT factorterm : term DIV factorterm : factorfactor : NUMBERfactor : IZQPAREN expresion DERPAREN'
+_lr_signature = 'AND AWAT BIGINT BOOL BOOLEAN BREAK CASE CATCH CLASS COMA CONST CONSTRUCTOR CONTINUE DEBUGGER DEFAULT DELETE DERCORCHETE DERLLAVE DERPAREN DIV DIVIGUAL DO ELSE EXPORT EXTENDS FINALDELINEA FLOTANTE FOR FUNCTION GET IF IGUAL IGUALIGUAL IMPLEMENTS IMPORT INIT INTERFACE IZQCORCHETE IZQLLAVE IZQPAREN LET MAS MASIGUAL MAYORIGUALQUE MAYORQUE MENORIGUALQUE MENORQUE MENOS MENOSIGUAL MODIGUAL MULT MULTIGUAL NEW NOIGUALQUE NULL NUMBER NUMERO OR PACKAGE PRIVATE PROTECTED PUBLIC PUNTO RETURN SET STRING SUPER SWITCH SYMBOL UNDEFINED VAR VARIABLE VOID WHILEjs : instrucciones\n        | instrucciones jsinstrucciones : asignacion\n                | funcion\n                | expresion\n                | comparacion\n                | arregloasignacion : VAR IGUAL VARIABLE\n            | LET IGUAL VARIABLEfuncion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVEcomparacion : VARIABLE comparador VARIABLEcomparador : MAYORQUE\n                | MENORQUE\n                | MAYORIGUALQUE\n                | MENORIGUALQUE\n                | NOIGUALQUEarreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE\n                | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE lista : lista COMA lista\n                | STRING\n                | SYMBOL\n                | NUMBER\n                | BIGINT\n                | BOOLEANexpresion : expresion MAS termexpresion : expresion MENOS termexpresion : termterm : term MULT factorterm : term DIV factorterm : factorfactor : NUMBERfactor : IZQPAREN expresion DERPAREN'
     
-_lr_action_items = {'VAR':([0,],[6,]),'LET':([0,],[8,]),'VARIABLE':([0,6,8,15,17,18,19,20,21,22,23,],[7,16,24,30,32,-8,-9,-10,-11,-12,33,]),'NUMBER':([0,12,13,14,25,26,38,39,48,],[11,11,11,11,11,11,43,43,43,]),'IZQPAREN':([0,12,13,14,25,26,],[12,12,12,12,12,12,]),'$end':([1,2,3,4,5,9,10,11,28,29,30,32,33,35,36,37,47,49,],[0,-1,-2,-3,-4,-23,-26,-27,-21,-22,-5,-7,-6,-24,-25,-28,-13,-14,]),'MAS':([3,9,10,11,27,28,29,35,36,37,],[13,-23,-26,-27,13,-21,-22,-24,-25,-28,]),'MENOS':([3,9,10,11,27,28,29,35,36,37,],[14,-23,-26,-27,14,-21,-22,-24,-25,-28,]),'IGUAL':([6,8,16,24,],[15,23,31,34,]),'MAYORQUE':([7,],[18,]),'MENORQUE':([7,],[19,]),'MAYORIGUALQUE':([7,],[20,]),'MENORIGUALQUE':([7,],[21,]),'NOIGUALQUE':([7,],[22,]),'DERPAREN':([9,10,11,27,28,29,35,36,37,],[-23,-26,-27,37,-21,-22,-24,-25,-28,]),'MULT':([9,10,11,28,29,35,36,37,],[25,-26,-27,25,25,-24,-25,-28,]),'DIV':([9,10,11,28,29,35,36,37,],[26,-26,-27,26,26,-24,-25,-28,]),'IZQCORCHETE':([31,34,],[38,39,]),'STRING':([38,39,48,],[41,41,41,]),'SYMBOL':([38,39,48,],[42,42,42,]),'BIGINT':([38,39,48,],[44,44,44,]),'BOOLEAN':([38,39,48,],[45,45,45,]),'DERCORCHETE':([40,41,42,43,44,45,46,50,],[47,-16,-17,-18,-19,-20,49,-15,]),'COMA':([40,41,42,43,44,45,46,50,],[48,-16,-17,-18,-19,-20,48,48,]),}
+_lr_action_items = {'VAR':([0,2,3,4,5,6,7,13,14,15,33,34,35,37,38,41,42,43,55,57,58,61,],[8,8,-3,-4,-5,-6,-7,-27,-30,-31,-25,-26,-8,-11,-9,-32,-28,-29,-17,-18,8,-10,]),'LET':([0,2,3,4,5,6,7,13,14,15,33,34,35,37,38,41,42,43,55,57,58,61,],[10,10,-3,-4,-5,-6,-7,-27,-30,-31,-25,-26,-8,-11,-9,-32,-28,-29,-17,-18,10,-10,]),'FUNCTION':([0,2,3,4,5,6,7,13,14,15,33,34,35,37,38,41,42,43,55,57,58,61,],[11,11,-3,-4,-5,-6,-7,-27,-30,-31,-25,-26,-8,-11,-9,-32,-28,-29,-17,-18,11,-10,]),'VARIABLE':([0,2,3,4,5,6,7,8,10,11,13,14,15,19,21,22,23,24,25,26,27,33,34,35,37,38,40,41,42,43,55,57,58,61,],[9,9,-3,-4,-5,-6,-7,20,28,29,-27,-30,-31,35,37,-12,-13,-14,-15,-16,38,-25,-26,-8,-11,-9,46,-32,-28,-29,-17,-18,9,-10,]),'NUMBER':([0,2,3,4,5,6,7,12,13,14,15,17,18,31,32,33,34,35,37,38,41,42,43,44,45,55,56,57,58,61,],[15,15,-3,-4,-5,-6,-7,15,-27,-30,-31,15,15,15,15,-25,-26,-8,-11,-9,-32,-28,-29,50,50,-17,50,-18,15,-10,]),'IZQPAREN':([0,2,3,4,5,6,7,12,13,14,15,17,18,29,31,32,33,34,35,37,38,41,42,43,55,57,58,61,],[12,12,-3,-4,-5,-6,-7,12,-27,-30,-31,12,12,40,12,12,-25,-26,-8,-11,-9,-32,-28,-29,-17,-18,12,-10,]),'$end':([1,2,3,4,5,6,7,13,14,15,16,33,34,35,37,38,41,42,43,55,57,61,],[0,-1,-3,-4,-5,-6,-7,-27,-30,-31,-2,-25,-26,-8,-11,-9,-32,-28,-29,-17,-18,-10,]),'DERLLAVE':([2,3,4,5,6,7,13,14,15,16,33,34,35,37,38,41,42,43,55,57,60,61,],[-1,-3,-4,-5,-6,-7,-27,-30,-31,-2,-25,-26,-8,-11,-9,-32,-28,-29,-17,-18,61,-10,]),'MAS':([5,13,14,15,30,33,34,41,42,43,],[17,-27,-30,-31,17,-25,-26,-32,-28,-29,]),'MENOS':([5,13,14,15,30,33,34,41,42,43,],[18,-27,-30,-31,18,-25,-26,-32,-28,-29,]),'IGUAL':([8,10,20,28,],[19,27,36,39,]),'MAYORQUE':([9,],[22,]),'MENORQUE':([9,],[23,]),'MAYORIGUALQUE':([9,],[24,]),'MENORIGUALQUE':([9,],[25,]),'NOIGUALQUE':([9,],[26,]),'DERPAREN':([13,14,15,30,33,34,41,42,43,46,],[-27,-30,-31,41,-25,-26,-32,-28,-29,54,]),'MULT':([13,14,15,33,34,41,42,43,],[31,-30,-31,31,31,-32,-28,-29,]),'DIV':([13,14,15,33,34,41,42,43,],[32,-30,-31,32,32,-32,-28,-29,]),'IZQCORCHETE':([36,39,],[44,45,]),'STRING':([44,45,56,],[48,48,48,]),'SYMBOL':([44,45,56,],[49,49,49,]),'BIGINT':([44,45,56,],[51,51,51,]),'BOOLEAN':([44,45,56,],[52,52,52,]),'DERCORCHETE':([47,48,49,50,51,52,53,59,],[55,-20,-21,-22,-23,-24,57,-19,]),'COMA':([47,48,49,50,51,52,53,59,],[56,-20,-21,-22,-23,-24,56,56,]),'IZQLLAVE':([54,],[58,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'instrucciones':([0,],[1,]),'asignacion':([0,],[2,]),'expresion':([0,12,],[3,27,]),'comparacion':([0,],[4,]),'arreglo':([0,],[5,]),'term':([0,12,13,14,],[9,9,28,29,]),'factor':([0,12,13,14,25,26,],[10,10,10,10,35,36,]),'comparador':([7,],[17,]),'lista':([38,39,48,],[40,46,50,]),}
+_lr_goto_items = {'js':([0,2,58,],[1,16,60,]),'instrucciones':([0,2,58,],[2,2,2,]),'asignacion':([0,2,58,],[3,3,3,]),'funcion':([0,2,58,],[4,4,4,]),'expresion':([0,2,12,58,],[5,5,30,5,]),'comparacion':([0,2,58,],[6,6,6,]),'arreglo':([0,2,58,],[7,7,7,]),'term':([0,2,12,17,18,58,],[13,13,13,33,34,13,]),'factor':([0,2,12,17,18,31,32,58,],[14,14,14,14,14,42,43,14,]),'comparador':([9,],[21,]),'lista':([44,45,56,],[47,53,59,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,33 +26,37 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> instrucciones","S'",1,None,None,None),
-  ('instrucciones -> asignacion','instrucciones',1,'p_instrucciones','sintactico.py',6),
-  ('instrucciones -> expresion','instrucciones',1,'p_instrucciones','sintactico.py',7),
-  ('instrucciones -> comparacion','instrucciones',1,'p_instrucciones','sintactico.py',8),
-  ('instrucciones -> arreglo','instrucciones',1,'p_instrucciones','sintactico.py',9),
-  ('asignacion -> VAR IGUAL VARIABLE','asignacion',3,'p_asignacion','sintactico.py',12),
-  ('asignacion -> LET IGUAL VARIABLE','asignacion',3,'p_asignacion','sintactico.py',13),
-  ('comparacion -> VARIABLE comparador VARIABLE','comparacion',3,'p_comparacion','sintactico.py',16),
-  ('comparador -> MAYORQUE','comparador',1,'p_comparador','sintactico.py',19),
-  ('comparador -> MENORQUE','comparador',1,'p_comparador','sintactico.py',20),
-  ('comparador -> MAYORIGUALQUE','comparador',1,'p_comparador','sintactico.py',21),
-  ('comparador -> MENORIGUALQUE','comparador',1,'p_comparador','sintactico.py',22),
-  ('comparador -> NOIGUALQUE','comparador',1,'p_comparador','sintactico.py',23),
-  ('arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE','arreglo',6,'p_arreglo','sintactico.py',26),
-  ('arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE','arreglo',6,'p_arreglo','sintactico.py',27),
-  ('lista -> lista COMA lista','lista',3,'p_lista','sintactico.py',30),
-  ('lista -> STRING','lista',1,'p_lista','sintactico.py',31),
-  ('lista -> SYMBOL','lista',1,'p_lista','sintactico.py',32),
-  ('lista -> NUMBER','lista',1,'p_lista','sintactico.py',33),
-  ('lista -> BIGINT','lista',1,'p_lista','sintactico.py',34),
-  ('lista -> BOOLEAN','lista',1,'p_lista','sintactico.py',35),
-  ('expresion -> expresion MAS term','expresion',3,'p_expresion_mas','sintactico.py',39),
-  ('expresion -> expresion MENOS term','expresion',3,'p_expresion_menos','sintactico.py',42),
-  ('expresion -> term','expresion',1,'p_expresion_term','sintactico.py',45),
-  ('term -> term MULT factor','term',3,'p_term_mult','sintactico.py',48),
-  ('term -> term DIV factor','term',3,'p_term_div','sintactico.py',51),
-  ('term -> factor','term',1,'p_term_factor','sintactico.py',54),
-  ('factor -> NUMBER','factor',1,'p_factor_num','sintactico.py',57),
-  ('factor -> IZQPAREN expresion DERPAREN','factor',3,'p_factor_expr','sintactico.py',60),
+  ("S' -> js","S'",1,None,None,None),
+  ('js -> instrucciones','js',1,'p_js','sintactico.py',6),
+  ('js -> instrucciones js','js',2,'p_js','sintactico.py',7),
+  ('instrucciones -> asignacion','instrucciones',1,'p_instrucciones','sintactico.py',10),
+  ('instrucciones -> funcion','instrucciones',1,'p_instrucciones','sintactico.py',11),
+  ('instrucciones -> expresion','instrucciones',1,'p_instrucciones','sintactico.py',12),
+  ('instrucciones -> comparacion','instrucciones',1,'p_instrucciones','sintactico.py',13),
+  ('instrucciones -> arreglo','instrucciones',1,'p_instrucciones','sintactico.py',14),
+  ('asignacion -> VAR IGUAL VARIABLE','asignacion',3,'p_asignacion','sintactico.py',17),
+  ('asignacion -> LET IGUAL VARIABLE','asignacion',3,'p_asignacion','sintactico.py',18),
+  ('funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE','funcion',8,'p_funcion_unparametro','sintactico.py',21),
+  ('comparacion -> VARIABLE comparador VARIABLE','comparacion',3,'p_comparacion','sintactico.py',26),
+  ('comparador -> MAYORQUE','comparador',1,'p_comparador','sintactico.py',29),
+  ('comparador -> MENORQUE','comparador',1,'p_comparador','sintactico.py',30),
+  ('comparador -> MAYORIGUALQUE','comparador',1,'p_comparador','sintactico.py',31),
+  ('comparador -> MENORIGUALQUE','comparador',1,'p_comparador','sintactico.py',32),
+  ('comparador -> NOIGUALQUE','comparador',1,'p_comparador','sintactico.py',33),
+  ('arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE','arreglo',6,'p_arreglo','sintactico.py',36),
+  ('arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE','arreglo',6,'p_arreglo','sintactico.py',37),
+  ('lista -> lista COMA lista','lista',3,'p_lista','sintactico.py',40),
+  ('lista -> STRING','lista',1,'p_lista','sintactico.py',41),
+  ('lista -> SYMBOL','lista',1,'p_lista','sintactico.py',42),
+  ('lista -> NUMBER','lista',1,'p_lista','sintactico.py',43),
+  ('lista -> BIGINT','lista',1,'p_lista','sintactico.py',44),
+  ('lista -> BOOLEAN','lista',1,'p_lista','sintactico.py',45),
+  ('expresion -> expresion MAS term','expresion',3,'p_expresion_mas','sintactico.py',51),
+  ('expresion -> expresion MENOS term','expresion',3,'p_expresion_menos','sintactico.py',54),
+  ('expresion -> term','expresion',1,'p_expresion_term','sintactico.py',57),
+  ('term -> term MULT factor','term',3,'p_term_mult','sintactico.py',60),
+  ('term -> term DIV factor','term',3,'p_term_div','sintactico.py',63),
+  ('term -> factor','term',1,'p_term_factor','sintactico.py',66),
+  ('factor -> NUMBER','factor',1,'p_factor_num','sintactico.py',69),
+  ('factor -> IZQPAREN expresion DERPAREN','factor',3,'p_factor_expr','sintactico.py',72),
 ]

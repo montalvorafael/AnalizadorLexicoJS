@@ -70,6 +70,7 @@ tokens = (
     'IZQCORCHETE',
     'DERCORCHETE',
     'FINALDELINEA',
+    'PUNTO',
     'COMA',
     'FLOTANTE',
     'VARIABLE',
@@ -114,6 +115,7 @@ t_DERLLAVE = r'\}'
 t_IZQCORCHETE = r'\['
 t_DERCORCHETE = r'\]'
 t_FINALDELINEA = r'\;'
+t_PUNTO = r'\.'
 t_COMA = r'\,'
 
 # Operadores matemáticos.
