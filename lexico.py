@@ -61,15 +61,12 @@ reserved_soft = {
 # Tokens.
 # =========================================================================================
 tokens = (
-    'NUMERO',
-    'MAS',
-    'MENOS',
-    'MULT',
-    'DIV',
+    'AND',
     'IZQPAREN',
     'DERPAREN',
-    'IZQLLAVE',
+    'DIV',
     'DERLLAVE',
+    'IZQLLAVE',
     'IZQCORCHETE',
     'DERCORCHETE',
     'FINALDELINEA',
@@ -79,6 +76,9 @@ tokens = (
     'IGUAL',
     'MASIGUAL',
     'MENOSIGUAL',
+    'MAS',
+    'MENOS',
+    'MULT',
     'MULTIGUAL',
     'DIVIGUAL',
     'MODIGUAL',
@@ -88,7 +88,7 @@ tokens = (
     'MENORQUE',
     'MAYORIGUALQUE',
     'MENORIGUALQUE',
-    'AND',
+    'NUMERO',
     'OR',
     'BOOLEAN',
     'STRING',
@@ -97,7 +97,8 @@ tokens = (
     'BIGINT',
     'NUMBER',
     'BOOL',
-) + tuple(reserved.values())
+) + tuple(reserved.values()) + tuple(reserved_soft.values())
+
 # =========================================================================================
 
 
