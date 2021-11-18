@@ -11,18 +11,28 @@ def p_instrucciones(p):
                 | funcion
                 | expresion
                 | comparacion
-                | arreglo'''
+                | arreglo
+                | if'''
 
 def p_asignacion(p):
     '''asignacion : VAR IGUAL VARIABLE
             | LET IGUAL VARIABLE'''
 
+#FUNCION QUE ACEPTA UN PARAMETRO SOLAMENTE
 def p_funcion_unparametro(p):
     'funcion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE'
 #function cuadrado (numero){ 5* 5 }
 
+#CONDICIONAL IF y IF-ELSE
+def p_if(p):
+    '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
+#if (num > num2) { 4*4}
+#if (num > mun2) { 4*4} else {4*4}
+
 def p_comparacion(p):
-    'comparacion : VARIABLE comparador VARIABLE'
+    '''comparacion : VARIABLE comparador VARIABLE
+            | expresion comparador expresion'''
 
 def p_comparador(p):
     '''comparador : MAYORQUE
@@ -30,7 +40,7 @@ def p_comparador(p):
                 | MAYORIGUALQUE
                 | MENORIGUALQUE
                 | NOIGUALQUE'''
-
+#ESTRUCTURA ARRAY
 def p_arreglo(p):
     '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
                 | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE'''
