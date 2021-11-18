@@ -71,6 +71,7 @@ tokens = (
     'DERCORCHETE',
     'FINALDELINEA',
     'PUNTO',
+    'DOSPUNTOS',
     'COMA',
     'FLOTANTE',
     'VARIABLE',
@@ -131,6 +132,7 @@ t_MENOSIGUAL = r'-='
 t_MULTIGUAL = r'\*='
 t_DIVIGUAL = r'\/='
 t_MODIGUAL = r'%='
+t_DOSPUNTOS = r':'
 
 # Operadores de comparación.
 t_IGUALIGUAL = r'=='

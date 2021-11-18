@@ -12,7 +12,8 @@ def p_instrucciones(p):
                 | expresion
                 | comparacion
                 | arreglo
-                | if'''
+                | if
+                | switch'''
 
 def p_asignacion(p):
     '''asignacion : VAR IGUAL VARIABLE
@@ -29,6 +30,10 @@ def p_if(p):
     | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
 #if (num > num2) { 4*4}
 #if (num > mun2) { 4*4} else {4*4}
+
+def p_switch(p):
+    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE CASE DOSPUNTOS js DERLLAVE
+        | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
 
 def p_comparacion(p):
     '''comparacion : VARIABLE comparador VARIABLE
