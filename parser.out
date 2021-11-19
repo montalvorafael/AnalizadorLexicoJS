@@ -5,21 +5,16 @@ Unused terminals:
     AND
     AWAT
     BOOL
-    BREAK
-    CASE
     CATCH
     CLASS
     CONST
     CONSTRUCTOR
     CONTINUE
     DEBUGGER
-    DEFAULT
     DELETE
-    DIVIGUAL
     DO
     EXPORT
     EXTENDS
-    FINALDELINEA
     FLOTANTE
     FOR
     GET
@@ -28,9 +23,6 @@ Unused terminals:
     IMPORT
     INIT
     INTERFACE
-    MASIGUAL
-    MENOSIGUAL
-    MODIGUAL
     MULTIGUAL
     NEW
     NULL
@@ -44,7 +36,6 @@ Unused terminals:
     RETURN
     SET
     SUPER
-    SWITCH
     UNDEFINED
     VOID
     WHILE
@@ -54,102 +45,119 @@ Grammar
 Rule 0     S' -> js
 Rule 1     js -> instrucciones
 Rule 2     js -> instrucciones js
-Rule 3     instrucciones -> asignacion
-Rule 4     instrucciones -> funcion
-Rule 5     instrucciones -> expresion
-Rule 6     instrucciones -> comparacion
-Rule 7     instrucciones -> arreglo
-Rule 8     instrucciones -> if
-Rule 9     instrucciones -> pop
-Rule 10    asignacion -> VAR IGUAL VARIABLE
-Rule 11    asignacion -> LET IGUAL VARIABLE
-Rule 12    funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
-Rule 13    if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
-Rule 14    if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
-Rule 15    if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
-Rule 16    comparacion -> VARIABLE comparador VARIABLE
-Rule 17    comparacion -> expresion comparador expresion
-Rule 18    comparador -> MAYORQUE
-Rule 19    comparador -> MENORQUE
-Rule 20    comparador -> MAYORIGUALQUE
-Rule 21    comparador -> MENORIGUALQUE
-Rule 22    comparador -> NOIGUALQUE
-Rule 23    arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
-Rule 24    arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
-Rule 25    lista -> lista COMA lista
-Rule 26    lista -> STRING
-Rule 27    lista -> SYMBOL
-Rule 28    lista -> NUMBER
-Rule 29    lista -> BIGINT
-Rule 30    lista -> BOOLEAN
-Rule 31    pop -> VAR VARIABLE IGUAL IZQCHORCHETE lista DERCHORCHETE FINDELINEA
-Rule 32    expresion -> expresion MAS term
-Rule 33    expresion -> expresion MENOS term
-Rule 34    expresion -> term
-Rule 35    term -> term MULT factor
-Rule 36    term -> term DIV factor
-Rule 37    term -> factor
-Rule 38    factor -> NUMBER
-Rule 39    factor -> IZQPAREN expresion DERPAREN
+Rule 3     instrucciones -> declaracionVar
+Rule 4     instrucciones -> asignacion
+Rule 5     instrucciones -> funcion
+Rule 6     instrucciones -> expresion
+Rule 7     instrucciones -> comparacion
+Rule 8     instrucciones -> arreglo
+Rule 9     instrucciones -> if
+Rule 10    instrucciones -> switch
+Rule 11    declaracionVar -> VAR VARIABLE IGUAL tipo
+Rule 12    declaracionVar -> LET VARIABLE IGUAL tipo
+Rule 13    asignacion -> VARIABLE operadoresAsig tipo
+Rule 14    asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA
+Rule 15    operadoresAsig -> IGUAL
+Rule 16    operadoresAsig -> MASIGUAL
+Rule 17    operadoresAsig -> MENOSIGUAL
+Rule 18    operadoresAsig -> DIVIGUAL
+Rule 19    operadoresAsig -> MODIGUAL
+Rule 20    funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+Rule 21    if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+Rule 22    if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+Rule 23    switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+Rule 24    funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+Rule 25    tipo -> NUMBER
+Rule 26    tipo -> STRING
+Rule 27    tipo -> BOOLEAN
+Rule 28    tipo -> BIGINT
+Rule 29    tipo -> SYMBOL
+Rule 30    casos -> casos casos
+Rule 31    casos -> CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
+Rule 32    casos -> CASE tipo DOSPUNTOS
+Rule 33    comparacion -> VARIABLE comparador VARIABLE
+Rule 34    comparacion -> expresion comparador expresion
+Rule 35    comparador -> MAYORQUE
+Rule 36    comparador -> MENORQUE
+Rule 37    comparador -> MAYORIGUALQUE
+Rule 38    comparador -> MENORIGUALQUE
+Rule 39    comparador -> NOIGUALQUE
+Rule 40    arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+Rule 41    arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+Rule 42    lista -> lista COMA lista
+Rule 43    lista -> STRING
+Rule 44    lista -> SYMBOL
+Rule 45    lista -> NUMBER
+Rule 46    lista -> BIGINT
+Rule 47    lista -> BOOLEAN
+Rule 48    expresion -> expresion MAS term
+Rule 49    expresion -> expresion MENOS term
+Rule 50    expresion -> term
+Rule 51    term -> term MULT factor
+Rule 52    term -> term DIV factor
+Rule 53    term -> factor
+Rule 54    factor -> NUMBER
+Rule 55    factor -> IZQPAREN expresion DERPAREN
 
 Terminals, with rules where they appear
 
 AND                  : 
 AWAT                 : 
-BIGINT               : 29
+BIGINT               : 28 46
 BOOL                 : 
-BOOLEAN              : 30
-BREAK                : 
-CASE                 : 
+BOOLEAN              : 27 47
+BREAK                : 31
+CASE                 : 31 32
 CATCH                : 
 CLASS                : 
-COMA                 : 25
+COMA                 : 42
 CONST                : 
 CONSTRUCTOR          : 
 CONTINUE             : 
 DEBUGGER             : 
-DEFAULT              : 
+DEFAULT              : 23
 DELETE               : 
-DERCORCHETE          : 23 24
-DERLLAVE             : 12 13 14 15 15
-DERPAREN             : 12 13 14 15 39
-DIV                  : 36
-DIVIGUAL             : 
+DERCORCHETE          : 40 41
+DERLLAVE             : 20 21 22 22 23 24
+DERPAREN             : 20 21 22 23 24 55
+DIV                  : 52
+DIVIGUAL             : 18
 DO                   : 
-ELSE                 : 15
+DOSPUNTOS            : 23 31 32
+ELSE                 : 22
 EXPORT               : 
 EXTENDS              : 
-FINALDELINEA         : 
+FINALDELINEA         : 14 31
 FLOTANTE             : 
 FOR                  : 
-FUNCTION             : 12
+FUNCTION             : 20 24
 GET                  : 
-IF                   : 13 14 15
-IGUAL                : 10 11 23 24 31
+IF                   : 21 22
+IGUAL                : 11 12 15 40 41
 IGUALIGUAL           : 
 IMPLEMENTS           : 
 IMPORT               : 
 INIT                 : 
 INTERFACE            : 
-IZQCORCHETE          : 23 24
-IZQLLAVE             : 12 13 14 15 15
-IZQPAREN             : 12 13 14 15 39
-LET                  : 11 24
-MAS                  : 32
-MASIGUAL             : 
-MAYORIGUALQUE        : 20
-MAYORQUE             : 18
-MENORIGUALQUE        : 21
-MENORQUE             : 19
-MENOS                : 33
-MENOSIGUAL           : 
-MODIGUAL             : 
-MULT                 : 35
+IZQCORCHETE          : 40 41
+IZQLLAVE             : 20 21 22 22 23 24
+IZQPAREN             : 20 21 22 23 24 55
+LET                  : 12 41
+MAS                  : 48
+MASIGUAL             : 16
+MAYORIGUALQUE        : 37
+MAYORQUE             : 35
+MENORIGUALQUE        : 38
+MENORQUE             : 36
+MENOS                : 49
+MENOSIGUAL           : 17
+MODIGUAL             : 19
+MULT                 : 51
 MULTIGUAL            : 
 NEW                  : 
-NOIGUALQUE           : 22
+NOIGUALQUE           : 39
 NULL                 : 
-NUMBER               : 28 38
+NUMBER               : 25 45 54
 NUMERO               : 
 OR                   : 
 PACKAGE              : 
@@ -159,33 +167,1909 @@ PUBLIC               :
 PUNTO                : 
 RETURN               : 
 SET                  : 
-STRING               : 26
+STRING               : 26 43
 SUPER                : 
-SWITCH               : 
-SYMBOL               : 27
+SWITCH               : 23
+SYMBOL               : 29 44
 UNDEFINED            : 
-VAR                  : 10 23 31
-VARIABLE             : 10 11 12 12 16 16 23 24 31
+VAR                  : 11 40
+VARIABLE             : 11 12 13 14 20 20 23 24 33 33 40 41
 VOID                 : 
 WHILE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-DERCHORCHETE         : 31
-FINDELINEA           : 31
-IZQCHORCHETE         : 31
-arreglo              : 7
-asignacion           : 3
-comparacion          : 6 13 14 15
-comparador           : 16 17
-expresion            : 5 17 17 32 33 39
-factor               : 35 36 37
-funcion              : 4
-if                   : 8 14
+arreglo              : 8
+asignacion           : 4 31
+casos                : 23 30 30
+comparacion          : 7 21 22
+comparador           : 33 34
+declaracionVar       : 3
+expresion            : 6 34 34 48 49 55
+factor               : 51 52 53
+funcion              : 5
+if                   : 9
 instrucciones        : 1 2
-js                   : 2 12 13 14 15 15 0
-lista                : 23 24 25 25 31
-pop                  : 9
-term                 : 32 33 34 35 36
+js                   : 2 20 21 22 22 23 24 0
+lista                : 40 41 42 42
+operadoresAsig       : 13 14
+switch               : 10
+term                 : 48 49 50 51 52
+tipo                 : 11 12 13 14 31 32
 
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . js
+    (1) js -> . instrucciones
+    (2) js -> . instrucciones js
+    (3) instrucciones -> . declaracionVar
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . funcion
+    (6) instrucciones -> . expresion
+    (7) instrucciones -> . comparacion
+    (8) instrucciones -> . arreglo
+    (9) instrucciones -> . if
+    (10) instrucciones -> . switch
+    (11) declaracionVar -> . VAR VARIABLE IGUAL tipo
+    (12) declaracionVar -> . LET VARIABLE IGUAL tipo
+    (13) asignacion -> . VARIABLE operadoresAsig tipo
+    (14) asignacion -> . VARIABLE operadoresAsig tipo FINALDELINEA
+    (20) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (33) comparacion -> . VARIABLE comparador VARIABLE
+    (34) comparacion -> . expresion comparador expresion
+    (40) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (41) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (21) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (23) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    VAR             shift and go to state 11
+    LET             shift and go to state 13
+    VARIABLE        shift and go to state 12
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 17
+    SWITCH          shift and go to state 18
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    js                             shift and go to state 1
+    instrucciones                  shift and go to state 2
+    declaracionVar                 shift and go to state 3
+    asignacion                     shift and go to state 4
+    funcion                        shift and go to state 5
+    expresion                      shift and go to state 6
+    comparacion                    shift and go to state 7
+    arreglo                        shift and go to state 8
+    if                             shift and go to state 9
+    switch                         shift and go to state 10
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 1
+
+    (0) S' -> js .
+
+
+
+state 2
+
+    (1) js -> instrucciones .
+    (2) js -> instrucciones . js
+    (1) js -> . instrucciones
+    (2) js -> . instrucciones js
+    (3) instrucciones -> . declaracionVar
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . funcion
+    (6) instrucciones -> . expresion
+    (7) instrucciones -> . comparacion
+    (8) instrucciones -> . arreglo
+    (9) instrucciones -> . if
+    (10) instrucciones -> . switch
+    (11) declaracionVar -> . VAR VARIABLE IGUAL tipo
+    (12) declaracionVar -> . LET VARIABLE IGUAL tipo
+    (13) asignacion -> . VARIABLE operadoresAsig tipo
+    (14) asignacion -> . VARIABLE operadoresAsig tipo FINALDELINEA
+    (20) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (33) comparacion -> . VARIABLE comparador VARIABLE
+    (34) comparacion -> . expresion comparador expresion
+    (40) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (41) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (21) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (23) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    $end            reduce using rule 1 (js -> instrucciones .)
+    DERLLAVE        reduce using rule 1 (js -> instrucciones .)
+    VAR             shift and go to state 11
+    LET             shift and go to state 13
+    VARIABLE        shift and go to state 12
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 17
+    SWITCH          shift and go to state 18
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    instrucciones                  shift and go to state 2
+    js                             shift and go to state 21
+    declaracionVar                 shift and go to state 3
+    asignacion                     shift and go to state 4
+    funcion                        shift and go to state 5
+    expresion                      shift and go to state 6
+    comparacion                    shift and go to state 7
+    arreglo                        shift and go to state 8
+    if                             shift and go to state 9
+    switch                         shift and go to state 10
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 3
+
+    (3) instrucciones -> declaracionVar .
+
+    VAR             reduce using rule 3 (instrucciones -> declaracionVar .)
+    LET             reduce using rule 3 (instrucciones -> declaracionVar .)
+    VARIABLE        reduce using rule 3 (instrucciones -> declaracionVar .)
+    FUNCTION        reduce using rule 3 (instrucciones -> declaracionVar .)
+    IF              reduce using rule 3 (instrucciones -> declaracionVar .)
+    SWITCH          reduce using rule 3 (instrucciones -> declaracionVar .)
+    NUMBER          reduce using rule 3 (instrucciones -> declaracionVar .)
+    IZQPAREN        reduce using rule 3 (instrucciones -> declaracionVar .)
+    $end            reduce using rule 3 (instrucciones -> declaracionVar .)
+    DERLLAVE        reduce using rule 3 (instrucciones -> declaracionVar .)
+
+
+state 4
+
+    (4) instrucciones -> asignacion .
+
+    VAR             reduce using rule 4 (instrucciones -> asignacion .)
+    LET             reduce using rule 4 (instrucciones -> asignacion .)
+    VARIABLE        reduce using rule 4 (instrucciones -> asignacion .)
+    FUNCTION        reduce using rule 4 (instrucciones -> asignacion .)
+    IF              reduce using rule 4 (instrucciones -> asignacion .)
+    SWITCH          reduce using rule 4 (instrucciones -> asignacion .)
+    NUMBER          reduce using rule 4 (instrucciones -> asignacion .)
+    IZQPAREN        reduce using rule 4 (instrucciones -> asignacion .)
+    $end            reduce using rule 4 (instrucciones -> asignacion .)
+    DERLLAVE        reduce using rule 4 (instrucciones -> asignacion .)
+
+
+state 5
+
+    (5) instrucciones -> funcion .
+
+    VAR             reduce using rule 5 (instrucciones -> funcion .)
+    LET             reduce using rule 5 (instrucciones -> funcion .)
+    VARIABLE        reduce using rule 5 (instrucciones -> funcion .)
+    FUNCTION        reduce using rule 5 (instrucciones -> funcion .)
+    IF              reduce using rule 5 (instrucciones -> funcion .)
+    SWITCH          reduce using rule 5 (instrucciones -> funcion .)
+    NUMBER          reduce using rule 5 (instrucciones -> funcion .)
+    IZQPAREN        reduce using rule 5 (instrucciones -> funcion .)
+    $end            reduce using rule 5 (instrucciones -> funcion .)
+    DERLLAVE        reduce using rule 5 (instrucciones -> funcion .)
+
+
+state 6
+
+    (6) instrucciones -> expresion .
+    (48) expresion -> expresion . MAS term
+    (49) expresion -> expresion . MENOS term
+    (34) comparacion -> expresion . comparador expresion
+    (35) comparador -> . MAYORQUE
+    (36) comparador -> . MENORQUE
+    (37) comparador -> . MAYORIGUALQUE
+    (38) comparador -> . MENORIGUALQUE
+    (39) comparador -> . NOIGUALQUE
+
+    VAR             reduce using rule 6 (instrucciones -> expresion .)
+    LET             reduce using rule 6 (instrucciones -> expresion .)
+    VARIABLE        reduce using rule 6 (instrucciones -> expresion .)
+    FUNCTION        reduce using rule 6 (instrucciones -> expresion .)
+    IF              reduce using rule 6 (instrucciones -> expresion .)
+    SWITCH          reduce using rule 6 (instrucciones -> expresion .)
+    NUMBER          reduce using rule 6 (instrucciones -> expresion .)
+    IZQPAREN        reduce using rule 6 (instrucciones -> expresion .)
+    $end            reduce using rule 6 (instrucciones -> expresion .)
+    DERLLAVE        reduce using rule 6 (instrucciones -> expresion .)
+    MAS             shift and go to state 22
+    MENOS           shift and go to state 23
+    MAYORQUE        shift and go to state 25
+    MENORQUE        shift and go to state 26
+    MAYORIGUALQUE   shift and go to state 27
+    MENORIGUALQUE   shift and go to state 28
+    NOIGUALQUE      shift and go to state 29
+
+    comparador                     shift and go to state 24
+
+state 7
+
+    (7) instrucciones -> comparacion .
+
+    VAR             reduce using rule 7 (instrucciones -> comparacion .)
+    LET             reduce using rule 7 (instrucciones -> comparacion .)
+    VARIABLE        reduce using rule 7 (instrucciones -> comparacion .)
+    FUNCTION        reduce using rule 7 (instrucciones -> comparacion .)
+    IF              reduce using rule 7 (instrucciones -> comparacion .)
+    SWITCH          reduce using rule 7 (instrucciones -> comparacion .)
+    NUMBER          reduce using rule 7 (instrucciones -> comparacion .)
+    IZQPAREN        reduce using rule 7 (instrucciones -> comparacion .)
+    $end            reduce using rule 7 (instrucciones -> comparacion .)
+    DERLLAVE        reduce using rule 7 (instrucciones -> comparacion .)
+
+
+state 8
+
+    (8) instrucciones -> arreglo .
+
+    VAR             reduce using rule 8 (instrucciones -> arreglo .)
+    LET             reduce using rule 8 (instrucciones -> arreglo .)
+    VARIABLE        reduce using rule 8 (instrucciones -> arreglo .)
+    FUNCTION        reduce using rule 8 (instrucciones -> arreglo .)
+    IF              reduce using rule 8 (instrucciones -> arreglo .)
+    SWITCH          reduce using rule 8 (instrucciones -> arreglo .)
+    NUMBER          reduce using rule 8 (instrucciones -> arreglo .)
+    IZQPAREN        reduce using rule 8 (instrucciones -> arreglo .)
+    $end            reduce using rule 8 (instrucciones -> arreglo .)
+    DERLLAVE        reduce using rule 8 (instrucciones -> arreglo .)
+
+
+state 9
+
+    (9) instrucciones -> if .
+
+    VAR             reduce using rule 9 (instrucciones -> if .)
+    LET             reduce using rule 9 (instrucciones -> if .)
+    VARIABLE        reduce using rule 9 (instrucciones -> if .)
+    FUNCTION        reduce using rule 9 (instrucciones -> if .)
+    IF              reduce using rule 9 (instrucciones -> if .)
+    SWITCH          reduce using rule 9 (instrucciones -> if .)
+    NUMBER          reduce using rule 9 (instrucciones -> if .)
+    IZQPAREN        reduce using rule 9 (instrucciones -> if .)
+    $end            reduce using rule 9 (instrucciones -> if .)
+    DERLLAVE        reduce using rule 9 (instrucciones -> if .)
+
+
+state 10
+
+    (10) instrucciones -> switch .
+
+    VAR             reduce using rule 10 (instrucciones -> switch .)
+    LET             reduce using rule 10 (instrucciones -> switch .)
+    VARIABLE        reduce using rule 10 (instrucciones -> switch .)
+    FUNCTION        reduce using rule 10 (instrucciones -> switch .)
+    IF              reduce using rule 10 (instrucciones -> switch .)
+    SWITCH          reduce using rule 10 (instrucciones -> switch .)
+    NUMBER          reduce using rule 10 (instrucciones -> switch .)
+    IZQPAREN        reduce using rule 10 (instrucciones -> switch .)
+    $end            reduce using rule 10 (instrucciones -> switch .)
+    DERLLAVE        reduce using rule 10 (instrucciones -> switch .)
+
+
+state 11
+
+    (11) declaracionVar -> VAR . VARIABLE IGUAL tipo
+    (40) arreglo -> VAR . VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+
+    VARIABLE        shift and go to state 30
+
+
+state 12
+
+    (13) asignacion -> VARIABLE . operadoresAsig tipo
+    (14) asignacion -> VARIABLE . operadoresAsig tipo FINALDELINEA
+    (33) comparacion -> VARIABLE . comparador VARIABLE
+    (15) operadoresAsig -> . IGUAL
+    (16) operadoresAsig -> . MASIGUAL
+    (17) operadoresAsig -> . MENOSIGUAL
+    (18) operadoresAsig -> . DIVIGUAL
+    (19) operadoresAsig -> . MODIGUAL
+    (35) comparador -> . MAYORQUE
+    (36) comparador -> . MENORQUE
+    (37) comparador -> . MAYORIGUALQUE
+    (38) comparador -> . MENORIGUALQUE
+    (39) comparador -> . NOIGUALQUE
+
+    IGUAL           shift and go to state 33
+    MASIGUAL        shift and go to state 34
+    MENOSIGUAL      shift and go to state 35
+    DIVIGUAL        shift and go to state 36
+    MODIGUAL        shift and go to state 37
+    MAYORQUE        shift and go to state 25
+    MENORQUE        shift and go to state 26
+    MAYORIGUALQUE   shift and go to state 27
+    MENORIGUALQUE   shift and go to state 28
+    NOIGUALQUE      shift and go to state 29
+
+    operadoresAsig                 shift and go to state 31
+    comparador                     shift and go to state 32
+
+state 13
+
+    (12) declaracionVar -> LET . VARIABLE IGUAL tipo
+    (41) arreglo -> LET . VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+
+    VARIABLE        shift and go to state 38
+
+
+state 14
+
+    (20) funcion -> FUNCTION . VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> FUNCTION . VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+
+    VARIABLE        shift and go to state 39
+
+
+state 15
+
+    (55) factor -> IZQPAREN . expresion DERPAREN
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    expresion                      shift and go to state 40
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 16
+
+    (50) expresion -> term .
+    (51) term -> term . MULT factor
+    (52) term -> term . DIV factor
+
+    MAS             reduce using rule 50 (expresion -> term .)
+    MENOS           reduce using rule 50 (expresion -> term .)
+    MAYORQUE        reduce using rule 50 (expresion -> term .)
+    MENORQUE        reduce using rule 50 (expresion -> term .)
+    MAYORIGUALQUE   reduce using rule 50 (expresion -> term .)
+    MENORIGUALQUE   reduce using rule 50 (expresion -> term .)
+    NOIGUALQUE      reduce using rule 50 (expresion -> term .)
+    VAR             reduce using rule 50 (expresion -> term .)
+    LET             reduce using rule 50 (expresion -> term .)
+    VARIABLE        reduce using rule 50 (expresion -> term .)
+    FUNCTION        reduce using rule 50 (expresion -> term .)
+    IF              reduce using rule 50 (expresion -> term .)
+    SWITCH          reduce using rule 50 (expresion -> term .)
+    NUMBER          reduce using rule 50 (expresion -> term .)
+    IZQPAREN        reduce using rule 50 (expresion -> term .)
+    $end            reduce using rule 50 (expresion -> term .)
+    DERLLAVE        reduce using rule 50 (expresion -> term .)
+    DERPAREN        reduce using rule 50 (expresion -> term .)
+    MULT            shift and go to state 41
+    DIV             shift and go to state 42
+
+
+state 17
+
+    (21) if -> IF . IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> IF . IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+
+    IZQPAREN        shift and go to state 43
+
+
+state 18
+
+    (23) switch -> SWITCH . IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+
+    IZQPAREN        shift and go to state 44
+
+
+state 19
+
+    (53) term -> factor .
+
+    MULT            reduce using rule 53 (term -> factor .)
+    DIV             reduce using rule 53 (term -> factor .)
+    MAS             reduce using rule 53 (term -> factor .)
+    MENOS           reduce using rule 53 (term -> factor .)
+    MAYORQUE        reduce using rule 53 (term -> factor .)
+    MENORQUE        reduce using rule 53 (term -> factor .)
+    MAYORIGUALQUE   reduce using rule 53 (term -> factor .)
+    MENORIGUALQUE   reduce using rule 53 (term -> factor .)
+    NOIGUALQUE      reduce using rule 53 (term -> factor .)
+    VAR             reduce using rule 53 (term -> factor .)
+    LET             reduce using rule 53 (term -> factor .)
+    VARIABLE        reduce using rule 53 (term -> factor .)
+    FUNCTION        reduce using rule 53 (term -> factor .)
+    IF              reduce using rule 53 (term -> factor .)
+    SWITCH          reduce using rule 53 (term -> factor .)
+    NUMBER          reduce using rule 53 (term -> factor .)
+    IZQPAREN        reduce using rule 53 (term -> factor .)
+    $end            reduce using rule 53 (term -> factor .)
+    DERLLAVE        reduce using rule 53 (term -> factor .)
+    DERPAREN        reduce using rule 53 (term -> factor .)
+
+
+state 20
+
+    (54) factor -> NUMBER .
+
+    MULT            reduce using rule 54 (factor -> NUMBER .)
+    DIV             reduce using rule 54 (factor -> NUMBER .)
+    MAS             reduce using rule 54 (factor -> NUMBER .)
+    MENOS           reduce using rule 54 (factor -> NUMBER .)
+    MAYORQUE        reduce using rule 54 (factor -> NUMBER .)
+    MENORQUE        reduce using rule 54 (factor -> NUMBER .)
+    MAYORIGUALQUE   reduce using rule 54 (factor -> NUMBER .)
+    MENORIGUALQUE   reduce using rule 54 (factor -> NUMBER .)
+    NOIGUALQUE      reduce using rule 54 (factor -> NUMBER .)
+    VAR             reduce using rule 54 (factor -> NUMBER .)
+    LET             reduce using rule 54 (factor -> NUMBER .)
+    VARIABLE        reduce using rule 54 (factor -> NUMBER .)
+    FUNCTION        reduce using rule 54 (factor -> NUMBER .)
+    IF              reduce using rule 54 (factor -> NUMBER .)
+    SWITCH          reduce using rule 54 (factor -> NUMBER .)
+    NUMBER          reduce using rule 54 (factor -> NUMBER .)
+    IZQPAREN        reduce using rule 54 (factor -> NUMBER .)
+    $end            reduce using rule 54 (factor -> NUMBER .)
+    DERLLAVE        reduce using rule 54 (factor -> NUMBER .)
+    DERPAREN        reduce using rule 54 (factor -> NUMBER .)
+
+
+state 21
+
+    (2) js -> instrucciones js .
+
+    $end            reduce using rule 2 (js -> instrucciones js .)
+    DERLLAVE        reduce using rule 2 (js -> instrucciones js .)
+
+
+state 22
+
+    (48) expresion -> expresion MAS . term
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    term                           shift and go to state 45
+    factor                         shift and go to state 19
+
+state 23
+
+    (49) expresion -> expresion MENOS . term
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    term                           shift and go to state 46
+    factor                         shift and go to state 19
+
+state 24
+
+    (34) comparacion -> expresion comparador . expresion
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    expresion                      shift and go to state 47
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 25
+
+    (35) comparador -> MAYORQUE .
+
+    NUMBER          reduce using rule 35 (comparador -> MAYORQUE .)
+    IZQPAREN        reduce using rule 35 (comparador -> MAYORQUE .)
+    VARIABLE        reduce using rule 35 (comparador -> MAYORQUE .)
+
+
+state 26
+
+    (36) comparador -> MENORQUE .
+
+    NUMBER          reduce using rule 36 (comparador -> MENORQUE .)
+    IZQPAREN        reduce using rule 36 (comparador -> MENORQUE .)
+    VARIABLE        reduce using rule 36 (comparador -> MENORQUE .)
+
+
+state 27
+
+    (37) comparador -> MAYORIGUALQUE .
+
+    NUMBER          reduce using rule 37 (comparador -> MAYORIGUALQUE .)
+    IZQPAREN        reduce using rule 37 (comparador -> MAYORIGUALQUE .)
+    VARIABLE        reduce using rule 37 (comparador -> MAYORIGUALQUE .)
+
+
+state 28
+
+    (38) comparador -> MENORIGUALQUE .
+
+    NUMBER          reduce using rule 38 (comparador -> MENORIGUALQUE .)
+    IZQPAREN        reduce using rule 38 (comparador -> MENORIGUALQUE .)
+    VARIABLE        reduce using rule 38 (comparador -> MENORIGUALQUE .)
+
+
+state 29
+
+    (39) comparador -> NOIGUALQUE .
+
+    NUMBER          reduce using rule 39 (comparador -> NOIGUALQUE .)
+    IZQPAREN        reduce using rule 39 (comparador -> NOIGUALQUE .)
+    VARIABLE        reduce using rule 39 (comparador -> NOIGUALQUE .)
+
+
+state 30
+
+    (11) declaracionVar -> VAR VARIABLE . IGUAL tipo
+    (40) arreglo -> VAR VARIABLE . IGUAL IZQCORCHETE lista DERCORCHETE
+
+    IGUAL           shift and go to state 48
+
+
+state 31
+
+    (13) asignacion -> VARIABLE operadoresAsig . tipo
+    (14) asignacion -> VARIABLE operadoresAsig . tipo FINALDELINEA
+    (25) tipo -> . NUMBER
+    (26) tipo -> . STRING
+    (27) tipo -> . BOOLEAN
+    (28) tipo -> . BIGINT
+    (29) tipo -> . SYMBOL
+
+    NUMBER          shift and go to state 50
+    STRING          shift and go to state 51
+    BOOLEAN         shift and go to state 52
+    BIGINT          shift and go to state 53
+    SYMBOL          shift and go to state 54
+
+    tipo                           shift and go to state 49
+
+state 32
+
+    (33) comparacion -> VARIABLE comparador . VARIABLE
+
+    VARIABLE        shift and go to state 55
+
+
+state 33
+
+    (15) operadoresAsig -> IGUAL .
+
+    NUMBER          reduce using rule 15 (operadoresAsig -> IGUAL .)
+    STRING          reduce using rule 15 (operadoresAsig -> IGUAL .)
+    BOOLEAN         reduce using rule 15 (operadoresAsig -> IGUAL .)
+    BIGINT          reduce using rule 15 (operadoresAsig -> IGUAL .)
+    SYMBOL          reduce using rule 15 (operadoresAsig -> IGUAL .)
+
+
+state 34
+
+    (16) operadoresAsig -> MASIGUAL .
+
+    NUMBER          reduce using rule 16 (operadoresAsig -> MASIGUAL .)
+    STRING          reduce using rule 16 (operadoresAsig -> MASIGUAL .)
+    BOOLEAN         reduce using rule 16 (operadoresAsig -> MASIGUAL .)
+    BIGINT          reduce using rule 16 (operadoresAsig -> MASIGUAL .)
+    SYMBOL          reduce using rule 16 (operadoresAsig -> MASIGUAL .)
+
+
+state 35
+
+    (17) operadoresAsig -> MENOSIGUAL .
+
+    NUMBER          reduce using rule 17 (operadoresAsig -> MENOSIGUAL .)
+    STRING          reduce using rule 17 (operadoresAsig -> MENOSIGUAL .)
+    BOOLEAN         reduce using rule 17 (operadoresAsig -> MENOSIGUAL .)
+    BIGINT          reduce using rule 17 (operadoresAsig -> MENOSIGUAL .)
+    SYMBOL          reduce using rule 17 (operadoresAsig -> MENOSIGUAL .)
+
+
+state 36
+
+    (18) operadoresAsig -> DIVIGUAL .
+
+    NUMBER          reduce using rule 18 (operadoresAsig -> DIVIGUAL .)
+    STRING          reduce using rule 18 (operadoresAsig -> DIVIGUAL .)
+    BOOLEAN         reduce using rule 18 (operadoresAsig -> DIVIGUAL .)
+    BIGINT          reduce using rule 18 (operadoresAsig -> DIVIGUAL .)
+    SYMBOL          reduce using rule 18 (operadoresAsig -> DIVIGUAL .)
+
+
+state 37
+
+    (19) operadoresAsig -> MODIGUAL .
+
+    NUMBER          reduce using rule 19 (operadoresAsig -> MODIGUAL .)
+    STRING          reduce using rule 19 (operadoresAsig -> MODIGUAL .)
+    BOOLEAN         reduce using rule 19 (operadoresAsig -> MODIGUAL .)
+    BIGINT          reduce using rule 19 (operadoresAsig -> MODIGUAL .)
+    SYMBOL          reduce using rule 19 (operadoresAsig -> MODIGUAL .)
+
+
+state 38
+
+    (12) declaracionVar -> LET VARIABLE . IGUAL tipo
+    (41) arreglo -> LET VARIABLE . IGUAL IZQCORCHETE lista DERCORCHETE
+
+    IGUAL           shift and go to state 56
+
+
+state 39
+
+    (20) funcion -> FUNCTION VARIABLE . IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> FUNCTION VARIABLE . IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+
+    IZQPAREN        shift and go to state 57
+
+
+state 40
+
+    (55) factor -> IZQPAREN expresion . DERPAREN
+    (48) expresion -> expresion . MAS term
+    (49) expresion -> expresion . MENOS term
+
+    DERPAREN        shift and go to state 58
+    MAS             shift and go to state 22
+    MENOS           shift and go to state 23
+
+
+state 41
+
+    (51) term -> term MULT . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    factor                         shift and go to state 59
+
+state 42
+
+    (52) term -> term DIV . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    factor                         shift and go to state 60
+
+state 43
+
+    (21) if -> IF IZQPAREN . comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> IF IZQPAREN . comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (33) comparacion -> . VARIABLE comparador VARIABLE
+    (34) comparacion -> . expresion comparador expresion
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    VARIABLE        shift and go to state 62
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    comparacion                    shift and go to state 61
+    expresion                      shift and go to state 63
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 44
+
+    (23) switch -> SWITCH IZQPAREN . VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+
+    VARIABLE        shift and go to state 64
+
+
+state 45
+
+    (48) expresion -> expresion MAS term .
+    (51) term -> term . MULT factor
+    (52) term -> term . DIV factor
+
+    MAS             reduce using rule 48 (expresion -> expresion MAS term .)
+    MENOS           reduce using rule 48 (expresion -> expresion MAS term .)
+    MAYORQUE        reduce using rule 48 (expresion -> expresion MAS term .)
+    MENORQUE        reduce using rule 48 (expresion -> expresion MAS term .)
+    MAYORIGUALQUE   reduce using rule 48 (expresion -> expresion MAS term .)
+    MENORIGUALQUE   reduce using rule 48 (expresion -> expresion MAS term .)
+    NOIGUALQUE      reduce using rule 48 (expresion -> expresion MAS term .)
+    VAR             reduce using rule 48 (expresion -> expresion MAS term .)
+    LET             reduce using rule 48 (expresion -> expresion MAS term .)
+    VARIABLE        reduce using rule 48 (expresion -> expresion MAS term .)
+    FUNCTION        reduce using rule 48 (expresion -> expresion MAS term .)
+    IF              reduce using rule 48 (expresion -> expresion MAS term .)
+    SWITCH          reduce using rule 48 (expresion -> expresion MAS term .)
+    NUMBER          reduce using rule 48 (expresion -> expresion MAS term .)
+    IZQPAREN        reduce using rule 48 (expresion -> expresion MAS term .)
+    $end            reduce using rule 48 (expresion -> expresion MAS term .)
+    DERLLAVE        reduce using rule 48 (expresion -> expresion MAS term .)
+    DERPAREN        reduce using rule 48 (expresion -> expresion MAS term .)
+    MULT            shift and go to state 41
+    DIV             shift and go to state 42
+
+
+state 46
+
+    (49) expresion -> expresion MENOS term .
+    (51) term -> term . MULT factor
+    (52) term -> term . DIV factor
+
+    MAS             reduce using rule 49 (expresion -> expresion MENOS term .)
+    MENOS           reduce using rule 49 (expresion -> expresion MENOS term .)
+    MAYORQUE        reduce using rule 49 (expresion -> expresion MENOS term .)
+    MENORQUE        reduce using rule 49 (expresion -> expresion MENOS term .)
+    MAYORIGUALQUE   reduce using rule 49 (expresion -> expresion MENOS term .)
+    MENORIGUALQUE   reduce using rule 49 (expresion -> expresion MENOS term .)
+    NOIGUALQUE      reduce using rule 49 (expresion -> expresion MENOS term .)
+    VAR             reduce using rule 49 (expresion -> expresion MENOS term .)
+    LET             reduce using rule 49 (expresion -> expresion MENOS term .)
+    VARIABLE        reduce using rule 49 (expresion -> expresion MENOS term .)
+    FUNCTION        reduce using rule 49 (expresion -> expresion MENOS term .)
+    IF              reduce using rule 49 (expresion -> expresion MENOS term .)
+    SWITCH          reduce using rule 49 (expresion -> expresion MENOS term .)
+    NUMBER          reduce using rule 49 (expresion -> expresion MENOS term .)
+    IZQPAREN        reduce using rule 49 (expresion -> expresion MENOS term .)
+    $end            reduce using rule 49 (expresion -> expresion MENOS term .)
+    DERLLAVE        reduce using rule 49 (expresion -> expresion MENOS term .)
+    DERPAREN        reduce using rule 49 (expresion -> expresion MENOS term .)
+    MULT            shift and go to state 41
+    DIV             shift and go to state 42
+
+
+state 47
+
+    (34) comparacion -> expresion comparador expresion .
+    (48) expresion -> expresion . MAS term
+    (49) expresion -> expresion . MENOS term
+
+    VAR             reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    LET             reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    VARIABLE        reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    FUNCTION        reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    IF              reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    SWITCH          reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    NUMBER          reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    IZQPAREN        reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    $end            reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    DERLLAVE        reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    DERPAREN        reduce using rule 34 (comparacion -> expresion comparador expresion .)
+    MAS             shift and go to state 22
+    MENOS           shift and go to state 23
+
+
+state 48
+
+    (11) declaracionVar -> VAR VARIABLE IGUAL . tipo
+    (40) arreglo -> VAR VARIABLE IGUAL . IZQCORCHETE lista DERCORCHETE
+    (25) tipo -> . NUMBER
+    (26) tipo -> . STRING
+    (27) tipo -> . BOOLEAN
+    (28) tipo -> . BIGINT
+    (29) tipo -> . SYMBOL
+
+    IZQCORCHETE     shift and go to state 66
+    NUMBER          shift and go to state 50
+    STRING          shift and go to state 51
+    BOOLEAN         shift and go to state 52
+    BIGINT          shift and go to state 53
+    SYMBOL          shift and go to state 54
+
+    tipo                           shift and go to state 65
+
+state 49
+
+    (13) asignacion -> VARIABLE operadoresAsig tipo .
+    (14) asignacion -> VARIABLE operadoresAsig tipo . FINALDELINEA
+
+    VAR             reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    LET             reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    VARIABLE        reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    FUNCTION        reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    IF              reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    SWITCH          reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    NUMBER          reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    IZQPAREN        reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    $end            reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    DERLLAVE        reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    BREAK           reduce using rule 13 (asignacion -> VARIABLE operadoresAsig tipo .)
+    FINALDELINEA    shift and go to state 67
+
+
+state 50
+
+    (25) tipo -> NUMBER .
+
+    FINALDELINEA    reduce using rule 25 (tipo -> NUMBER .)
+    VAR             reduce using rule 25 (tipo -> NUMBER .)
+    LET             reduce using rule 25 (tipo -> NUMBER .)
+    VARIABLE        reduce using rule 25 (tipo -> NUMBER .)
+    FUNCTION        reduce using rule 25 (tipo -> NUMBER .)
+    IF              reduce using rule 25 (tipo -> NUMBER .)
+    SWITCH          reduce using rule 25 (tipo -> NUMBER .)
+    NUMBER          reduce using rule 25 (tipo -> NUMBER .)
+    IZQPAREN        reduce using rule 25 (tipo -> NUMBER .)
+    $end            reduce using rule 25 (tipo -> NUMBER .)
+    DERLLAVE        reduce using rule 25 (tipo -> NUMBER .)
+    BREAK           reduce using rule 25 (tipo -> NUMBER .)
+    DOSPUNTOS       reduce using rule 25 (tipo -> NUMBER .)
+
+
+state 51
+
+    (26) tipo -> STRING .
+
+    FINALDELINEA    reduce using rule 26 (tipo -> STRING .)
+    VAR             reduce using rule 26 (tipo -> STRING .)
+    LET             reduce using rule 26 (tipo -> STRING .)
+    VARIABLE        reduce using rule 26 (tipo -> STRING .)
+    FUNCTION        reduce using rule 26 (tipo -> STRING .)
+    IF              reduce using rule 26 (tipo -> STRING .)
+    SWITCH          reduce using rule 26 (tipo -> STRING .)
+    NUMBER          reduce using rule 26 (tipo -> STRING .)
+    IZQPAREN        reduce using rule 26 (tipo -> STRING .)
+    $end            reduce using rule 26 (tipo -> STRING .)
+    DERLLAVE        reduce using rule 26 (tipo -> STRING .)
+    BREAK           reduce using rule 26 (tipo -> STRING .)
+    DOSPUNTOS       reduce using rule 26 (tipo -> STRING .)
+
+
+state 52
+
+    (27) tipo -> BOOLEAN .
+
+    FINALDELINEA    reduce using rule 27 (tipo -> BOOLEAN .)
+    VAR             reduce using rule 27 (tipo -> BOOLEAN .)
+    LET             reduce using rule 27 (tipo -> BOOLEAN .)
+    VARIABLE        reduce using rule 27 (tipo -> BOOLEAN .)
+    FUNCTION        reduce using rule 27 (tipo -> BOOLEAN .)
+    IF              reduce using rule 27 (tipo -> BOOLEAN .)
+    SWITCH          reduce using rule 27 (tipo -> BOOLEAN .)
+    NUMBER          reduce using rule 27 (tipo -> BOOLEAN .)
+    IZQPAREN        reduce using rule 27 (tipo -> BOOLEAN .)
+    $end            reduce using rule 27 (tipo -> BOOLEAN .)
+    DERLLAVE        reduce using rule 27 (tipo -> BOOLEAN .)
+    BREAK           reduce using rule 27 (tipo -> BOOLEAN .)
+    DOSPUNTOS       reduce using rule 27 (tipo -> BOOLEAN .)
+
+
+state 53
+
+    (28) tipo -> BIGINT .
+
+    FINALDELINEA    reduce using rule 28 (tipo -> BIGINT .)
+    VAR             reduce using rule 28 (tipo -> BIGINT .)
+    LET             reduce using rule 28 (tipo -> BIGINT .)
+    VARIABLE        reduce using rule 28 (tipo -> BIGINT .)
+    FUNCTION        reduce using rule 28 (tipo -> BIGINT .)
+    IF              reduce using rule 28 (tipo -> BIGINT .)
+    SWITCH          reduce using rule 28 (tipo -> BIGINT .)
+    NUMBER          reduce using rule 28 (tipo -> BIGINT .)
+    IZQPAREN        reduce using rule 28 (tipo -> BIGINT .)
+    $end            reduce using rule 28 (tipo -> BIGINT .)
+    DERLLAVE        reduce using rule 28 (tipo -> BIGINT .)
+    BREAK           reduce using rule 28 (tipo -> BIGINT .)
+    DOSPUNTOS       reduce using rule 28 (tipo -> BIGINT .)
+
+
+state 54
+
+    (29) tipo -> SYMBOL .
+
+    FINALDELINEA    reduce using rule 29 (tipo -> SYMBOL .)
+    VAR             reduce using rule 29 (tipo -> SYMBOL .)
+    LET             reduce using rule 29 (tipo -> SYMBOL .)
+    VARIABLE        reduce using rule 29 (tipo -> SYMBOL .)
+    FUNCTION        reduce using rule 29 (tipo -> SYMBOL .)
+    IF              reduce using rule 29 (tipo -> SYMBOL .)
+    SWITCH          reduce using rule 29 (tipo -> SYMBOL .)
+    NUMBER          reduce using rule 29 (tipo -> SYMBOL .)
+    IZQPAREN        reduce using rule 29 (tipo -> SYMBOL .)
+    $end            reduce using rule 29 (tipo -> SYMBOL .)
+    DERLLAVE        reduce using rule 29 (tipo -> SYMBOL .)
+    BREAK           reduce using rule 29 (tipo -> SYMBOL .)
+    DOSPUNTOS       reduce using rule 29 (tipo -> SYMBOL .)
+
+
+state 55
+
+    (33) comparacion -> VARIABLE comparador VARIABLE .
+
+    VAR             reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    LET             reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    VARIABLE        reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    FUNCTION        reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    IF              reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    SWITCH          reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    NUMBER          reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    IZQPAREN        reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    $end            reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    DERLLAVE        reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+    DERPAREN        reduce using rule 33 (comparacion -> VARIABLE comparador VARIABLE .)
+
+
+state 56
+
+    (12) declaracionVar -> LET VARIABLE IGUAL . tipo
+    (41) arreglo -> LET VARIABLE IGUAL . IZQCORCHETE lista DERCORCHETE
+    (25) tipo -> . NUMBER
+    (26) tipo -> . STRING
+    (27) tipo -> . BOOLEAN
+    (28) tipo -> . BIGINT
+    (29) tipo -> . SYMBOL
+
+    IZQCORCHETE     shift and go to state 69
+    NUMBER          shift and go to state 50
+    STRING          shift and go to state 51
+    BOOLEAN         shift and go to state 52
+    BIGINT          shift and go to state 53
+    SYMBOL          shift and go to state 54
+
+    tipo                           shift and go to state 68
+
+state 57
+
+    (20) funcion -> FUNCTION VARIABLE IZQPAREN . VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> FUNCTION VARIABLE IZQPAREN . DERPAREN IZQLLAVE js DERLLAVE
+
+    VARIABLE        shift and go to state 70
+    DERPAREN        shift and go to state 71
+
+
+state 58
+
+    (55) factor -> IZQPAREN expresion DERPAREN .
+
+    MULT            reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    DIV             reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    MAS             reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    MENOS           reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    MAYORQUE        reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    MENORQUE        reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    MAYORIGUALQUE   reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    MENORIGUALQUE   reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    NOIGUALQUE      reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    VAR             reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    LET             reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    VARIABLE        reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    FUNCTION        reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    IF              reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    SWITCH          reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    NUMBER          reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    IZQPAREN        reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    $end            reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    DERLLAVE        reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+    DERPAREN        reduce using rule 55 (factor -> IZQPAREN expresion DERPAREN .)
+
+
+state 59
+
+    (51) term -> term MULT factor .
+
+    MULT            reduce using rule 51 (term -> term MULT factor .)
+    DIV             reduce using rule 51 (term -> term MULT factor .)
+    MAS             reduce using rule 51 (term -> term MULT factor .)
+    MENOS           reduce using rule 51 (term -> term MULT factor .)
+    MAYORQUE        reduce using rule 51 (term -> term MULT factor .)
+    MENORQUE        reduce using rule 51 (term -> term MULT factor .)
+    MAYORIGUALQUE   reduce using rule 51 (term -> term MULT factor .)
+    MENORIGUALQUE   reduce using rule 51 (term -> term MULT factor .)
+    NOIGUALQUE      reduce using rule 51 (term -> term MULT factor .)
+    VAR             reduce using rule 51 (term -> term MULT factor .)
+    LET             reduce using rule 51 (term -> term MULT factor .)
+    VARIABLE        reduce using rule 51 (term -> term MULT factor .)
+    FUNCTION        reduce using rule 51 (term -> term MULT factor .)
+    IF              reduce using rule 51 (term -> term MULT factor .)
+    SWITCH          reduce using rule 51 (term -> term MULT factor .)
+    NUMBER          reduce using rule 51 (term -> term MULT factor .)
+    IZQPAREN        reduce using rule 51 (term -> term MULT factor .)
+    $end            reduce using rule 51 (term -> term MULT factor .)
+    DERLLAVE        reduce using rule 51 (term -> term MULT factor .)
+    DERPAREN        reduce using rule 51 (term -> term MULT factor .)
+
+
+state 60
+
+    (52) term -> term DIV factor .
+
+    MULT            reduce using rule 52 (term -> term DIV factor .)
+    DIV             reduce using rule 52 (term -> term DIV factor .)
+    MAS             reduce using rule 52 (term -> term DIV factor .)
+    MENOS           reduce using rule 52 (term -> term DIV factor .)
+    MAYORQUE        reduce using rule 52 (term -> term DIV factor .)
+    MENORQUE        reduce using rule 52 (term -> term DIV factor .)
+    MAYORIGUALQUE   reduce using rule 52 (term -> term DIV factor .)
+    MENORIGUALQUE   reduce using rule 52 (term -> term DIV factor .)
+    NOIGUALQUE      reduce using rule 52 (term -> term DIV factor .)
+    VAR             reduce using rule 52 (term -> term DIV factor .)
+    LET             reduce using rule 52 (term -> term DIV factor .)
+    VARIABLE        reduce using rule 52 (term -> term DIV factor .)
+    FUNCTION        reduce using rule 52 (term -> term DIV factor .)
+    IF              reduce using rule 52 (term -> term DIV factor .)
+    SWITCH          reduce using rule 52 (term -> term DIV factor .)
+    NUMBER          reduce using rule 52 (term -> term DIV factor .)
+    IZQPAREN        reduce using rule 52 (term -> term DIV factor .)
+    $end            reduce using rule 52 (term -> term DIV factor .)
+    DERLLAVE        reduce using rule 52 (term -> term DIV factor .)
+    DERPAREN        reduce using rule 52 (term -> term DIV factor .)
+
+
+state 61
+
+    (21) if -> IF IZQPAREN comparacion . DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> IF IZQPAREN comparacion . DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+
+    DERPAREN        shift and go to state 72
+
+
+state 62
+
+    (33) comparacion -> VARIABLE . comparador VARIABLE
+    (35) comparador -> . MAYORQUE
+    (36) comparador -> . MENORQUE
+    (37) comparador -> . MAYORIGUALQUE
+    (38) comparador -> . MENORIGUALQUE
+    (39) comparador -> . NOIGUALQUE
+
+    MAYORQUE        shift and go to state 25
+    MENORQUE        shift and go to state 26
+    MAYORIGUALQUE   shift and go to state 27
+    MENORIGUALQUE   shift and go to state 28
+    NOIGUALQUE      shift and go to state 29
+
+    comparador                     shift and go to state 32
+
+state 63
+
+    (34) comparacion -> expresion . comparador expresion
+    (48) expresion -> expresion . MAS term
+    (49) expresion -> expresion . MENOS term
+    (35) comparador -> . MAYORQUE
+    (36) comparador -> . MENORQUE
+    (37) comparador -> . MAYORIGUALQUE
+    (38) comparador -> . MENORIGUALQUE
+    (39) comparador -> . NOIGUALQUE
+
+    MAS             shift and go to state 22
+    MENOS           shift and go to state 23
+    MAYORQUE        shift and go to state 25
+    MENORQUE        shift and go to state 26
+    MAYORIGUALQUE   shift and go to state 27
+    MENORIGUALQUE   shift and go to state 28
+    NOIGUALQUE      shift and go to state 29
+
+    comparador                     shift and go to state 24
+
+state 64
+
+    (23) switch -> SWITCH IZQPAREN VARIABLE . DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+
+    DERPAREN        shift and go to state 73
+
+
+state 65
+
+    (11) declaracionVar -> VAR VARIABLE IGUAL tipo .
+
+    VAR             reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    LET             reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    VARIABLE        reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    FUNCTION        reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    IF              reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    SWITCH          reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    NUMBER          reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    IZQPAREN        reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    $end            reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+    DERLLAVE        reduce using rule 11 (declaracionVar -> VAR VARIABLE IGUAL tipo .)
+
+
+state 66
+
+    (40) arreglo -> VAR VARIABLE IGUAL IZQCORCHETE . lista DERCORCHETE
+    (42) lista -> . lista COMA lista
+    (43) lista -> . STRING
+    (44) lista -> . SYMBOL
+    (45) lista -> . NUMBER
+    (46) lista -> . BIGINT
+    (47) lista -> . BOOLEAN
+
+    STRING          shift and go to state 75
+    SYMBOL          shift and go to state 76
+    NUMBER          shift and go to state 77
+    BIGINT          shift and go to state 78
+    BOOLEAN         shift and go to state 79
+
+    lista                          shift and go to state 74
+
+state 67
+
+    (14) asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .
+
+    VAR             reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    LET             reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    VARIABLE        reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    FUNCTION        reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    IF              reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    SWITCH          reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    NUMBER          reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    IZQPAREN        reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    $end            reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    DERLLAVE        reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+    BREAK           reduce using rule 14 (asignacion -> VARIABLE operadoresAsig tipo FINALDELINEA .)
+
+
+state 68
+
+    (12) declaracionVar -> LET VARIABLE IGUAL tipo .
+
+    VAR             reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    LET             reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    VARIABLE        reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    FUNCTION        reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    IF              reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    SWITCH          reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    NUMBER          reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    IZQPAREN        reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    $end            reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+    DERLLAVE        reduce using rule 12 (declaracionVar -> LET VARIABLE IGUAL tipo .)
+
+
+state 69
+
+    (41) arreglo -> LET VARIABLE IGUAL IZQCORCHETE . lista DERCORCHETE
+    (42) lista -> . lista COMA lista
+    (43) lista -> . STRING
+    (44) lista -> . SYMBOL
+    (45) lista -> . NUMBER
+    (46) lista -> . BIGINT
+    (47) lista -> . BOOLEAN
+
+    STRING          shift and go to state 75
+    SYMBOL          shift and go to state 76
+    NUMBER          shift and go to state 77
+    BIGINT          shift and go to state 78
+    BOOLEAN         shift and go to state 79
+
+    lista                          shift and go to state 80
+
+state 70
+
+    (20) funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE . DERPAREN IZQLLAVE js DERLLAVE
+
+    DERPAREN        shift and go to state 81
+
+
+state 71
+
+    (24) funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN . IZQLLAVE js DERLLAVE
+
+    IZQLLAVE        shift and go to state 82
+
+
+state 72
+
+    (21) if -> IF IZQPAREN comparacion DERPAREN . IZQLLAVE js DERLLAVE
+    (22) if -> IF IZQPAREN comparacion DERPAREN . IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+
+    IZQLLAVE        shift and go to state 83
+
+
+state 73
+
+    (23) switch -> SWITCH IZQPAREN VARIABLE DERPAREN . IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+
+    IZQLLAVE        shift and go to state 84
+
+
+state 74
+
+    (40) arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista . DERCORCHETE
+    (42) lista -> lista . COMA lista
+
+    DERCORCHETE     shift and go to state 85
+    COMA            shift and go to state 86
+
+
+state 75
+
+    (43) lista -> STRING .
+
+    DERCORCHETE     reduce using rule 43 (lista -> STRING .)
+    COMA            reduce using rule 43 (lista -> STRING .)
+
+
+state 76
+
+    (44) lista -> SYMBOL .
+
+    DERCORCHETE     reduce using rule 44 (lista -> SYMBOL .)
+    COMA            reduce using rule 44 (lista -> SYMBOL .)
+
+
+state 77
+
+    (45) lista -> NUMBER .
+
+    DERCORCHETE     reduce using rule 45 (lista -> NUMBER .)
+    COMA            reduce using rule 45 (lista -> NUMBER .)
+
+
+state 78
+
+    (46) lista -> BIGINT .
+
+    DERCORCHETE     reduce using rule 46 (lista -> BIGINT .)
+    COMA            reduce using rule 46 (lista -> BIGINT .)
+
+
+state 79
+
+    (47) lista -> BOOLEAN .
+
+    DERCORCHETE     reduce using rule 47 (lista -> BOOLEAN .)
+    COMA            reduce using rule 47 (lista -> BOOLEAN .)
+
+
+state 80
+
+    (41) arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista . DERCORCHETE
+    (42) lista -> lista . COMA lista
+
+    DERCORCHETE     shift and go to state 87
+    COMA            shift and go to state 86
+
+
+state 81
+
+    (20) funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN . IZQLLAVE js DERLLAVE
+
+    IZQLLAVE        shift and go to state 88
+
+
+state 82
+
+    (24) funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE . js DERLLAVE
+    (1) js -> . instrucciones
+    (2) js -> . instrucciones js
+    (3) instrucciones -> . declaracionVar
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . funcion
+    (6) instrucciones -> . expresion
+    (7) instrucciones -> . comparacion
+    (8) instrucciones -> . arreglo
+    (9) instrucciones -> . if
+    (10) instrucciones -> . switch
+    (11) declaracionVar -> . VAR VARIABLE IGUAL tipo
+    (12) declaracionVar -> . LET VARIABLE IGUAL tipo
+    (13) asignacion -> . VARIABLE operadoresAsig tipo
+    (14) asignacion -> . VARIABLE operadoresAsig tipo FINALDELINEA
+    (20) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (33) comparacion -> . VARIABLE comparador VARIABLE
+    (34) comparacion -> . expresion comparador expresion
+    (40) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (41) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (21) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (23) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    VAR             shift and go to state 11
+    LET             shift and go to state 13
+    VARIABLE        shift and go to state 12
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 17
+    SWITCH          shift and go to state 18
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    js                             shift and go to state 89
+    instrucciones                  shift and go to state 2
+    declaracionVar                 shift and go to state 3
+    asignacion                     shift and go to state 4
+    funcion                        shift and go to state 5
+    expresion                      shift and go to state 6
+    comparacion                    shift and go to state 7
+    arreglo                        shift and go to state 8
+    if                             shift and go to state 9
+    switch                         shift and go to state 10
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 83
+
+    (21) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE . js DERLLAVE
+    (22) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE . js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (1) js -> . instrucciones
+    (2) js -> . instrucciones js
+    (3) instrucciones -> . declaracionVar
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . funcion
+    (6) instrucciones -> . expresion
+    (7) instrucciones -> . comparacion
+    (8) instrucciones -> . arreglo
+    (9) instrucciones -> . if
+    (10) instrucciones -> . switch
+    (11) declaracionVar -> . VAR VARIABLE IGUAL tipo
+    (12) declaracionVar -> . LET VARIABLE IGUAL tipo
+    (13) asignacion -> . VARIABLE operadoresAsig tipo
+    (14) asignacion -> . VARIABLE operadoresAsig tipo FINALDELINEA
+    (20) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (33) comparacion -> . VARIABLE comparador VARIABLE
+    (34) comparacion -> . expresion comparador expresion
+    (40) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (41) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (21) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (23) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    VAR             shift and go to state 11
+    LET             shift and go to state 13
+    VARIABLE        shift and go to state 12
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 17
+    SWITCH          shift and go to state 18
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    comparacion                    shift and go to state 7
+    js                             shift and go to state 90
+    instrucciones                  shift and go to state 2
+    declaracionVar                 shift and go to state 3
+    asignacion                     shift and go to state 4
+    funcion                        shift and go to state 5
+    expresion                      shift and go to state 6
+    arreglo                        shift and go to state 8
+    if                             shift and go to state 9
+    switch                         shift and go to state 10
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 84
+
+    (23) switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE . casos DEFAULT DOSPUNTOS js DERLLAVE
+    (30) casos -> . casos casos
+    (31) casos -> . CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
+    (32) casos -> . CASE tipo DOSPUNTOS
+
+    CASE            shift and go to state 92
+
+    casos                          shift and go to state 91
+
+state 85
+
+    (40) arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .
+
+    VAR             reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    LET             reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    VARIABLE        reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    FUNCTION        reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    IF              reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    SWITCH          reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    NUMBER          reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    IZQPAREN        reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    $end            reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    DERLLAVE        reduce using rule 40 (arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+
+
+state 86
+
+    (42) lista -> lista COMA . lista
+    (42) lista -> . lista COMA lista
+    (43) lista -> . STRING
+    (44) lista -> . SYMBOL
+    (45) lista -> . NUMBER
+    (46) lista -> . BIGINT
+    (47) lista -> . BOOLEAN
+
+    STRING          shift and go to state 75
+    SYMBOL          shift and go to state 76
+    NUMBER          shift and go to state 77
+    BIGINT          shift and go to state 78
+    BOOLEAN         shift and go to state 79
+
+    lista                          shift and go to state 93
+
+state 87
+
+    (41) arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .
+
+    VAR             reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    LET             reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    VARIABLE        reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    FUNCTION        reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    IF              reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    SWITCH          reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    NUMBER          reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    IZQPAREN        reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    $end            reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+    DERLLAVE        reduce using rule 41 (arreglo -> LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE .)
+
+
+state 88
+
+    (20) funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE . js DERLLAVE
+    (1) js -> . instrucciones
+    (2) js -> . instrucciones js
+    (3) instrucciones -> . declaracionVar
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . funcion
+    (6) instrucciones -> . expresion
+    (7) instrucciones -> . comparacion
+    (8) instrucciones -> . arreglo
+    (9) instrucciones -> . if
+    (10) instrucciones -> . switch
+    (11) declaracionVar -> . VAR VARIABLE IGUAL tipo
+    (12) declaracionVar -> . LET VARIABLE IGUAL tipo
+    (13) asignacion -> . VARIABLE operadoresAsig tipo
+    (14) asignacion -> . VARIABLE operadoresAsig tipo FINALDELINEA
+    (20) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (33) comparacion -> . VARIABLE comparador VARIABLE
+    (34) comparacion -> . expresion comparador expresion
+    (40) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (41) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (21) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (23) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    VAR             shift and go to state 11
+    LET             shift and go to state 13
+    VARIABLE        shift and go to state 12
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 17
+    SWITCH          shift and go to state 18
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    js                             shift and go to state 94
+    instrucciones                  shift and go to state 2
+    declaracionVar                 shift and go to state 3
+    asignacion                     shift and go to state 4
+    funcion                        shift and go to state 5
+    expresion                      shift and go to state 6
+    comparacion                    shift and go to state 7
+    arreglo                        shift and go to state 8
+    if                             shift and go to state 9
+    switch                         shift and go to state 10
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 89
+
+    (24) funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js . DERLLAVE
+
+    DERLLAVE        shift and go to state 95
+
+
+state 90
+
+    (21) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js . DERLLAVE
+    (22) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js . DERLLAVE ELSE IZQLLAVE js DERLLAVE
+
+    DERLLAVE        shift and go to state 96
+
+
+state 91
+
+    (23) switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos . DEFAULT DOSPUNTOS js DERLLAVE
+    (30) casos -> casos . casos
+    (30) casos -> . casos casos
+    (31) casos -> . CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
+    (32) casos -> . CASE tipo DOSPUNTOS
+
+    DEFAULT         shift and go to state 98
+    CASE            shift and go to state 92
+
+    casos                          shift and go to state 97
+
+state 92
+
+    (31) casos -> CASE . tipo DOSPUNTOS asignacion BREAK FINALDELINEA
+    (32) casos -> CASE . tipo DOSPUNTOS
+    (25) tipo -> . NUMBER
+    (26) tipo -> . STRING
+    (27) tipo -> . BOOLEAN
+    (28) tipo -> . BIGINT
+    (29) tipo -> . SYMBOL
+
+    NUMBER          shift and go to state 50
+    STRING          shift and go to state 51
+    BOOLEAN         shift and go to state 52
+    BIGINT          shift and go to state 53
+    SYMBOL          shift and go to state 54
+
+    tipo                           shift and go to state 99
+
+state 93
+
+    (42) lista -> lista COMA lista .
+    (42) lista -> lista . COMA lista
+
+  ! shift/reduce conflict for COMA resolved as shift
+    DERCORCHETE     reduce using rule 42 (lista -> lista COMA lista .)
+    COMA            shift and go to state 86
+
+  ! COMA            [ reduce using rule 42 (lista -> lista COMA lista .) ]
+
+
+state 94
+
+    (20) funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js . DERLLAVE
+
+    DERLLAVE        shift and go to state 100
+
+
+state 95
+
+    (24) funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .
+
+    VAR             reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    LET             reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    VARIABLE        reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    FUNCTION        reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    IF              reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    SWITCH          reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    NUMBER          reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    IZQPAREN        reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    $end            reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+    DERLLAVE        reduce using rule 24 (funcion -> FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE .)
+
+
+state 96
+
+    (21) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .
+    (22) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE . ELSE IZQLLAVE js DERLLAVE
+
+    VAR             reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    LET             reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    VARIABLE        reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    FUNCTION        reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    IF              reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    SWITCH          reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    NUMBER          reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    IZQPAREN        reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    $end            reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    DERLLAVE        reduce using rule 21 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    ELSE            shift and go to state 101
+
+
+state 97
+
+    (30) casos -> casos casos .
+    (30) casos -> casos . casos
+    (30) casos -> . casos casos
+    (31) casos -> . CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
+    (32) casos -> . CASE tipo DOSPUNTOS
+
+  ! shift/reduce conflict for CASE resolved as shift
+    DEFAULT         reduce using rule 30 (casos -> casos casos .)
+    CASE            shift and go to state 92
+
+  ! CASE            [ reduce using rule 30 (casos -> casos casos .) ]
+
+    casos                          shift and go to state 97
+
+state 98
+
+    (23) switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT . DOSPUNTOS js DERLLAVE
+
+    DOSPUNTOS       shift and go to state 102
+
+
+state 99
+
+    (31) casos -> CASE tipo . DOSPUNTOS asignacion BREAK FINALDELINEA
+    (32) casos -> CASE tipo . DOSPUNTOS
+
+    DOSPUNTOS       shift and go to state 103
+
+
+state 100
+
+    (20) funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .
+
+    VAR             reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    LET             reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    VARIABLE        reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    FUNCTION        reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    IF              reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    SWITCH          reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    NUMBER          reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    IZQPAREN        reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    $end            reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+    DERLLAVE        reduce using rule 20 (funcion -> FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE .)
+
+
+state 101
+
+    (22) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE . IZQLLAVE js DERLLAVE
+
+    IZQLLAVE        shift and go to state 104
+
+
+state 102
+
+    (23) switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS . js DERLLAVE
+    (1) js -> . instrucciones
+    (2) js -> . instrucciones js
+    (3) instrucciones -> . declaracionVar
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . funcion
+    (6) instrucciones -> . expresion
+    (7) instrucciones -> . comparacion
+    (8) instrucciones -> . arreglo
+    (9) instrucciones -> . if
+    (10) instrucciones -> . switch
+    (11) declaracionVar -> . VAR VARIABLE IGUAL tipo
+    (12) declaracionVar -> . LET VARIABLE IGUAL tipo
+    (13) asignacion -> . VARIABLE operadoresAsig tipo
+    (14) asignacion -> . VARIABLE operadoresAsig tipo FINALDELINEA
+    (20) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (33) comparacion -> . VARIABLE comparador VARIABLE
+    (34) comparacion -> . expresion comparador expresion
+    (40) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (41) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (21) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (23) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    VAR             shift and go to state 11
+    LET             shift and go to state 13
+    VARIABLE        shift and go to state 12
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 17
+    SWITCH          shift and go to state 18
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    js                             shift and go to state 105
+    instrucciones                  shift and go to state 2
+    declaracionVar                 shift and go to state 3
+    asignacion                     shift and go to state 4
+    funcion                        shift and go to state 5
+    expresion                      shift and go to state 6
+    comparacion                    shift and go to state 7
+    arreglo                        shift and go to state 8
+    if                             shift and go to state 9
+    switch                         shift and go to state 10
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 103
+
+    (31) casos -> CASE tipo DOSPUNTOS . asignacion BREAK FINALDELINEA
+    (32) casos -> CASE tipo DOSPUNTOS .
+    (13) asignacion -> . VARIABLE operadoresAsig tipo
+    (14) asignacion -> . VARIABLE operadoresAsig tipo FINALDELINEA
+
+    DEFAULT         reduce using rule 32 (casos -> CASE tipo DOSPUNTOS .)
+    CASE            reduce using rule 32 (casos -> CASE tipo DOSPUNTOS .)
+    VARIABLE        shift and go to state 107
+
+    asignacion                     shift and go to state 106
+
+state 104
+
+    (22) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE . js DERLLAVE
+    (1) js -> . instrucciones
+    (2) js -> . instrucciones js
+    (3) instrucciones -> . declaracionVar
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . funcion
+    (6) instrucciones -> . expresion
+    (7) instrucciones -> . comparacion
+    (8) instrucciones -> . arreglo
+    (9) instrucciones -> . if
+    (10) instrucciones -> . switch
+    (11) declaracionVar -> . VAR VARIABLE IGUAL tipo
+    (12) declaracionVar -> . LET VARIABLE IGUAL tipo
+    (13) asignacion -> . VARIABLE operadoresAsig tipo
+    (14) asignacion -> . VARIABLE operadoresAsig tipo FINALDELINEA
+    (20) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (24) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
+    (48) expresion -> . expresion MAS term
+    (49) expresion -> . expresion MENOS term
+    (50) expresion -> . term
+    (33) comparacion -> . VARIABLE comparador VARIABLE
+    (34) comparacion -> . expresion comparador expresion
+    (40) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (41) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (21) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (22) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (23) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE
+    (51) term -> . term MULT factor
+    (52) term -> . term DIV factor
+    (53) term -> . factor
+    (54) factor -> . NUMBER
+    (55) factor -> . IZQPAREN expresion DERPAREN
+
+    VAR             shift and go to state 11
+    LET             shift and go to state 13
+    VARIABLE        shift and go to state 12
+    FUNCTION        shift and go to state 14
+    IF              shift and go to state 17
+    SWITCH          shift and go to state 18
+    NUMBER          shift and go to state 20
+    IZQPAREN        shift and go to state 15
+
+    comparacion                    shift and go to state 7
+    js                             shift and go to state 108
+    instrucciones                  shift and go to state 2
+    declaracionVar                 shift and go to state 3
+    asignacion                     shift and go to state 4
+    funcion                        shift and go to state 5
+    expresion                      shift and go to state 6
+    arreglo                        shift and go to state 8
+    if                             shift and go to state 9
+    switch                         shift and go to state 10
+    term                           shift and go to state 16
+    factor                         shift and go to state 19
+
+state 105
+
+    (23) switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js . DERLLAVE
+
+    DERLLAVE        shift and go to state 109
+
+
+state 106
+
+    (31) casos -> CASE tipo DOSPUNTOS asignacion . BREAK FINALDELINEA
+
+    BREAK           shift and go to state 110
+
+
+state 107
+
+    (13) asignacion -> VARIABLE . operadoresAsig tipo
+    (14) asignacion -> VARIABLE . operadoresAsig tipo FINALDELINEA
+    (15) operadoresAsig -> . IGUAL
+    (16) operadoresAsig -> . MASIGUAL
+    (17) operadoresAsig -> . MENOSIGUAL
+    (18) operadoresAsig -> . DIVIGUAL
+    (19) operadoresAsig -> . MODIGUAL
+
+    IGUAL           shift and go to state 33
+    MASIGUAL        shift and go to state 34
+    MENOSIGUAL      shift and go to state 35
+    DIVIGUAL        shift and go to state 36
+    MODIGUAL        shift and go to state 37
+
+    operadoresAsig                 shift and go to state 31
+
+state 108
+
+    (22) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js . DERLLAVE
+
+    DERLLAVE        shift and go to state 111
+
+
+state 109
+
+    (23) switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .
+
+    VAR             reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    LET             reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    VARIABLE        reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    FUNCTION        reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    IF              reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    SWITCH          reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    NUMBER          reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    IZQPAREN        reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    $end            reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+    DERLLAVE        reduce using rule 23 (switch -> SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE .)
+
+
+state 110
+
+    (31) casos -> CASE tipo DOSPUNTOS asignacion BREAK . FINALDELINEA
+
+    FINALDELINEA    shift and go to state 112
+
+
+state 111
+
+    (22) if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .
+
+    VAR             reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    LET             reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    VARIABLE        reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    FUNCTION        reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    IF              reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    SWITCH          reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    NUMBER          reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    IZQPAREN        reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    $end            reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+    DERLLAVE        reduce using rule 22 (if -> IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE .)
+
+
+state 112
+
+    (31) casos -> CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA .
+
+    DEFAULT         reduce using rule 31 (casos -> CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA .)
+    CASE            reduce using rule 31 (casos -> CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for COMA in state 93 resolved as shift
+WARNING: shift/reduce conflict for CASE in state 97 resolved as shift
