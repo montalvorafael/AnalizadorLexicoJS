@@ -65,11 +65,16 @@ def p_if_else(p):
 
 #CONDICIONAL SWITCH
 def p_switch(p):
-    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE'''
+    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE'''
+
 def p_casos(p):
-    '''casos : casos casos
-        | CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
+    '''casos : CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
         | CASE tipo DOSPUNTOS'''
+
+def p_ncasos(p):
+    '''ncasos : casos
+        | casos ncasos
+    '''
 #switch (expr) { case 1: exp=12; break; case 2: exp2='hola'; break; case 3: default: x=true; }
 
 
