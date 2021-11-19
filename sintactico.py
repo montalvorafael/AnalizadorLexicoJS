@@ -7,25 +7,51 @@ def p_js(p):
         | instrucciones js'''
 
 def p_instrucciones(p):
-    '''instrucciones : asignacion
+    '''instrucciones : declaracionVar
+                | asignacion
                 | funcion
                 | expresion
                 | comparacion
                 | arreglo
                 | if
-                | pop'''
+                | switch
+                | pop
+                | push'''
 
+
+def p_declaracionVar(p):
+    '''declaracionVar : VAR VARIABLE IGUAL tipo
+            | LET VARIABLE IGUAL tipo'''
 def p_asignacion(p):
-    '''asignacion : VAR IGUAL VARIABLE
-            | LET IGUAL VARIABLE'''
-#*****************FUNCIONES***********************
+    '''asignacion : VARIABLE operadoresAsig tipo
+        | VARIABLE operadoresAsig tipo FINALDELINEA'''
+def p_operadoresAsig(p):
+    '''operadoresAsig : IGUAL
+                        | MASIGUAL
+                        | MENOSIGUAL
+                        | DIVIGUAL
+                        | MODIGUAL'''
+
+
+#*************************************FUNCIONES************************************************
 #FUNCION QUE ACEPTA UN PARAMETRO SOLAMENTE
 def p_funcion_unparametro(p):
     'funcion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE'
 #function cuadrado (numero){ 5* 5 }
 
+#FUNCION SIN PARAMETROS
+def p_funcion_sinparametro(p):
+    'funcion : FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE'
+#function cuadrado (numero){ exp='hola' }
 
-#*********************CONDICIONESLES***********************
+def p_tipo(p):
+    '''tipo : NUMBER
+                | STRING
+                | BOOLEAN
+                | BIGINT
+                | SYMBOL'''
+
+#*************************************CONDICIONESLES***********************************************
 #CONDICIONALES IF y IF-ELSE
 def p_if(p):
     '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
@@ -36,6 +62,15 @@ def p_if_else(p):
 
 #if (num > num2) { 4*4} if (num > num3) { 4*5}
 #if (num > num2) { 4*4} if (num > num3) { 4*5} else {4*10}
+
+#CONDICIONAL SWITCH
+def p_switch(p):
+    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE'''
+def p_casos(p):
+    '''casos : casos casos
+        | CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
+        | CASE tipo DOSPUNTOS'''
+#switch (expr) { case 1: exp=12; break; case 2: exp2='hola'; break; case 3: default: x=true; }
 
 
 def p_comparacion(p):
@@ -48,7 +83,8 @@ def p_comparador(p):
                 | MAYORIGUALQUE
                 | MENORIGUALQUE
                 | NOIGUALQUE'''
-#*********************ESTRUCTURAS DE DATOS***************************
+
+#***************************************ESTRUCTURAS DE DATOS con sus METODOS************************************
 #ESTRUCTURA ARRAY
 def p_arreglo(p):
     '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
@@ -65,7 +101,12 @@ def p_lista(p):
 
 #METODOS DE ARRAY
 def p_pop(p):
-    'pop : VAR VARIABLE IGUAL IZQCHORCHETE lista DERCHORCHETE FINDELINEA'
+    'pop : VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA'
+#var eliminado = num.pop();
+
+def p_push(p):
+    'push : VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA'
+#var mascolores = colores.push("verde", "celeste");
 
 def p_expresion_mas(p):
     'expresion : expresion MAS term'

@@ -37,7 +37,9 @@ reserved = {
     'extends': 'EXTENDS',
     'case': 'CASE',
     'super': 'SUPER',
-    'null': 'NULL'
+    'null': 'NULL',
+    'push' : 'PUSH',
+    'pop' : 'POP'
 }
 
 # Palabras reservadas suaves.
@@ -98,7 +100,7 @@ tokens = (
     'SYMBOL',
     'BIGINT',
     'NUMBER',
-    'BOOL',
+    'BOOL'
 ) + tuple(reserved.values()) + tuple(reserved_soft.values())
 
 # =========================================================================================
@@ -108,6 +110,9 @@ tokens = (
 # =========================================================================================
 # Expresiones regulares.
 # =========================================================================================
+# Metodos de estructura de datos
+t_POP = r'pop'
+t_PUSH = r'push'
 
 t_IZQPAREN = r'\('
 t_DERPAREN = r'\)'
@@ -149,6 +154,7 @@ t_OR = r'\|\|'
 # Tipos de datos primitivos.
 t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_NULL = r'null'
+
 
 def t_SYMBOL(t):
     r'Symbol\(\)|Symbol\("[^"]*"\)'
@@ -212,6 +218,7 @@ let pruebasNega = -789n;
 var sym1 = Symbol();
 var sym2 = Symbol("foo");
 var x;
+push pop
 '''
 
 lexer = lex.lex()
