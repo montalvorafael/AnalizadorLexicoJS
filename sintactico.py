@@ -45,10 +45,11 @@ def p_if(p):
 #if (num > num2) { 4*4}
 #if (num > mun2) { 4*4} else {4*4}
 
+#Estructura de control switch
 def p_switch(p):
     '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS asignacion DERLLAVE'''
 
-#switch (expr) { case 1: exp=12 break; case 2: exp2='hola' break; case 3: default: x=true}
+#switch (expr) { case 1: exp=12; break; case 2: exp2='hola'; break; case 3: default: x=true; }
 def p_tipo(p):
     '''tipo : NUMBER
                 | STRING
