@@ -47,6 +47,12 @@ def p_switch(p):
     '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE'''
 
 #switch (expr) { case 1: exp=12; break; case 2: exp2='hola'; break; case 3: default: x=true; }
+
+#FUNCION QUE ACEPTA UN PARAMETRO SOLAMENTE
+def p_funcion_sinparametro(p):
+    'funcion : FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE'
+#function cuadrado (numero){ exp='hola' }
+
 def p_tipo(p):
     '''tipo : NUMBER
                 | STRING
