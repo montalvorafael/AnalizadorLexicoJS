@@ -7,7 +7,8 @@ def p_js(p):
         | instrucciones js'''
 
 def p_instrucciones(p):
-    '''instrucciones : declaracionVar
+    '''instrucciones : declaracionVarSinAsig
+                | declaracionVar
                 | asignacion
                 | funcion
                 | expresion
@@ -19,10 +20,21 @@ def p_instrucciones(p):
                 | pop
                 | push'''
 
+def p_declaracionVarSinAsig(p):
+    '''declaracionVarSinAsig : VAR VARIABLE
+            | LET VARIABLE
+            | CONST VARIABLE
+            | VAR VARIABLE FINALDELINEA
+            | LET VARIABLE FINALDELINEA
+            | CONST VARIABLE FINALDELINEA'''
 
 def p_declaracionVar(p):
     '''declaracionVar : VAR VARIABLE IGUAL tipo
-            | LET VARIABLE IGUAL tipo'''
+            | LET VARIABLE IGUAL tipo
+            | CONST VARIABLE IGUAL tipo
+            | VAR VARIABLE IGUAL tipo FINALDELINEA
+            | LET VARIABLE IGUAL tipo FINALDELINEA
+            | CONST VARIABLE IGUAL tipo FINALDELINEA'''
 def p_asignacion(p):
     '''asignacion : VARIABLE operadoresAsig tipo
         | VARIABLE operadoresAsig tipo FINALDELINEA'''
