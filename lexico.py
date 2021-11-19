@@ -28,7 +28,7 @@ reserved = {
     'return': 'RETURN',
     'switch': 'SWITCH',
     'delete': 'DELETE',
-    'await': 'AWAT',
+    'await': 'AWAIT',
     'export': 'EXPORT',
     'if': 'IF',
     'var': 'VAR',
@@ -40,7 +40,7 @@ reserved = {
     'null': 'NULL',
     'push' : 'PUSH',
     'pop' : 'POP',
-    'map' : 'MAP'
+    'Map' : 'MAP'
 }
 
 # Palabras reservadas suaves.

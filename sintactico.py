@@ -13,6 +13,7 @@ def p_instrucciones(p):
                 | expresion
                 | comparacion
                 | arreglo
+                | map
                 | if
                 | switch
                 | pop
@@ -116,7 +117,10 @@ def p_push(p):
 #Estructura MAP:
 
 def p_map(p):
-    'map: '
+    '''map : LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN
+        | LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN FINALDELINEA'''
+# let expr = new Map();
+
 def p_expresion_mas(p):
     'expresion : expresion MAS term'
 
