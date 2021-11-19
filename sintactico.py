@@ -8,6 +8,7 @@ def p_js(p):
 
 def p_instrucciones(p):
     '''instrucciones : tipo
+                | operadoresAsig
                 | declaracionVar
                 | asignacion
                 | funcion
@@ -15,13 +16,22 @@ def p_instrucciones(p):
                 | comparacion
                 | arreglo
                 | if
+                | casos
                 | switch'''
 
 def p_declaracionVar(p):
     '''declaracionVar : VAR VARIABLE IGUAL tipo
             | LET VARIABLE IGUAL tipo'''
 def p_asignacion(p):
-    'asignacion : VARIABLE IGUAL tipo'
+    '''asignacion : VARIABLE operadoresAsig tipo
+        | VARIABLE operadoresAsig tipo FINALDELINEA'''
+
+def p_operadoresAsig(p):
+    '''operadoresAsig : IGUAL
+                        | MASIGUAL
+                        | MENOSIGUAL
+                        | DIVIGUAL
+                        | MODIGUAL'''
 
 #FUNCION QUE ACEPTA UN PARAMETRO SOLAMENTE
 def p_funcion_unparametro(p):
@@ -36,15 +46,21 @@ def p_if(p):
 #if (num > mun2) { 4*4} else {4*4}
 
 def p_switch(p):
-    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE CASE tipo DOSPUNTOS js DERLLAVE'''
+    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS asignacion DERLLAVE'''
 
-#switch (expr) { case 1: 4+4}
+#switch (expr) { case 1: exp=12 break; case 2: exp2='hola' break; case 3: default: x=true}
 def p_tipo(p):
     '''tipo : NUMBER
                 | STRING
                 | BOOLEAN
                 | BIGINT
                 | SYMBOL'''
+
+def p_casos(p):
+    '''casos : casos casos
+        | CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
+        | CASE tipo DOSPUNTOS'''
+
 def p_comparacion(p):
     '''comparacion : VARIABLE comparador VARIABLE
             | expresion comparador expresion'''
