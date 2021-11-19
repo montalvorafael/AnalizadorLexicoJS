@@ -12,23 +12,31 @@ def p_instrucciones(p):
                 | expresion
                 | comparacion
                 | arreglo
-                | if'''
+                | if
+                | pop'''
 
 def p_asignacion(p):
     '''asignacion : VAR IGUAL VARIABLE
             | LET IGUAL VARIABLE'''
-
+#*****************FUNCIONES***********************
 #FUNCION QUE ACEPTA UN PARAMETRO SOLAMENTE
 def p_funcion_unparametro(p):
     'funcion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE'
 #function cuadrado (numero){ 5* 5 }
 
-#CONDICIONAL IF y IF-ELSE
+
+#*********************CONDICIONESLES***********************
+#CONDICIONALES IF y IF-ELSE
 def p_if(p):
     '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
-    | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
-#if (num > num2) { 4*4}
-#if (num > mun2) { 4*4} else {4*4}
+        | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if'''
+
+def p_if_else(p):
+    '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
+
+#if (num > num2) { 4*4} if (num > num3) { 4*5}
+#if (num > num2) { 4*4} if (num > num3) { 4*5} else {4*10}
+
 
 def p_comparacion(p):
     '''comparacion : VARIABLE comparador VARIABLE
@@ -40,6 +48,7 @@ def p_comparador(p):
                 | MAYORIGUALQUE
                 | MENORIGUALQUE
                 | NOIGUALQUE'''
+#*********************ESTRUCTURAS DE DATOS***************************
 #ESTRUCTURA ARRAY
 def p_arreglo(p):
     '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
@@ -54,7 +63,9 @@ def p_lista(p):
                 | BOOLEAN'''
 #let arreglo = ["Manzana", "Banana",false, 1, 0b01,555n]
 
-
+#METODOS DE ARRAY
+def p_pop(p):
+    'pop : VAR VARIABLE IGUAL IZQCHORCHETE lista DERCHORCHETE FINDELINEA'
 
 def p_expresion_mas(p):
     'expresion : expresion MAS term'
