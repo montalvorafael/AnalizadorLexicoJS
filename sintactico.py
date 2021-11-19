@@ -7,16 +7,13 @@ def p_js(p):
         | instrucciones js'''
 
 def p_instrucciones(p):
-    '''instrucciones : tipo
-                | operadoresAsig
-                | declaracionVar
+    '''instrucciones : declaracionVar
                 | asignacion
                 | funcion
                 | expresion
                 | comparacion
                 | arreglo
                 | if
-                | casos
                 | switch'''
 
 def p_declaracionVar(p):
@@ -47,7 +44,7 @@ def p_if(p):
 
 #Estructura de control switch
 def p_switch(p):
-    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS asignacion DERLLAVE'''
+    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE casos DEFAULT DOSPUNTOS js DERLLAVE'''
 
 #switch (expr) { case 1: exp=12; break; case 2: exp2='hola'; break; case 3: default: x=true; }
 def p_tipo(p):
