@@ -18,7 +18,8 @@ def p_instrucciones(p):
                 | if
                 | switch
                 | pop
-                | push'''
+                | push
+                | mapSet'''
 
 def p_declaracionVarSinAsig(p):
     '''declaracionVarSinAsig : VAR VARIABLE
@@ -137,6 +138,12 @@ def p_map(p):
         | CONST VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN FINALDELINEA'''
 # let expr = new Map();
 # const map = new Map()
+
+#Metodos del MAP
+def p_mapSet(p):
+    '''mapSet : MAPLOWER PUNTO SET IZQPAREN tipo COMA tipo DERPAREN
+            | MAPLOWER PUNTO SET IZQPAREN tipo COMA tipo DERPAREN FINALDELINEA'''
+# map.set('1', 2);
 
 def p_expresion_mas(p):
     'expresion : expresion MAS term'

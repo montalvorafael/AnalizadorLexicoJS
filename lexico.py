@@ -40,7 +40,8 @@ reserved = {
     'null': 'NULL',
     'push' : 'PUSH',
     'pop' : 'POP',
-    'Map' : 'MAP'
+    'Map' : 'MAP',
+    'map' : 'MAPLOWER'
 }
 
 # Palabras reservadas suaves.
