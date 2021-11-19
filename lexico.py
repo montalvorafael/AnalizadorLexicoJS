@@ -39,7 +39,8 @@ reserved = {
     'super': 'SUPER',
     'null': 'NULL',
     'push' : 'PUSH',
-    'pop' : 'POP'
+    'pop' : 'POP',
+    'map' : 'MAP'
 }
 
 # Palabras reservadas suaves.

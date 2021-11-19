@@ -113,6 +113,10 @@ def p_push(p):
     'push : VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA'
 #var mascolores = colores.push("verde", "celeste");
 
+#Estructura MAP:
+
+def p_map(p):
+    'map: '
 def p_expresion_mas(p):
     'expresion : expresion MAS term'
 
