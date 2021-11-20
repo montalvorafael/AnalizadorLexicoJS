@@ -38,10 +38,7 @@ reserved = {
     'case': 'CASE',
     'super': 'SUPER',
     'null': 'NULL',
-    'push' : 'PUSH',
-    'pop' : 'POP',
     'Map' : 'MAP',
-    'map' : 'MAPLOWER',
     'Array' : 'ARRAY',
     'Set': 'SET_ESTRUC',
 
@@ -49,7 +46,6 @@ reserved = {
     'constructor': 'CONSTRUCTOR',
     'get': 'GET',
     'init': 'INIT',
-    'set': 'SET_METODO',
     'public': 'PUBLIC',
     'interface': 'INTERFACE',
     'implements': 'IMPLEMENTS',
@@ -100,6 +96,11 @@ tokens = [
     'SYMBOL',
     'BIGINT',
     'NUMBER',
+    'PUSH_METODO',
+    'POP_METODO',
+    'ADD_METODO',
+    'HAS_METODO',
+    'SET_METODO',
 ] + list(reserved.values())
 
 # =========================================================================================
@@ -110,8 +111,11 @@ tokens = [
 # Expresiones regulares.
 # =========================================================================================
 # Metodos de estructura de datos
-t_POP = r'pop'
-t_PUSH = r'push'
+t_PUSH_METODO = r'\.push'
+t_POP_METODO = r'\.pop'
+t_ADD_METODO = r'\.add'
+t_HAS_METODO = r'\.has'
+t_SET_METODO = r'\.set'
 
 t_IZQPAREN = r'\('
 t_DERPAREN = r'\)'
@@ -217,8 +221,8 @@ let pruebasNega = -789n;
 var sym1 = Symbol();
 var sym2 = Symbol("foo");
 var x;
-push pop
 Array()
+.push .pop .has .add
 '''
 
 lexer_js = lex.lex()

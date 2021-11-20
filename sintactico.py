@@ -20,16 +20,13 @@ def p_js(p):
 def p_instrucciones(p):
     '''instrucciones : declaracion final_linea
     | asignacion final_linea
-    | funcion
     | expresion final_linea
     | comparacion
     | logica
     | if
     | switch
     | while
-    | pop
-    | push
-    | map_Set
+    | funcion
     '''
 
 # Declaración =============================================================================
@@ -204,35 +201,40 @@ def p_estructuras_datos(p):
     '''estructuras_datos : arreglo
     | map
     | set
+    | estructuras_datos_metod
+    '''
+def p_estructuras_datos_metod(p):
+    '''estructuras_datos_metod : arreglo_metodos
+    | map_metodos
+    | set_metodos
     '''
 
 # Array ===================================================================================
 def p_arreglo(p):
-    '''arreglo : IZQCORCHETE lista DERCORCHETE final_linea
-    | NEW ARRAY IZQPAREN DERPAREN final_linea
-    | NEW ARRAY IZQPAREN NUMBER DERPAREN final_linea
-    | NEW ARRAY IZQPAREN lista DERPAREN final_linea
-    | IZQCORCHETE DERCORCHETE final_linea
+    '''arreglo : IZQCORCHETE lista DERCORCHETE
+    | NEW ARRAY IZQPAREN DERPAREN
+    | IZQCORCHETE DERCORCHETE
     '''
 
 def p_lista(p):
-    ''' lista : lista COMA lista
-    | tipos_datos'''
+    '''lista : tipos_datos
+    | tipos_datos COMA lista
+    | empty'''
 
 # Métodos.
 def p_pop(p):
-    '''pop : VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN final_linea'''
+    '''arreglo_metodos : VARIABLE POP_METODO IZQPAREN DERPAREN'''
 
 def p_push(p):
-    '''push : VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN final_linea'''
+    '''arreglo_metodos : VARIABLE PUSH_METODO IZQPAREN lista DERPAREN'''
 
 # Map =====================================================================================
 def p_map(p):
     '''map : NEW MAP IZQPAREN DERPAREN final_linea'''
 
 # Métodos.
-def p_map_Set(p):
-    '''map_Set : MAPLOWER PUNTO SET_METODO IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea'''
+def p_map_set(p):
+    '''map_metodos : VARIABLE SET_METODO IZQPAREN tipos_datos COMA tipos_datos DERPAREN'''
 
 # Set =====================================================================================
 def p_set(p):
@@ -242,7 +244,11 @@ def p_set(p):
     '''
 
 # Métodos.
+def p_set_add(p):
+    '''set_metodos : VARIABLE ADD_METODO IZQPAREN factor DERPAREN'''
 
+def p_set_has(p):
+    '''set_metodos : VARIABLE HAS_METODO IZQPAREN factor DERPAREN'''
 # =========================================================================================
 
 
@@ -300,6 +306,13 @@ data = [
     'let newSet = new Set()',
     'let newSet = new Set(null)',
     'let newSet = new Set("Ana","Diana","Tom")',
+    'mySet.has(Math);',
+    'mySet.has("Hola MUNDO");',
+    'mySet.has(7);',
+    'mySet.has(5.45);',
+    'mySet.add("hola mundo");',
+    'mySet.add(5.45);',
+    'mySet.add(3);',
 
     # Estructuras de control.
     '''
