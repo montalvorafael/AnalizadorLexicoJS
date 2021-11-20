@@ -43,12 +43,13 @@ reserved = {
     'Map' : 'MAP',
     'map' : 'MAPLOWER',
     'Array' : 'ARRAY',
+    'Set': 'SET_ESTRUC',
 
 # Palabras reservadas suaves.
     'constructor': 'CONSTRUCTOR',
     'get': 'GET',
     'init': 'INIT',
-    'set': 'SET',
+    'set': 'SET_METODO',
     'public': 'PUBLIC',
     'interface': 'INTERFACE',
     'implements': 'IMPLEMENTS',

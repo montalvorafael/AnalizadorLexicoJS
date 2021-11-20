@@ -24,14 +24,12 @@ def p_instrucciones(p):
     | expresion final_linea
     | comparacion
     | logica
-    | arreglo
-    | map
     | if
     | switch
     | while
     | pop
     | push
-    | mapSet
+    | map_Set
     '''
 
 # Declaración =============================================================================
@@ -42,10 +40,7 @@ def p_declaracion_SinAsig(p):
     '''
 
 def p_declaracion_ConAsig(p):
-    '''declaracion : VAR VARIABLE IGUAL tipos_datos
-    | LET VARIABLE IGUAL tipos_datos
-    | CONST VARIABLE IGUAL tipos_datos
-    | VAR VARIABLE IGUAL comparacion
+    '''declaracion : VAR VARIABLE IGUAL comparacion
     | LET VARIABLE IGUAL comparacion
     | CONST VARIABLE IGUAL comparacion
     | VAR VARIABLE IGUAL expresion
@@ -212,19 +207,6 @@ def p_estructuras_datos(p):
     '''
 
 # Array ===================================================================================
-# def p_arreglo(p):
-    # '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE final_linea
-    # | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN final_linea
-    # | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN final_linea
-    # | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN final_linea
-    # | VAR VARIABLE IGUAL IZQCORCHETE DERCORCHETE final_linea
-    # | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE final_linea
-    # | LET VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN final_linea
-    # | LET VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN final_linea
-    # | LET VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN final_linea
-    # | LET VARIABLE IGUAL IZQCORCHETE DERCORCHETE final_linea
-    # '''
-
 def p_arreglo(p):
     '''arreglo : IZQCORCHETE lista DERCORCHETE final_linea
     | NEW ARRAY IZQPAREN DERPAREN final_linea
@@ -246,19 +228,17 @@ def p_push(p):
 
 # Map =====================================================================================
 def p_map(p):
-    '''map : LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea
-    | VAR VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea
-    | CONST VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea'''
+    '''map : NEW MAP IZQPAREN DERPAREN final_linea'''
 
 # Métodos.
-def p_mapSet(p):
-    '''mapSet : MAPLOWER PUNTO SET IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea'''
+def p_map_Set(p):
+    '''map_Set : MAPLOWER PUNTO SET_METODO IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea'''
 
 # Set =====================================================================================
 def p_set(p):
-    '''set : NEW SET IZQPAREN DERPAREN
-    | NEW SET IZQPAREN NULL DERPAREN
-    | NEW SET IZQPAREN lista DERPAREN
+    '''set : NEW SET_ESTRUC IZQPAREN DERPAREN
+    | NEW SET_ESTRUC IZQPAREN NULL DERPAREN
+    | NEW SET_ESTRUC IZQPAREN lista DERPAREN
     '''
 
 # Métodos.
@@ -317,6 +297,9 @@ data = [
     'let expr = new Map();',
     'const expr2 = new Map()',
     'map.set("1", 2);',
+    'let newSet = new Set()',
+    'let newSet = new Set(null)',
+    'let newSet = new Set("Ana","Diana","Tom")',
 
     # Estructuras de control.
     '''
