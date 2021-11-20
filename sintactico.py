@@ -234,8 +234,10 @@ def p_map(p):
 
 # Métodos.
 def p_map_set(p):
-    '''map_metodos : VARIABLE SET_METODO IZQPAREN tipos_datos COMA tipos_datos DERPAREN'''
+    '''map_metodos : VARIABLE SET_METODO IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea'''
 
+def p_map_get(p):
+    'map_metodos : VARIABLE PUNTO GET IZQPAREN tipos_datos DERPAREN final_linea'
 # Set =====================================================================================
 def p_set(p):
     '''set : NEW SET_ESTRUC IZQPAREN DERPAREN
@@ -303,6 +305,8 @@ data = [
     'let expr = new Map();',
     'const expr2 = new Map()',
     'map.set("1", 2);',
+    'map.get("clave")',
+    'map.get(1);',
     'let newSet = new Set()',
     'let newSet = new Set(null)',
     'let newSet = new Set("Ana","Diana","Tom")',
