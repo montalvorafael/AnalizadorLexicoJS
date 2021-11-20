@@ -30,10 +30,10 @@ def p_declaracion_SinAsig(p):
     '''declaracion : declarador VARIABLE final_linea'''
 
 def p_declaracion_ConAsig(p):
-    '''declaracion : declarador VARIABLE operadoresAsig tipos_datos final_linea'''
+    '''declaracion : declarador VARIABLE operadores_asig tipos_datos final_linea'''
 
 def p_asignacion(p):
-    '''asignacion : VARIABLE operadoresAsig tipos_datos final_linea
+    '''asignacion : VARIABLE operadores_asig tipos_datos final_linea
     | VARIABLE IGUAL comparacion final_linea
     | VARIABLE IGUAL expresion final_linea'''
     p[1] = p[3]
@@ -44,29 +44,36 @@ def p_declarador(p):
     | CONST'''
 
 def p_comparacion(p):
-    '''comparacion : VARIABLE comparador VARIABLE
-    | expresion comparador expresion'''
-
-def p_comparador(p):
-    '''comparador : MAYORQUE
-    | MENORQUE
-    | MAYORIGUALQUE
-    | MENORIGUALQUE
-    | NOIGUALQUE'''
-
-def p_operadoresAsig(p):
-    '''operadoresAsig : IGUAL
-    | MASIGUAL
-    | MENOSIGUAL
-    | DIVIGUAL
-    | MODIGUAL'''
+    '''comparacion : VARIABLE operadores_comp VARIABLE
+    | expresion operadores_comp expresion'''
 
 def p_tipos_datos(p):
     '''tipos_datos : NUMBER
     | STRING
     | BOOLEAN
     | BIGINT
+    | NULL
     | SYMBOL'''
+
+def p_operadores_asig(p):
+    '''operadores_asig : IGUAL
+    | MASIGUAL
+    | MENOSIGUAL
+    | DIVIGUAL
+    | MODIGUAL
+    | MULTIGUAL'''
+
+def p_operadores_comp(p):
+    '''operadores_comp : MAYORQUE
+    | MENORQUE
+    | MAYORIGUALQUE
+    | MENORIGUALQUE
+    | NOIGUALQUE
+    | IGUALIGUAL'''
+
+def p_operadores_log(p):
+    '''operadores_log : AND
+    | OR'''
 
 def p_expresion_mas(p):
     'expresion : expresion MAS term'

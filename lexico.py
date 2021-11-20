@@ -76,7 +76,6 @@ tokens = (
     'PUNTO',
     'DOSPUNTOS',
     'COMA',
-    'FLOTANTE',
     'VARIABLE',
     'IGUAL',
     'MASIGUAL',
@@ -93,7 +92,6 @@ tokens = (
     'MENORQUE',
     'MAYORIGUALQUE',
     'MENORIGUALQUE',
-    'NUMERO',
     'OR',
     'BOOLEAN',
     'STRING',
@@ -101,7 +99,6 @@ tokens = (
     'SYMBOL',
     'BIGINT',
     'NUMBER',
-    'BOOL'
 ) + tuple(reserved.values())
 
 # =========================================================================================
