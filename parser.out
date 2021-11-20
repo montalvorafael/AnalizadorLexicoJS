@@ -51,10 +51,10 @@ Rule 18    declaracion -> declarador asignacion
 Rule 19    asignacion -> VARIABLE operadores_asig tipos_datos final_linea
 Rule 20    asignacion -> VARIABLE IGUAL comparacion final_linea
 Rule 21    asignacion -> VARIABLE IGUAL expresion final_linea
-Rule 22    comparacion -> expresion operadores_comp expresion
-Rule 23    logica -> expresion operadores_log expresion
-Rule 24    expresion -> expresion MAS term
-Rule 25    expresion -> expresion MENOS term
+Rule 22    expresion -> expresion MAS term
+Rule 23    expresion -> expresion MENOS term
+Rule 24    comparacion -> expresion operadores_comp term
+Rule 25    logica -> expresion operadores_log term
 Rule 26    expresion -> term
 Rule 27    term -> term MULT factor
 Rule 28    term -> term DIV factor
@@ -179,13 +179,13 @@ IZQPAREN             : 32 59 60 61 62 63 64 69 71 72 73 76 77 78 81 82 83 86 87 
 LET                  : 53 75 76 77 78 79 85 86 87 88 89 96 97
 MAP                  : 96 97 98 99 100 101
 MAPLOWER             : 102 103
-MAS                  : 24
+MAS                  : 22
 MASIGUAL             : 40
 MAYORIGUALQUE        : 47
 MAYORQUE             : 45
 MENORIGUALQUE        : 48
 MENORQUE             : 46
-MENOS                : 25
+MENOS                : 23
 MENOSIGUAL           : 41
 MODIGUAL             : 43
 MULT                 : 27
@@ -224,7 +224,7 @@ comparacion          : 7 20 61 62 63 69
 declaracion          : 3
 declarador           : 17 18
 empty                : 57
-expresion            : 6 21 22 22 23 23 24 25 32 69
+expresion            : 6 21 22 23 24 25 32 69
 factor               : 27 28 29
 final_linea          : 17 19 20 21
 funcion              : 5
@@ -237,12 +237,12 @@ map                  : 10
 mapSet               : 16
 ncasos               : 64 68
 operadores_asig      : 19
-operadores_comp      : 22
-operadores_log       : 23
+operadores_comp      : 24
+operadores_log       : 25
 pop                  : 14
 push                 : 15
 switch               : 12
-term                 : 24 25 26 27 28
+term                 : 22 23 24 25 26 27 28
 tipos_datos          : 19 31 65 66 91 102 102 103 103
 while                : 13
 
@@ -274,11 +274,11 @@ state 0
     (21) asignacion -> . VARIABLE IGUAL expresion final_linea
     (59) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
     (60) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
-    (22) comparacion -> . expresion operadores_comp expresion
-    (23) logica -> . expresion operadores_log expresion
+    (24) comparacion -> . expresion operadores_comp term
+    (25) logica -> . expresion operadores_log term
     (70) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
     (71) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
     (72) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
@@ -403,11 +403,11 @@ state 2
     (21) asignacion -> . VARIABLE IGUAL expresion final_linea
     (59) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
     (60) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
-    (22) comparacion -> . expresion operadores_comp expresion
-    (23) logica -> . expresion operadores_log expresion
+    (24) comparacion -> . expresion operadores_comp term
+    (25) logica -> . expresion operadores_log term
     (70) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
     (71) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
     (72) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
@@ -576,10 +576,10 @@ state 5
 state 6
 
     (6) instrucciones -> expresion .
-    (24) expresion -> expresion . MAS term
-    (25) expresion -> expresion . MENOS term
-    (22) comparacion -> expresion . operadores_comp expresion
-    (23) logica -> expresion . operadores_log expresion
+    (22) expresion -> expresion . MAS term
+    (23) expresion -> expresion . MENOS term
+    (24) comparacion -> expresion . operadores_comp term
+    (25) logica -> expresion . operadores_log term
     (45) operadores_comp -> . MAYORQUE
     (46) operadores_comp -> . MENORQUE
     (47) operadores_comp -> . MAYORIGUALQUE
@@ -975,8 +975,8 @@ state 20
 state 21
 
     (32) factor -> IZQPAREN . expresion DERPAREN
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
@@ -1438,7 +1438,7 @@ state 37
 
 state 38
 
-    (24) expresion -> expresion MAS . term
+    (22) expresion -> expresion MAS . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
     (29) term -> . factor
@@ -1467,7 +1467,7 @@ state 38
 
 state 39
 
-    (25) expresion -> expresion MENOS . term
+    (23) expresion -> expresion MENOS . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
     (29) term -> . factor
@@ -1496,10 +1496,7 @@ state 39
 
 state 40
 
-    (22) comparacion -> expresion operadores_comp . expresion
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
-    (26) expresion -> . term
+    (24) comparacion -> expresion operadores_comp . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
     (29) term -> . factor
@@ -1522,17 +1519,13 @@ state 40
     NULL            shift and go to state 35
     SYMBOL          shift and go to state 36
 
-    expresion                      shift and go to state 73
-    term                           shift and go to state 22
+    term                           shift and go to state 73
     factor                         shift and go to state 31
     tipos_datos                    shift and go to state 19
 
 state 41
 
-    (23) logica -> expresion operadores_log . expresion
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
-    (26) expresion -> . term
+    (25) logica -> expresion operadores_log . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
     (29) term -> . factor
@@ -1555,8 +1548,7 @@ state 41
     NULL            shift and go to state 35
     SYMBOL          shift and go to state 36
 
-    expresion                      shift and go to state 74
-    term                           shift and go to state 22
+    term                           shift and go to state 74
     factor                         shift and go to state 31
     tipos_datos                    shift and go to state 19
 
@@ -1766,9 +1758,9 @@ state 53
     (20) asignacion -> VARIABLE IGUAL . comparacion final_linea
     (21) asignacion -> VARIABLE IGUAL . expresion final_linea
     (39) operadores_asig -> IGUAL .
-    (22) comparacion -> . expresion operadores_comp expresion
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (24) comparacion -> . expresion operadores_comp term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
@@ -1882,8 +1874,8 @@ state 59
 state 60
 
     (32) factor -> IZQPAREN expresion . DERPAREN
-    (24) expresion -> expresion . MAS term
-    (25) expresion -> expresion . MENOS term
+    (22) expresion -> expresion . MAS term
+    (23) expresion -> expresion . MENOS term
 
     DERPAREN        shift and go to state 82
     MAS             shift and go to state 38
@@ -2032,9 +2024,9 @@ state 67
     (61) if -> IF IZQPAREN . comparacion DERPAREN IZQLLAVE js DERLLAVE
     (62) if -> IF IZQPAREN . comparacion DERPAREN IZQLLAVE js DERLLAVE if
     (63) if -> IF IZQPAREN . comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
-    (22) comparacion -> . expresion operadores_comp expresion
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (24) comparacion -> . expresion operadores_comp term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
@@ -2074,9 +2066,9 @@ state 68
 state 69
 
     (69) while -> WHILE IZQPAREN . comparacion DERPAREN IZQLLAVE expresion DERLLAVE
-    (22) comparacion -> . expresion operadores_comp expresion
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (24) comparacion -> . expresion operadores_comp term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
@@ -2116,143 +2108,143 @@ state 70
 
 state 71
 
-    (24) expresion -> expresion MAS term .
+    (22) expresion -> expresion MAS term .
     (27) term -> term . MULT factor
     (28) term -> term . DIV factor
 
-    MAS             reduce using rule 24 (expresion -> expresion MAS term .)
-    MENOS           reduce using rule 24 (expresion -> expresion MAS term .)
-    MAYORQUE        reduce using rule 24 (expresion -> expresion MAS term .)
-    MENORQUE        reduce using rule 24 (expresion -> expresion MAS term .)
-    MAYORIGUALQUE   reduce using rule 24 (expresion -> expresion MAS term .)
-    MENORIGUALQUE   reduce using rule 24 (expresion -> expresion MAS term .)
-    NOIGUALQUE      reduce using rule 24 (expresion -> expresion MAS term .)
-    IGUALIGUAL      reduce using rule 24 (expresion -> expresion MAS term .)
-    AND             reduce using rule 24 (expresion -> expresion MAS term .)
-    OR              reduce using rule 24 (expresion -> expresion MAS term .)
-    VARIABLE        reduce using rule 24 (expresion -> expresion MAS term .)
-    FUNCTION        reduce using rule 24 (expresion -> expresion MAS term .)
-    VAR             reduce using rule 24 (expresion -> expresion MAS term .)
-    LET             reduce using rule 24 (expresion -> expresion MAS term .)
-    CONST           reduce using rule 24 (expresion -> expresion MAS term .)
-    IF              reduce using rule 24 (expresion -> expresion MAS term .)
-    SWITCH          reduce using rule 24 (expresion -> expresion MAS term .)
-    WHILE           reduce using rule 24 (expresion -> expresion MAS term .)
-    MAPLOWER        reduce using rule 24 (expresion -> expresion MAS term .)
-    IZQPAREN        reduce using rule 24 (expresion -> expresion MAS term .)
-    NUMBER          reduce using rule 24 (expresion -> expresion MAS term .)
-    STRING          reduce using rule 24 (expresion -> expresion MAS term .)
-    BOOLEAN         reduce using rule 24 (expresion -> expresion MAS term .)
-    BIGINT          reduce using rule 24 (expresion -> expresion MAS term .)
-    NULL            reduce using rule 24 (expresion -> expresion MAS term .)
-    SYMBOL          reduce using rule 24 (expresion -> expresion MAS term .)
-    $end            reduce using rule 24 (expresion -> expresion MAS term .)
-    DERLLAVE        reduce using rule 24 (expresion -> expresion MAS term .)
-    DERPAREN        reduce using rule 24 (expresion -> expresion MAS term .)
-    FINALDELINEA    reduce using rule 24 (expresion -> expresion MAS term .)
-    BREAK           reduce using rule 24 (expresion -> expresion MAS term .)
+    MAS             reduce using rule 22 (expresion -> expresion MAS term .)
+    MENOS           reduce using rule 22 (expresion -> expresion MAS term .)
+    MAYORQUE        reduce using rule 22 (expresion -> expresion MAS term .)
+    MENORQUE        reduce using rule 22 (expresion -> expresion MAS term .)
+    MAYORIGUALQUE   reduce using rule 22 (expresion -> expresion MAS term .)
+    MENORIGUALQUE   reduce using rule 22 (expresion -> expresion MAS term .)
+    NOIGUALQUE      reduce using rule 22 (expresion -> expresion MAS term .)
+    IGUALIGUAL      reduce using rule 22 (expresion -> expresion MAS term .)
+    AND             reduce using rule 22 (expresion -> expresion MAS term .)
+    OR              reduce using rule 22 (expresion -> expresion MAS term .)
+    VARIABLE        reduce using rule 22 (expresion -> expresion MAS term .)
+    FUNCTION        reduce using rule 22 (expresion -> expresion MAS term .)
+    VAR             reduce using rule 22 (expresion -> expresion MAS term .)
+    LET             reduce using rule 22 (expresion -> expresion MAS term .)
+    CONST           reduce using rule 22 (expresion -> expresion MAS term .)
+    IF              reduce using rule 22 (expresion -> expresion MAS term .)
+    SWITCH          reduce using rule 22 (expresion -> expresion MAS term .)
+    WHILE           reduce using rule 22 (expresion -> expresion MAS term .)
+    MAPLOWER        reduce using rule 22 (expresion -> expresion MAS term .)
+    IZQPAREN        reduce using rule 22 (expresion -> expresion MAS term .)
+    NUMBER          reduce using rule 22 (expresion -> expresion MAS term .)
+    STRING          reduce using rule 22 (expresion -> expresion MAS term .)
+    BOOLEAN         reduce using rule 22 (expresion -> expresion MAS term .)
+    BIGINT          reduce using rule 22 (expresion -> expresion MAS term .)
+    NULL            reduce using rule 22 (expresion -> expresion MAS term .)
+    SYMBOL          reduce using rule 22 (expresion -> expresion MAS term .)
+    $end            reduce using rule 22 (expresion -> expresion MAS term .)
+    DERLLAVE        reduce using rule 22 (expresion -> expresion MAS term .)
+    DERPAREN        reduce using rule 22 (expresion -> expresion MAS term .)
+    FINALDELINEA    reduce using rule 22 (expresion -> expresion MAS term .)
+    BREAK           reduce using rule 22 (expresion -> expresion MAS term .)
     MULT            shift and go to state 62
     DIV             shift and go to state 63
 
 
 state 72
 
-    (25) expresion -> expresion MENOS term .
+    (23) expresion -> expresion MENOS term .
     (27) term -> term . MULT factor
     (28) term -> term . DIV factor
 
-    MAS             reduce using rule 25 (expresion -> expresion MENOS term .)
-    MENOS           reduce using rule 25 (expresion -> expresion MENOS term .)
-    MAYORQUE        reduce using rule 25 (expresion -> expresion MENOS term .)
-    MENORQUE        reduce using rule 25 (expresion -> expresion MENOS term .)
-    MAYORIGUALQUE   reduce using rule 25 (expresion -> expresion MENOS term .)
-    MENORIGUALQUE   reduce using rule 25 (expresion -> expresion MENOS term .)
-    NOIGUALQUE      reduce using rule 25 (expresion -> expresion MENOS term .)
-    IGUALIGUAL      reduce using rule 25 (expresion -> expresion MENOS term .)
-    AND             reduce using rule 25 (expresion -> expresion MENOS term .)
-    OR              reduce using rule 25 (expresion -> expresion MENOS term .)
-    VARIABLE        reduce using rule 25 (expresion -> expresion MENOS term .)
-    FUNCTION        reduce using rule 25 (expresion -> expresion MENOS term .)
-    VAR             reduce using rule 25 (expresion -> expresion MENOS term .)
-    LET             reduce using rule 25 (expresion -> expresion MENOS term .)
-    CONST           reduce using rule 25 (expresion -> expresion MENOS term .)
-    IF              reduce using rule 25 (expresion -> expresion MENOS term .)
-    SWITCH          reduce using rule 25 (expresion -> expresion MENOS term .)
-    WHILE           reduce using rule 25 (expresion -> expresion MENOS term .)
-    MAPLOWER        reduce using rule 25 (expresion -> expresion MENOS term .)
-    IZQPAREN        reduce using rule 25 (expresion -> expresion MENOS term .)
-    NUMBER          reduce using rule 25 (expresion -> expresion MENOS term .)
-    STRING          reduce using rule 25 (expresion -> expresion MENOS term .)
-    BOOLEAN         reduce using rule 25 (expresion -> expresion MENOS term .)
-    BIGINT          reduce using rule 25 (expresion -> expresion MENOS term .)
-    NULL            reduce using rule 25 (expresion -> expresion MENOS term .)
-    SYMBOL          reduce using rule 25 (expresion -> expresion MENOS term .)
-    $end            reduce using rule 25 (expresion -> expresion MENOS term .)
-    DERLLAVE        reduce using rule 25 (expresion -> expresion MENOS term .)
-    DERPAREN        reduce using rule 25 (expresion -> expresion MENOS term .)
-    FINALDELINEA    reduce using rule 25 (expresion -> expresion MENOS term .)
-    BREAK           reduce using rule 25 (expresion -> expresion MENOS term .)
+    MAS             reduce using rule 23 (expresion -> expresion MENOS term .)
+    MENOS           reduce using rule 23 (expresion -> expresion MENOS term .)
+    MAYORQUE        reduce using rule 23 (expresion -> expresion MENOS term .)
+    MENORQUE        reduce using rule 23 (expresion -> expresion MENOS term .)
+    MAYORIGUALQUE   reduce using rule 23 (expresion -> expresion MENOS term .)
+    MENORIGUALQUE   reduce using rule 23 (expresion -> expresion MENOS term .)
+    NOIGUALQUE      reduce using rule 23 (expresion -> expresion MENOS term .)
+    IGUALIGUAL      reduce using rule 23 (expresion -> expresion MENOS term .)
+    AND             reduce using rule 23 (expresion -> expresion MENOS term .)
+    OR              reduce using rule 23 (expresion -> expresion MENOS term .)
+    VARIABLE        reduce using rule 23 (expresion -> expresion MENOS term .)
+    FUNCTION        reduce using rule 23 (expresion -> expresion MENOS term .)
+    VAR             reduce using rule 23 (expresion -> expresion MENOS term .)
+    LET             reduce using rule 23 (expresion -> expresion MENOS term .)
+    CONST           reduce using rule 23 (expresion -> expresion MENOS term .)
+    IF              reduce using rule 23 (expresion -> expresion MENOS term .)
+    SWITCH          reduce using rule 23 (expresion -> expresion MENOS term .)
+    WHILE           reduce using rule 23 (expresion -> expresion MENOS term .)
+    MAPLOWER        reduce using rule 23 (expresion -> expresion MENOS term .)
+    IZQPAREN        reduce using rule 23 (expresion -> expresion MENOS term .)
+    NUMBER          reduce using rule 23 (expresion -> expresion MENOS term .)
+    STRING          reduce using rule 23 (expresion -> expresion MENOS term .)
+    BOOLEAN         reduce using rule 23 (expresion -> expresion MENOS term .)
+    BIGINT          reduce using rule 23 (expresion -> expresion MENOS term .)
+    NULL            reduce using rule 23 (expresion -> expresion MENOS term .)
+    SYMBOL          reduce using rule 23 (expresion -> expresion MENOS term .)
+    $end            reduce using rule 23 (expresion -> expresion MENOS term .)
+    DERLLAVE        reduce using rule 23 (expresion -> expresion MENOS term .)
+    DERPAREN        reduce using rule 23 (expresion -> expresion MENOS term .)
+    FINALDELINEA    reduce using rule 23 (expresion -> expresion MENOS term .)
+    BREAK           reduce using rule 23 (expresion -> expresion MENOS term .)
     MULT            shift and go to state 62
     DIV             shift and go to state 63
 
 
 state 73
 
-    (22) comparacion -> expresion operadores_comp expresion .
-    (24) expresion -> expresion . MAS term
-    (25) expresion -> expresion . MENOS term
+    (24) comparacion -> expresion operadores_comp term .
+    (27) term -> term . MULT factor
+    (28) term -> term . DIV factor
 
-    VARIABLE        reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    FUNCTION        reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    VAR             reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    LET             reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    CONST           reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    IF              reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    SWITCH          reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    WHILE           reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    MAPLOWER        reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    IZQPAREN        reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    NUMBER          reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    STRING          reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    BOOLEAN         reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    BIGINT          reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    NULL            reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    SYMBOL          reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    $end            reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    DERLLAVE        reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    FINALDELINEA    reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    BREAK           reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    DERPAREN        reduce using rule 22 (comparacion -> expresion operadores_comp expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
+    VARIABLE        reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    FUNCTION        reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    VAR             reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    LET             reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    CONST           reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    IF              reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    SWITCH          reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    WHILE           reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    MAPLOWER        reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    IZQPAREN        reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    NUMBER          reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    STRING          reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    BOOLEAN         reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    BIGINT          reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    NULL            reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    SYMBOL          reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    $end            reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    DERLLAVE        reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    FINALDELINEA    reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    BREAK           reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    DERPAREN        reduce using rule 24 (comparacion -> expresion operadores_comp term .)
+    MULT            shift and go to state 62
+    DIV             shift and go to state 63
 
 
 state 74
 
-    (23) logica -> expresion operadores_log expresion .
-    (24) expresion -> expresion . MAS term
-    (25) expresion -> expresion . MENOS term
+    (25) logica -> expresion operadores_log term .
+    (27) term -> term . MULT factor
+    (28) term -> term . DIV factor
 
-    VARIABLE        reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    FUNCTION        reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    VAR             reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    LET             reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    CONST           reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    IF              reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    SWITCH          reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    WHILE           reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    MAPLOWER        reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    IZQPAREN        reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    NUMBER          reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    STRING          reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    BOOLEAN         reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    BIGINT          reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    NULL            reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    SYMBOL          reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    $end            reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    DERLLAVE        reduce using rule 23 (logica -> expresion operadores_log expresion .)
-    MAS             shift and go to state 38
-    MENOS           shift and go to state 39
+    VARIABLE        reduce using rule 25 (logica -> expresion operadores_log term .)
+    FUNCTION        reduce using rule 25 (logica -> expresion operadores_log term .)
+    VAR             reduce using rule 25 (logica -> expresion operadores_log term .)
+    LET             reduce using rule 25 (logica -> expresion operadores_log term .)
+    CONST           reduce using rule 25 (logica -> expresion operadores_log term .)
+    IF              reduce using rule 25 (logica -> expresion operadores_log term .)
+    SWITCH          reduce using rule 25 (logica -> expresion operadores_log term .)
+    WHILE           reduce using rule 25 (logica -> expresion operadores_log term .)
+    MAPLOWER        reduce using rule 25 (logica -> expresion operadores_log term .)
+    IZQPAREN        reduce using rule 25 (logica -> expresion operadores_log term .)
+    NUMBER          reduce using rule 25 (logica -> expresion operadores_log term .)
+    STRING          reduce using rule 25 (logica -> expresion operadores_log term .)
+    BOOLEAN         reduce using rule 25 (logica -> expresion operadores_log term .)
+    BIGINT          reduce using rule 25 (logica -> expresion operadores_log term .)
+    NULL            reduce using rule 25 (logica -> expresion operadores_log term .)
+    SYMBOL          reduce using rule 25 (logica -> expresion operadores_log term .)
+    $end            reduce using rule 25 (logica -> expresion operadores_log term .)
+    DERLLAVE        reduce using rule 25 (logica -> expresion operadores_log term .)
+    MULT            shift and go to state 62
+    DIV             shift and go to state 63
 
 
 state 75
@@ -2394,9 +2386,9 @@ state 79
 state 80
 
     (21) asignacion -> VARIABLE IGUAL expresion . final_linea
-    (22) comparacion -> expresion . operadores_comp expresion
-    (24) expresion -> expresion . MAS term
-    (25) expresion -> expresion . MENOS term
+    (24) comparacion -> expresion . operadores_comp term
+    (22) expresion -> expresion . MAS term
+    (23) expresion -> expresion . MENOS term
     (56) final_linea -> . FINALDELINEA
     (57) final_linea -> . empty
     (45) operadores_comp -> . MAYORQUE
@@ -2628,9 +2620,9 @@ state 88
 
 state 89
 
-    (22) comparacion -> expresion . operadores_comp expresion
-    (24) expresion -> expresion . MAS term
-    (25) expresion -> expresion . MENOS term
+    (24) comparacion -> expresion . operadores_comp term
+    (22) expresion -> expresion . MAS term
+    (23) expresion -> expresion . MENOS term
     (45) operadores_comp -> . MAYORQUE
     (46) operadores_comp -> . MENORQUE
     (47) operadores_comp -> . MAYORIGUALQUE
@@ -2936,11 +2928,11 @@ state 109
     (21) asignacion -> . VARIABLE IGUAL expresion final_linea
     (59) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
     (60) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
-    (22) comparacion -> . expresion operadores_comp expresion
-    (23) logica -> . expresion operadores_log expresion
+    (24) comparacion -> . expresion operadores_comp term
+    (25) logica -> . expresion operadores_log term
     (70) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
     (71) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
     (72) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
@@ -3200,11 +3192,11 @@ state 121
     (21) asignacion -> . VARIABLE IGUAL expresion final_linea
     (59) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
     (60) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
-    (22) comparacion -> . expresion operadores_comp expresion
-    (23) logica -> . expresion operadores_log expresion
+    (24) comparacion -> . expresion operadores_comp term
+    (25) logica -> . expresion operadores_log term
     (70) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
     (71) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
     (72) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
@@ -3312,8 +3304,8 @@ state 122
 state 123
 
     (69) while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE . expresion DERLLAVE
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
     (27) term -> . term MULT factor
     (28) term -> . term DIV factor
@@ -3376,11 +3368,11 @@ state 125
     (21) asignacion -> . VARIABLE IGUAL expresion final_linea
     (59) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
     (60) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
-    (22) comparacion -> . expresion operadores_comp expresion
-    (23) logica -> . expresion operadores_log expresion
+    (24) comparacion -> . expresion operadores_comp term
+    (25) logica -> . expresion operadores_log term
     (70) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
     (71) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
     (72) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
@@ -3751,8 +3743,8 @@ state 142
 state 143
 
     (69) while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion . DERLLAVE
-    (24) expresion -> expresion . MAS term
-    (25) expresion -> expresion . MENOS term
+    (22) expresion -> expresion . MAS term
+    (23) expresion -> expresion . MENOS term
 
     DERLLAVE        shift and go to state 165
     MAS             shift and go to state 38
@@ -4507,11 +4499,11 @@ state 181
     (21) asignacion -> . VARIABLE IGUAL expresion final_linea
     (59) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
     (60) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
-    (22) comparacion -> . expresion operadores_comp expresion
-    (23) logica -> . expresion operadores_log expresion
+    (24) comparacion -> . expresion operadores_comp term
+    (25) logica -> . expresion operadores_log term
     (70) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
     (71) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
     (72) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
@@ -4815,11 +4807,11 @@ state 190
     (21) asignacion -> . VARIABLE IGUAL expresion final_linea
     (59) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
     (60) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
-    (24) expresion -> . expresion MAS term
-    (25) expresion -> . expresion MENOS term
+    (22) expresion -> . expresion MAS term
+    (23) expresion -> . expresion MENOS term
     (26) expresion -> . term
-    (22) comparacion -> . expresion operadores_comp expresion
-    (23) logica -> . expresion operadores_log expresion
+    (24) comparacion -> . expresion operadores_comp term
+    (25) logica -> . expresion operadores_log term
     (70) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
     (71) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
     (72) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA

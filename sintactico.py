@@ -29,10 +29,10 @@ def p_instrucciones(p):
 
 # Declaración =============================================================================
 def p_declaracion_SinAsig(p):
-    '''declaracion : declarador VARIABLE final_linea'''
+    'declaracion : declarador VARIABLE final_linea'
 
 def p_declaracion_ConAsig(p):
-    '''declaracion : declarador asignacion'''
+    'declaracion : declarador asignacion'
 
 # Asignación ==============================================================================
 def p_asignacion(p):
@@ -41,14 +41,6 @@ def p_asignacion(p):
     | VARIABLE IGUAL expresion final_linea'''
     p[1] = p[3]
 
-# Comparación =============================================================================
-def p_comparacion(p):
-    '''comparacion : expresion operadores_comp expresion'''
-
-# Lógica ==================================================================================
-def p_logica(p):
-    '''logica : expresion operadores_log expresion'''
-
 # Expresión ===============================================================================
 def p_expresion_mas(p):
     'expresion : expresion MAS term'
@@ -56,12 +48,18 @@ def p_expresion_mas(p):
 def p_expresion_menos(p):     #NO SE PORQUE SALE SINTAXIS ERROR
     'expresion : expresion MENOS term'
 
+def p_expresion_comp(p):
+    'comparacion : expresion operadores_comp term'
+
+def p_expresion_log(p):
+    'logica : expresion operadores_log term'
+
 def p_expresion_term(p):
     'expresion : term'
 
 # Termino =================================================================================
 def p_term_mult(p):
-    '''term : term MULT factor'''
+    'term : term MULT factor'
 
 def p_term_div(p):
     'term : term DIV factor'
@@ -120,6 +118,7 @@ def p_final_linea(p):
 def p_empty(p):
     'empty :'
     pass
+
 # =========================================================================================
 
 
