@@ -13,7 +13,6 @@ def p_js(p):
 
 def p_instrucciones(p):
     '''instrucciones : declaracionVarSinAsig
-                | declaracionVar
                 | asignacion
                 | funcion
                 | expresion
@@ -30,18 +29,14 @@ def p_declaracionVarSinAsig(p):
     '''declaracionVarSinAsig : declarador VARIABLE
             | declarador VARIABLE FINALDELINEA'''
 
+def p_asignacion(p):
+    '''asignacion : VARIABLE operadoresAsig tipoDato
+        | VARIABLE operadoresAsig tipoDato FINALDELINEA'''
+
 def p_declarador(p):
     '''declarador : VAR
     | LET
     | CONST'''
-
-def p_declaracionVar(p):
-    '''declaracionVar : declarador VARIABLE IGUAL tipoDato
-            | declarador VARIABLE IGUAL tipoDato FINALDELINEA'''
-
-def p_asignacion(p):
-    '''asignacion : VARIABLE operadoresAsig tipoDato
-        | VARIABLE operadoresAsig tipoDato FINALDELINEA'''
 
 def p_operadoresAsig(p):
     '''operadoresAsig : IGUAL
