@@ -17,6 +17,7 @@ def p_instrucciones(p):
     | funcion
     | expresion
     | comparacion
+    | logica
     | arreglo
     | map
     | if
@@ -26,27 +27,59 @@ def p_instrucciones(p):
     | push
     | mapSet'''
 
+# Declaración =============================================================================
 def p_declaracion_SinAsig(p):
     '''declaracion : declarador VARIABLE final_linea'''
 
 def p_declaracion_ConAsig(p):
-    '''declaracion : declarador VARIABLE operadores_asig tipos_datos final_linea'''
+    '''declaracion : declarador asignacion'''
 
+# Asignación ==============================================================================
 def p_asignacion(p):
     '''asignacion : VARIABLE operadores_asig tipos_datos final_linea
     | VARIABLE IGUAL comparacion final_linea
     | VARIABLE IGUAL expresion final_linea'''
     p[1] = p[3]
 
-def p_declarador(p):
-    '''declarador : LET
-    | VAR
-    | CONST'''
-
+# Comparación =============================================================================
 def p_comparacion(p):
-    '''comparacion : VARIABLE operadores_comp VARIABLE
-    | expresion operadores_comp expresion'''
+    '''comparacion : expresion operadores_comp expresion'''
 
+# Lógica ==================================================================================
+def p_logica(p):
+    '''logica : expresion operadores_log expresion'''
+
+# Expresión ===============================================================================
+def p_expresion_mas(p):
+    'expresion : expresion MAS term'
+
+def p_expresion_menos(p):     #NO SE PORQUE SALE SINTAXIS ERROR
+    'expresion : expresion MENOS term'
+
+def p_expresion_term(p):
+    'expresion : term'
+
+# Termino =================================================================================
+def p_term_mult(p):
+    '''term : term MULT factor'''
+
+def p_term_div(p):
+    'term : term DIV factor'
+
+def p_term_factor(p):
+    'term : factor'
+
+# Factor ==================================================================================
+def p_factor_var(p):
+    'factor : VARIABLE'
+
+def p_factor_num(p):
+    'factor : tipos_datos'
+
+def p_factor_expr(p):
+    'factor : IZQPAREN expresion DERPAREN'
+
+# Agrapaciones de datos y operadores ======================================================
 def p_tipos_datos(p):
     '''tipos_datos : NUMBER
     | STRING
@@ -75,33 +108,10 @@ def p_operadores_log(p):
     '''operadores_log : AND
     | OR'''
 
-def p_expresion_mas(p):
-    'expresion : expresion MAS term'
-
-def p_expresion_menos(p):     #NO SE PORQUE SALE SINTAXIS ERROR
-    'expresion : expresion MENOS term'
-
-def p_expresion_term(p):
-    'expresion : term'
-
-def p_term_mult(p):
-    '''term : term MULT factor
-    | term MULT VARIABLE'''
-
-def p_term_div(p):
-    'term : term DIV factor'
-
-def p_term_factor(p):
-    'term : factor'
-
-def p_factor_var(p):
-    'factor : VARIABLE'
-
-def p_factor_num(p):
-    'factor : NUMBER'
-
-def p_factor_expr(p):
-    'factor : IZQPAREN expresion DERPAREN'
+def p_declarador(p):
+    '''declarador : LET
+    | VAR
+    | CONST'''
 
 def p_final_linea(p):
     '''final_linea : FINALDELINEA
