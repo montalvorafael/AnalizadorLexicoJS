@@ -1,11 +1,16 @@
 import ply.yacc as yacc
 from lexico import tokens
-from lexico import lexer
+from lexico import lexer_js
 
 # =========================================================================================
 # Básico.
 # =========================================================================================
-start = 'js'
+start_rule = 'js'
+
+precedence = (
+    ('left', 'MAS', 'MENOS'),
+    ('left', 'MULT', 'DIV'),
+)
 
 def p_js(p):
     '''js : instrucciones
@@ -53,9 +58,11 @@ def p_asignacion(p):
 # Expresión ===============================================================================
 def p_expresion_mas(p):
     'expresion : expresion MAS term'
+    # p[0] = p[1] + p[3]
 
 def p_expresion_menos(p):     #NO SE PORQUE SALE SINTAXIS ERROR
     'expresion : expresion MENOS term'
+    # p[0] = p[1] - p[3]
 
 def p_expresion_comp(p):
     'comparacion : expresion operadores_comp term'
@@ -65,16 +72,20 @@ def p_expresion_log(p):
 
 def p_expresion_term(p):
     'expresion : term'
+    # p[0] = p[1]
 
 # Termino =================================================================================
 def p_term_mult(p):
     'term : term MULT factor'
+    # p[0] = p[1] * p[3]
 
 def p_term_div(p):
     'term : term DIV factor'
+    # p[0] = p[1] / p[3]
 
 def p_term_factor(p):
     'term : factor'
+    # p[0] = p[1]
 
 # Factor ==================================================================================
 def p_factor_var(p):
@@ -252,15 +263,15 @@ def p_error(p):
 # =========================================================================================
 # Construcción del parser.
 # =========================================================================================
-parser = yacc.yacc()
+parser_js = yacc.yacc(start=start_rule)
 
 while True:
     try:
-        s = input('calc > ')
+        text = input('calc > ')
     except EOFError:
         break
-    if not s: continue
-    result = parser.parse(s)
+    if not text: continue
+    result = parser_js.parse(text, lexer= lexer_js)
     print(result)
 # =========================================================================================
 

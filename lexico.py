@@ -63,7 +63,7 @@ reserved = {
 # =========================================================================================
 # Tokens.
 # =========================================================================================
-tokens = (
+tokens = [
     'AND',
     'IZQPAREN',
     'DERPAREN',
@@ -99,7 +99,7 @@ tokens = (
     'SYMBOL',
     'BIGINT',
     'NUMBER',
-) + tuple(reserved.values())
+] + list(reserved.values())
 
 # =========================================================================================
 
@@ -177,7 +177,7 @@ def t_VARIABLE(t):
 
 def t_newline(t):
     r'\n+'
-    t.lexer.lineno += len(t.value)
+    t.lexer.lineno += t.value.count("\n")
 
 # A string containing ignored characters (spaces and tabs)
 t_ignore = ' \t'                    #para ignorar lo que no es importante
@@ -220,12 +220,12 @@ push pop
 Array()
 '''
 
-lexer = lex.lex()
-lexer.input(data)
+lexer_js = lex.lex()
+lexer_js.input(data)
 
 # Comprobar búsqueda de tokens.
 while True:
-    tok = lexer.token()
+    tok = lexer_js.token()
     if not tok:
         break  # No more input
     print(tok)
