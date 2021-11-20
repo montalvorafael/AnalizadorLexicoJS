@@ -41,7 +41,8 @@ reserved = {
     'push' : 'PUSH',
     'pop' : 'POP',
     'Map' : 'MAP',
-    'map' : 'MAPLOWER'
+    'map' : 'MAPLOWER',
+    'Array' : 'ARRAY'
 }
 
 # Palabras reservadas suaves.
@@ -221,6 +222,7 @@ var sym1 = Symbol();
 var sym2 = Symbol("foo");
 var x;
 push pop
+Array()
 '''
 
 lexer = lex.lex()

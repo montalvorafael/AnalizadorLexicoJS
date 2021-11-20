@@ -31,7 +31,11 @@ def p_declaracionVarSinAsig(p):
 
 def p_asignacion(p):
     '''asignacion : VARIABLE operadoresAsig tipoDato
-        | VARIABLE operadoresAsig tipoDato FINALDELINEA'''
+        | VARIABLE operadoresAsig tipoDato FINALDELINEA
+        | VARIABLE IGUAL comparacion
+        | VARIABLE IGUAL comparacion FINALDELINEA
+        | VARIABLE IGUAL expresion
+        | VARIABLE IGUAL expresion FINALDELINEA'''
 
 def p_declarador(p):
     '''declarador : VAR
@@ -64,12 +68,12 @@ def p_empty(p):
 # Un parámetro.
 def p_funcion_unparametro(p):
     'funcion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE'
-#function cuadrado (numero){ 5* 5 }
+#function cuadrado (numero){ numero* numero };
 
 # Sin parámetros.
 def p_funcion_sinparametro(p):
     'funcion : FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE'
-# function cuadrado (numero){ exp='hola' }
+# function saludo (){ exp='hola' }
 # =========================================================================================
 
 
@@ -84,8 +88,8 @@ def p_if(p):
 def p_if_else(p):
     '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
 
-#if (num > num2) { 4*4} if (num > num3) { 4*5}
-#if (num > num2) { 4*4} if (num > num3) { 4*5} else {4*10}
+#if (num > num2) { minimo =num2} if (num > num3) { minimo=num3}
+#if (num2 > num) { num2=num2-num} if (num > num3) { num =num-num3} else {num=100}
 
 # Switch.
 def p_switch(p):
@@ -119,8 +123,33 @@ def p_comparador(p):
 # =========================================================================================
 # Array ===================================================================================
 def p_arreglo(p):
-    '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
-                | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE'''
+    '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
+                    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
+                    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
+                    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN FINALDELINEA
+                    | VAR VARIABLE IGUAL IZQCORCHETE DERCORCHETE FINALDELINEA
+                    | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
+                    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
+                    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
+                    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN FINALDELINEA
+                    | LET VARIABLE IGUAL IZQCORCHETE DERCORCHETE FINALDELINEA
+                    | VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+                    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN
+                    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN
+                    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN
+                    | VAR VARIABLE IGUAL IZQCORCHETE DERCORCHETE
+                    | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+                    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN
+                    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN
+                    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN
+                    | LET VARIABLE IGUAL IZQCORCHETE DERCORCHETE '''
+
+    # var nombres = new Array();
+    # var nombres = new Array(5);
+    # var nombres = new Array("Ana","Diana","Tom");
+    # var nombres = ["Ana","Diana","Tom"];
+    # var nombres = []; // arreglo vacío
+
 
 def p_lista(p):
    ''' lista : lista COMA lista
@@ -129,15 +158,16 @@ def p_lista(p):
                 | NUMBER
                 | BIGINT
                 | BOOLEAN'''
-#let arreglo = ["Manzana", "Banana",false, 1, 0b01,555n]
 
 # Métodos.
 def p_pop(p):
-    'pop : VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA'
+    '''pop : VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
+    | VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN'''
 #var eliminado = num.pop();
 
 def p_push(p):
-    'push : VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA'
+    '''push : VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
+    | VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN'''
 #var mascolores = colores.push("verde", "celeste");
 
 
@@ -168,13 +198,17 @@ def p_expresion_term(p):
     'expresion : term'
 
 def p_term_mult(p):
-    'term : term MULT factor'
+    '''term : term MULT factor
+    | term MULT VARIABLE'''
 
 def p_term_div(p):
     'term : term DIV factor'
 
 def p_term_factor(p):
     'term : factor'
+
+def p_factor_var(p):
+    'factor : VARIABLE'
 
 def p_factor_num(p):
     'factor : NUMBER'
