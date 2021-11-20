@@ -21,7 +21,7 @@ def p_instrucciones(p):
     '''instrucciones : declaracion final_linea
     | asignacion final_linea
     | funcion
-    | expresion
+    | expresion final_linea
     | comparacion
     | logica
     | arreglo
@@ -80,7 +80,7 @@ def p_expresion_term(p):
     'expresion : term'
     # p[0] = p[1]
 
-# Con retorno.
+# Return.
 def p_expresion_return(p):
     '''expresion : RETURN expresion'''
 
@@ -152,15 +152,19 @@ def p_empty(p):
 # =========================================================================================
 # Encabezado
 def p_funcion_enc(p):
-    'funcion_enc : FUNCTION VARIABLE IZQPAREN'
+    'funcion_enc : FUNCTION VARIABLE funcion_param'
 
 # Parámetro.
 def p_funcion_param(p):
-    '''funcion_param : VARIABLE
+    '''funcion_param : IZQPAREN parametros DERPAREN'''
+
+def p_parametros(p):
+    '''parametros : VARIABLE
+    | VARIABLE COMA parametros
     | empty'''
 
 def p_funcion(p):
-    'funcion : funcion_enc funcion_param DERPAREN IZQLLAVE js DERLLAVE'
+    'funcion : funcion_enc IZQLLAVE js DERLLAVE'
 
 # =========================================================================================
 
@@ -343,13 +347,18 @@ data = [
 
     # Funciones
     '''
+    function saludo(){
+        exp='hola';
+    }
+    ''',
+    '''
     function cuadrado(numero) {
         numero* numero;
     }
     ''',
     '''
-    function saludo(){
-        exp='hola';
+    function newFunction(a, b, c) {
+        let suma = a + b + c;
     }
     ''',
 ]
