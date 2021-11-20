@@ -42,11 +42,9 @@ reserved = {
     'pop' : 'POP',
     'Map' : 'MAP',
     'map' : 'MAPLOWER',
-    'Array' : 'ARRAY'
-}
+    'Array' : 'ARRAY',
 
 # Palabras reservadas suaves.
-reserved_soft = {
     'constructor': 'CONSTRUCTOR',
     'get': 'GET',
     'init': 'INIT',
@@ -104,7 +102,7 @@ tokens = (
     'BIGINT',
     'NUMBER',
     'BOOL'
-) + tuple(reserved.values()) + tuple(reserved_soft.values())
+) + tuple(reserved.values())
 
 # =========================================================================================
 
