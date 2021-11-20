@@ -14,11 +14,12 @@ precedence = (
 
 def p_js(p):
     '''js : instrucciones
-    | instrucciones js'''
+    | instrucciones js
+    '''
 
 def p_instrucciones(p):
-    '''instrucciones : declaracion
-    | asignacion
+    '''instrucciones : declaracion final_linea
+    | asignacion final_linea
     | funcion
     | expresion
     | comparacion
@@ -30,30 +31,34 @@ def p_instrucciones(p):
     | while
     | pop
     | push
-    | mapSet'''
+    | mapSet
+    '''
 
 # Declaración =============================================================================
 def p_declaracion_SinAsig(p):
-    '''declaracion : VAR VARIABLE final_linea
-                | LET VARIABLE final_linea
-                | CONST VARIABLE final_linea'''
+    '''declaracion : VAR VARIABLE
+    | LET VARIABLE
+    | CONST VARIABLE
+    '''
 
 def p_declaracion_ConAsig(p):
-    '''declaracion : VAR VARIABLE IGUAL tipos_datos final_linea
-                | LET VARIABLE IGUAL tipos_datos final_linea
-                | CONST VARIABLE IGUAL tipos_datos final_linea
-                | VAR VARIABLE IGUAL comparacion final_linea
-                | LET VARIABLE IGUAL comparacion final_linea
-                | CONST VARIABLE IGUAL comparacion final_linea
-                | VAR VARIABLE IGUAL expresion final_linea
-                | LET VARIABLE IGUAL expresion final_linea
-                | CONST VARIABLE IGUAL expresion final_linea'''
+    '''declaracion : VAR VARIABLE IGUAL tipos_datos
+    | LET VARIABLE IGUAL tipos_datos
+    | CONST VARIABLE IGUAL tipos_datos
+    | VAR VARIABLE IGUAL comparacion
+    | LET VARIABLE IGUAL comparacion
+    | CONST VARIABLE IGUAL comparacion
+    | VAR VARIABLE IGUAL expresion
+    | LET VARIABLE IGUAL expresion
+    | CONST VARIABLE IGUAL expresion
+    '''
 
 # Asignación ==============================================================================
 def p_asignacion(p):
-    '''asignacion : VARIABLE operadores_asig tipos_datos final_linea
-    | VARIABLE IGUAL comparacion final_linea
-    | VARIABLE IGUAL expresion final_linea'''
+    '''asignacion : VARIABLE operadores_asig tipos_datos
+    | VARIABLE IGUAL comparacion
+    | VARIABLE IGUAL expresion
+    '''
 
 # Expresión ===============================================================================
 def p_expresion_mas(p):
@@ -174,14 +179,14 @@ def p_if_else(p):
 def p_switch(p):
     '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE'''
 
-def p_casos(p):
-    '''casos : CASE tipos_datos DOSPUNTOS asignacion BREAK FINALDELINEA
-    | CASE tipos_datos DOSPUNTOS'''
-
 def p_ncasos(p):
     '''ncasos : casos
     | casos ncasos
     '''
+
+def p_casos(p):
+    '''casos : CASE tipos_datos DOSPUNTOS js BREAK final_linea
+    | CASE tipos_datos DOSPUNTOS'''
 
 # While ===================================================================================
 def p_while(p):
@@ -301,14 +306,14 @@ data = [
     }
     ''',
     '''
-        if (num > num2) {
+    if (num > num2) {
             minimo =num2
         } if (num > num3) {
             minimo=num3
         }
     ''',
     '''
-        if (num2 > num) {
+    if (num2 > num) {
             num2=num2-num
         } if (num > num3) {
             num =num-num3
