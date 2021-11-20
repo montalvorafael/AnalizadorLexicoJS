@@ -213,6 +213,7 @@ def p_estructuras_datos_metod(p):
 def p_arreglo(p):
     '''arreglo : IZQCORCHETE lista DERCORCHETE
     | NEW ARRAY IZQPAREN DERPAREN
+    | NEW ARRAY IZQPAREN lista DERPAREN
     | IZQCORCHETE DERCORCHETE
     '''
 
@@ -228,6 +229,8 @@ def p_pop(p):
 def p_push(p):
     '''arreglo_metodos : VARIABLE PUSH_METODO IZQPAREN lista DERPAREN'''
 
+def p_arregloSlicing(p):
+    'arreglo_metodos : VARIABLE IZQCORCHETE NUMBER DERCORCHETE IGUAL tipos_datos'
 # Map =====================================================================================
 def p_map(p):
     '''map : NEW MAP IZQPAREN DERPAREN final_linea'''
@@ -237,7 +240,7 @@ def p_map_set(p):
     '''map_metodos : VARIABLE SET_METODO IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea'''
 
 def p_map_get(p):
-    'map_metodos : VARIABLE PUNTO GET IZQPAREN tipos_datos DERPAREN final_linea'
+    'map_metodos : VARIABLE GET_METODO IZQPAREN tipos_datos DERPAREN final_linea'
 # Set =====================================================================================
 def p_set(p):
     '''set : NEW SET_ESTRUC IZQPAREN DERPAREN

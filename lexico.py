@@ -101,6 +101,7 @@ tokens = [
     'ADD_METODO',
     'HAS_METODO',
     'SET_METODO',
+    'GET_METODO'
 ] + list(reserved.values())
 
 # =========================================================================================
@@ -116,6 +117,7 @@ t_POP_METODO = r'\.pop'
 t_ADD_METODO = r'\.add'
 t_HAS_METODO = r'\.has'
 t_SET_METODO = r'\.set'
+t_GET_METODO = r'\.get'
 
 t_IZQPAREN = r'\('
 t_DERPAREN = r'\)'
