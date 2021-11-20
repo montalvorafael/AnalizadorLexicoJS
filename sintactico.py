@@ -53,7 +53,8 @@ def p_declaracion_ConAsig(p):
 def p_asignacion(p):
     '''asignacion : VARIABLE operadores_asig tipos_datos final_linea
     | VARIABLE IGUAL comparacion final_linea
-    | VARIABLE IGUAL expresion final_linea'''
+    | VARIABLE IGUAL expresion final_linea
+    | VARIABLE operadores_asig VARIABLE final_linea'''
 
 # Expresión ===============================================================================
 def p_expresion_mas(p):
