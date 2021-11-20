@@ -56,9 +56,9 @@ def p_declaracion_ConAsig(p):
 # Asignación ==============================================================================
 def p_asignacion(p):
     '''asignacion : VARIABLE operadores_asig tipos_datos
+    | VARIABLE operadores_asig VARIABLE
     | VARIABLE IGUAL comparacion
     | VARIABLE IGUAL expresion
-    | VARIABLE operadores_asig VARIABLE
     '''
 
 # Expresión ===============================================================================
@@ -81,6 +81,7 @@ def p_expresion_term(p):
     # p[0] = p[1]
 
 # Return.
+# Si vale pero revisar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def p_expresion_return(p):
     '''expresion : RETURN expresion'''
 
@@ -114,7 +115,8 @@ def p_tipos_datos(p):
     | BOOLEAN
     | BIGINT
     | NULL
-    | SYMBOL'''
+    | SYMBOL
+    | estructuras_datos'''
 
 def p_operadores_asig(p):
     '''operadores_asig : IGUAL
@@ -203,28 +205,33 @@ def p_while(p):
 # =========================================================================================
 # Estructuras de datos.
 # =========================================================================================
+def p_estructuras_datos(p):
+    '''estructuras_datos : arreglo
+    | map
+    | set
+    '''
+
 # Array ===================================================================================
+# def p_arreglo(p):
+    # '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE final_linea
+    # | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN final_linea
+    # | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN final_linea
+    # | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN final_linea
+    # | VAR VARIABLE IGUAL IZQCORCHETE DERCORCHETE final_linea
+    # | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE final_linea
+    # | LET VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN final_linea
+    # | LET VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN final_linea
+    # | LET VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN final_linea
+    # | LET VARIABLE IGUAL IZQCORCHETE DERCORCHETE final_linea
+    # '''
+
 def p_arreglo(p):
-    '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
-    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
-    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
-    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN FINALDELINEA
-    | VAR VARIABLE IGUAL IZQCORCHETE DERCORCHETE FINALDELINEA
-    | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
-    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
-    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
-    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN FINALDELINEA
-    | LET VARIABLE IGUAL IZQCORCHETE DERCORCHETE FINALDELINEA
-    | VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
-    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN
-    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN
-    | VAR VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN
-    | VAR VARIABLE IGUAL IZQCORCHETE DERCORCHETE
-    | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
-    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN
-    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN
-    | LET VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN
-    | LET VARIABLE IGUAL IZQCORCHETE DERCORCHETE '''
+    '''arreglo : IZQCORCHETE lista DERCORCHETE final_linea
+    | NEW ARRAY IZQPAREN DERPAREN final_linea
+    | NEW ARRAY IZQPAREN NUMBER DERPAREN final_linea
+    | NEW ARRAY IZQPAREN lista DERPAREN final_linea
+    | IZQCORCHETE DERCORCHETE final_linea
+    '''
 
 def p_lista(p):
     ''' lista : lista COMA lista
@@ -232,12 +239,10 @@ def p_lista(p):
 
 # Métodos.
 def p_pop(p):
-    '''pop : VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
-    | VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN'''
+    '''pop : VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN final_linea'''
 
 def p_push(p):
-    '''push : VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
-    | VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN'''
+    '''push : VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN final_linea'''
 
 # Map =====================================================================================
 def p_map(p):
@@ -248,6 +253,15 @@ def p_map(p):
 # Métodos.
 def p_mapSet(p):
     '''mapSet : MAPLOWER PUNTO SET IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea'''
+
+# Set =====================================================================================
+def p_set(p):
+    '''set : NEW SET IZQPAREN DERPAREN
+    | NEW SET IZQPAREN NULL DERPAREN
+    | NEW SET IZQPAREN lista DERPAREN
+    '''
+
+# Métodos.
 
 # =========================================================================================
 
@@ -332,6 +346,12 @@ data = [
     }
     ''',
     '''
+    while (menor <= 3) {
+        x = n;
+        let s = new Array();
+    }
+    ''',
+    '''
     switch (expr) {
         case 1:
             exp=12;
@@ -353,12 +373,14 @@ data = [
     ''',
     '''
     function cuadrado(numero) {
+        let sopa de letras= "fndklañfdiafhwbnlewq"
         numero* numero;
     }
     ''',
     '''
     function newFunction(a, b, c) {
         let suma = a + b + c;
+        return 0;
     }
     ''',
 ]
