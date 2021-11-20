@@ -2,6 +2,11 @@ import ply.yacc as yacc
 from lexico import tokens
 from lexico import lexer
 
+# =========================================================================================
+# Básico.
+# =========================================================================================
+start = 'js'
+
 def p_js(p):
     '''js : instrucciones
         | instrucciones js'''
@@ -22,23 +27,22 @@ def p_instrucciones(p):
                 | mapSet'''
 
 def p_declaracionVarSinAsig(p):
-    '''declaracionVarSinAsig : VAR VARIABLE
-            | LET VARIABLE
-            | CONST VARIABLE
-            | VAR VARIABLE FINALDELINEA
-            | LET VARIABLE FINALDELINEA
-            | CONST VARIABLE FINALDELINEA'''
+    '''declaracionVarSinAsig : declarador VARIABLE
+            | declarador VARIABLE FINALDELINEA'''
+
+def p_declarador(p):
+    '''declarador : VAR
+    | LET
+    | CONST'''
 
 def p_declaracionVar(p):
-    '''declaracionVar : VAR VARIABLE IGUAL tipo
-            | LET VARIABLE IGUAL tipo
-            | CONST VARIABLE IGUAL tipo
-            | VAR VARIABLE IGUAL tipo FINALDELINEA
-            | LET VARIABLE IGUAL tipo FINALDELINEA
-            | CONST VARIABLE IGUAL tipo FINALDELINEA'''
+    '''declaracionVar : declarador VARIABLE IGUAL tipoDato
+            | declarador VARIABLE IGUAL tipoDato FINALDELINEA'''
+
 def p_asignacion(p):
-    '''asignacion : VARIABLE operadoresAsig tipo
-        | VARIABLE operadoresAsig tipo FINALDELINEA'''
+    '''asignacion : VARIABLE operadoresAsig tipoDato
+        | VARIABLE operadoresAsig tipoDato FINALDELINEA'''
+
 def p_operadoresAsig(p):
     '''operadoresAsig : IGUAL
                         | MASIGUAL
@@ -46,27 +50,38 @@ def p_operadoresAsig(p):
                         | DIVIGUAL
                         | MODIGUAL'''
 
-
-#*************************************FUNCIONES************************************************
-#FUNCION QUE ACEPTA UN PARAMETRO SOLAMENTE
-def p_funcion_unparametro(p):
-    'funcion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE'
-#function cuadrado (numero){ 5* 5 }
-
-#FUNCION SIN PARAMETROS
-def p_funcion_sinparametro(p):
-    'funcion : FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE'
-#function cuadrado (numero){ exp='hola' }
-
-def p_tipo(p):
-    '''tipo : NUMBER
+def p_tipoDato(p):
+    '''tipoDato : NUMBER
                 | STRING
                 | BOOLEAN
                 | BIGINT
                 | SYMBOL'''
 
-#*************************************CONDICIONESLES***********************************************
-#CONDICIONALES IF y IF-ELSE
+def p_empty(p):
+    'empty :'
+    pass
+# =========================================================================================
+
+
+# =========================================================================================
+# Funciones.
+# =========================================================================================
+# Un parámetro.
+def p_funcion_unparametro(p):
+    'funcion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE'
+#function cuadrado (numero){ 5* 5 }
+
+# Sin parámetros.
+def p_funcion_sinparametro(p):
+    'funcion : FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE'
+# function cuadrado (numero){ exp='hola' }
+# =========================================================================================
+
+
+# =========================================================================================
+# Estructuras condicionales.
+# =========================================================================================
+# If - if-else.
 def p_if(p):
     '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
         | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if'''
@@ -77,20 +92,19 @@ def p_if_else(p):
 #if (num > num2) { 4*4} if (num > num3) { 4*5}
 #if (num > num2) { 4*4} if (num > num3) { 4*5} else {4*10}
 
-#CONDICIONAL SWITCH
+# Switch.
 def p_switch(p):
     '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE'''
 
 def p_casos(p):
-    '''casos : CASE tipo DOSPUNTOS asignacion BREAK FINALDELINEA
-        | CASE tipo DOSPUNTOS'''
+    '''casos : CASE tipoDato DOSPUNTOS asignacion BREAK FINALDELINEA
+        | CASE tipoDato DOSPUNTOS'''
 
 def p_ncasos(p):
     '''ncasos : casos
         | casos ncasos
     '''
 #switch (expr) { case 1: exp=12; break; case 2: exp2='hola'; break; case 3: default: x=true; }
-
 
 def p_comparacion(p):
     '''comparacion : VARIABLE comparador VARIABLE
@@ -102,9 +116,13 @@ def p_comparador(p):
                 | MAYORIGUALQUE
                 | MENORIGUALQUE
                 | NOIGUALQUE'''
+# =========================================================================================
 
-#***************************************ESTRUCTURAS DE DATOS con sus METODOS************************************
-#ESTRUCTURA ARRAY
+
+# =========================================================================================
+# Estructuras de datos.
+# =========================================================================================
+# Array ===================================================================================
 def p_arreglo(p):
     '''arreglo : VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
                 | LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE'''
@@ -118,7 +136,7 @@ def p_lista(p):
                 | BOOLEAN'''
 #let arreglo = ["Manzana", "Banana",false, 1, 0b01,555n]
 
-#METODOS DE ARRAY
+# Métodos.
 def p_pop(p):
     'pop : VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA'
 #var eliminado = num.pop();
@@ -127,8 +145,8 @@ def p_push(p):
     'push : VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA'
 #var mascolores = colores.push("verde", "celeste");
 
-#Estructura MAP:
 
+# Map =====================================================================================
 def p_map(p):
     '''map : LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN
         | LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN FINALDELINEA
@@ -139,10 +157,10 @@ def p_map(p):
 # let expr = new Map();
 # const map = new Map()
 
-#Metodos del MAP
+# Métodos.
 def p_mapSet(p):
-    '''mapSet : MAPLOWER PUNTO SET IZQPAREN tipo COMA tipo DERPAREN
-            | MAPLOWER PUNTO SET IZQPAREN tipo COMA tipo DERPAREN FINALDELINEA'''
+    '''mapSet : MAPLOWER PUNTO SET IZQPAREN tipoDato COMA tipoDato DERPAREN
+            | MAPLOWER PUNTO SET IZQPAREN tipoDato COMA tipoDato DERPAREN FINALDELINEA'''
 # map.set('1', 2);
 
 def p_expresion_mas(p):
@@ -168,14 +186,20 @@ def p_factor_num(p):
 
 def p_factor_expr(p):
     'factor : IZQPAREN expresion DERPAREN'
+# =========================================================================================
 
 
-# Error rule for syntax errors
+# =========================================================================================
+# Error sintáctico.
+# =========================================================================================
 def p_error(p):
     print("Error de sintaxis!")
+# =========================================================================================
 
 
-# Build the parser
+# =========================================================================================
+# Construcción del parser.
+# =========================================================================================
 parser = yacc.yacc()
 
 while True:
@@ -186,3 +210,5 @@ while True:
     if not s: continue
     result = parser.parse(s)
     print(result)
+# =========================================================================================
+
