@@ -74,6 +74,10 @@ def p_expresion_term(p):
     'expresion : term'
     # p[0] = p[1]
 
+# Con retorno.
+def p_expresion_return(p):
+    '''expresion : RETURN expresion'''
+
 # Termino =================================================================================
 def p_term_mult(p):
     'term : term MULT factor'
@@ -140,13 +144,17 @@ def p_empty(p):
 # =========================================================================================
 # Funciones.
 # =========================================================================================
-# Un parámetro.
-def p_funcion_unparametro(p):
-    'funcion : FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE'
+# Encabezado
+def p_funcion_enc(p):
+    'funcion_enc : FUNCTION VARIABLE IZQPAREN'
 
-# Sin parámetros.
-def p_funcion_sinparametro(p):
-    'funcion : FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE'
+# Parámetro.
+def p_funcion_param(p):
+    '''funcion_param : VARIABLE
+    | empty'''
+
+def p_funcion(p):
+    'funcion : funcion_enc funcion_param DERPAREN IZQLLAVE js DERLLAVE'
 
 # =========================================================================================
 
@@ -310,7 +318,7 @@ data = [
     ''',
     '''
     while (n < 3) {
-        x += n;
+        x = n;
     }
     ''',
     '''
@@ -335,7 +343,7 @@ data = [
     ''',
     '''
     function saludo(){
-        exp='hola'
+        exp='hola';
     }
     ''',
 ]
