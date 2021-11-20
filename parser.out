@@ -105,7 +105,7 @@ Rule 72    casos -> CASE tipos_datos DOSPUNTOS asignacion BREAK FINALDELINEA
 Rule 73    casos -> CASE tipos_datos DOSPUNTOS
 Rule 74    ncasos -> casos
 Rule 75    ncasos -> casos ncasos
-Rule 76    while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+Rule 76    while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
 Rule 77    arreglo -> VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
 Rule 78    arreglo -> VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
 Rule 79    arreglo -> VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
@@ -226,13 +226,13 @@ casos                : 74 75
 comparacion          : 7 23 24 25 30 68 69 70 76
 declaracion          : 3
 empty                : 64
-expresion            : 6 26 27 28 31 32 33 34 35 42 76
+expresion            : 6 26 27 28 31 32 33 34 35 42
 factor               : 37 38 39
 final_linea          : 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 103 104 105 106
 funcion              : 5
 if                   : 11 69
 instrucciones        : 1 2
-js                   : 2 66 67 68 69 70 70 71 0
+js                   : 2 66 67 68 69 70 70 71 76 0
 lista                : 77 80 82 85 87 90 92 95 97 97 101 102
 logica               : 8
 map                  : 10
@@ -318,7 +318,7 @@ state 0
     (69) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
     (70) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
     (71) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE
-    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
     (99) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
     (100) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN
     (101) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
@@ -449,7 +449,7 @@ state 2
     (69) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
     (70) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
     (71) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE
-    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
     (99) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
     (100) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN
     (101) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
@@ -1157,7 +1157,7 @@ state 27
 
 state 28
 
-    (76) while -> WHILE . IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> WHILE . IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
 
     IZQPAREN        shift and go to state 66
 
@@ -2066,7 +2066,7 @@ state 65
 
 state 66
 
-    (76) while -> WHILE IZQPAREN . comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> WHILE IZQPAREN . comparacion DERPAREN IZQLLAVE js DERLLAVE
     (34) comparacion -> . expresion operadores_comp term
     (32) expresion -> . expresion MAS term
     (33) expresion -> . expresion MENOS term
@@ -2790,7 +2790,7 @@ state 89
 
 state 90
 
-    (76) while -> WHILE IZQPAREN comparacion . DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> WHILE IZQPAREN comparacion . DERPAREN IZQLLAVE js DERLLAVE
 
     DERPAREN        shift and go to state 114
 
@@ -3510,7 +3510,7 @@ state 113
 
 state 114
 
-    (76) while -> WHILE IZQPAREN comparacion DERPAREN . IZQLLAVE expresion DERLLAVE
+    (76) while -> WHILE IZQPAREN comparacion DERPAREN . IZQLLAVE js DERLLAVE
 
     IZQLLAVE        shift and go to state 140
 
@@ -3962,7 +3962,7 @@ state 137
     (69) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
     (70) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
     (71) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE
-    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
     (99) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
     (100) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN
     (101) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
@@ -4088,7 +4088,7 @@ state 138
     (69) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
     (70) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
     (71) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE
-    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
     (99) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
     (100) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN
     (101) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
@@ -4159,10 +4159,78 @@ state 139
 
 state 140
 
-    (76) while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE . expresion DERLLAVE
+    (76) while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE . js DERLLAVE
+    (1) js -> . instrucciones
+    (2) js -> . instrucciones js
+    (3) instrucciones -> . declaracion
+    (4) instrucciones -> . asignacion
+    (5) instrucciones -> . funcion
+    (6) instrucciones -> . expresion
+    (7) instrucciones -> . comparacion
+    (8) instrucciones -> . logica
+    (9) instrucciones -> . arreglo
+    (10) instrucciones -> . map
+    (11) instrucciones -> . if
+    (12) instrucciones -> . switch
+    (13) instrucciones -> . while
+    (14) instrucciones -> . pop
+    (15) instrucciones -> . push
+    (16) instrucciones -> . mapSet
+    (17) declaracion -> . VAR VARIABLE final_linea
+    (18) declaracion -> . LET VARIABLE final_linea
+    (19) declaracion -> . CONST VARIABLE final_linea
+    (20) declaracion -> . VAR VARIABLE IGUAL tipos_datos final_linea
+    (21) declaracion -> . LET VARIABLE IGUAL tipos_datos final_linea
+    (22) declaracion -> . CONST VARIABLE IGUAL tipos_datos final_linea
+    (23) declaracion -> . VAR VARIABLE IGUAL comparacion final_linea
+    (24) declaracion -> . LET VARIABLE IGUAL comparacion final_linea
+    (25) declaracion -> . CONST VARIABLE IGUAL comparacion final_linea
+    (26) declaracion -> . VAR VARIABLE IGUAL expresion final_linea
+    (27) declaracion -> . LET VARIABLE IGUAL expresion final_linea
+    (28) declaracion -> . CONST VARIABLE IGUAL expresion final_linea
+    (29) asignacion -> . VARIABLE operadores_asig tipos_datos final_linea
+    (30) asignacion -> . VARIABLE IGUAL comparacion final_linea
+    (31) asignacion -> . VARIABLE IGUAL expresion final_linea
+    (66) funcion -> . FUNCTION VARIABLE IZQPAREN VARIABLE DERPAREN IZQLLAVE js DERLLAVE
+    (67) funcion -> . FUNCTION VARIABLE IZQPAREN DERPAREN IZQLLAVE js DERLLAVE
     (32) expresion -> . expresion MAS term
     (33) expresion -> . expresion MENOS term
     (36) expresion -> . term
+    (34) comparacion -> . expresion operadores_comp term
+    (35) logica -> . expresion operadores_log term
+    (77) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
+    (78) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
+    (79) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
+    (80) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN FINALDELINEA
+    (81) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE DERCORCHETE FINALDELINEA
+    (82) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE FINALDELINEA
+    (83) arreglo -> . LET VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN FINALDELINEA
+    (84) arreglo -> . LET VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN FINALDELINEA
+    (85) arreglo -> . LET VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN FINALDELINEA
+    (86) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE DERCORCHETE FINALDELINEA
+    (87) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (88) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN
+    (89) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN
+    (90) arreglo -> . VAR VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN
+    (91) arreglo -> . VAR VARIABLE IGUAL IZQCORCHETE DERCORCHETE
+    (92) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE lista DERCORCHETE
+    (93) arreglo -> . LET VARIABLE IGUAL NEW ARRAY IZQPAREN DERPAREN
+    (94) arreglo -> . LET VARIABLE IGUAL NEW ARRAY IZQPAREN NUMBER DERPAREN
+    (95) arreglo -> . LET VARIABLE IGUAL NEW ARRAY IZQPAREN lista DERPAREN
+    (96) arreglo -> . LET VARIABLE IGUAL IZQCORCHETE DERCORCHETE
+    (103) map -> . LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea
+    (104) map -> . VAR VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea
+    (105) map -> . CONST VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea
+    (68) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (69) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
+    (70) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+    (71) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE
+    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+    (99) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
+    (100) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN
+    (101) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
+    (102) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN
+    (106) mapSet -> . MAPLOWER PUNTO SET IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea
     (37) term -> . term MULT factor
     (38) term -> . term DIV factor
     (39) term -> . factor
@@ -4176,7 +4244,15 @@ state 140
     (47) tipos_datos -> . NULL
     (48) tipos_datos -> . SYMBOL
 
-    VARIABLE        shift and go to state 61
+    VAR             shift and go to state 17
+    LET             shift and go to state 19
+    CONST           shift and go to state 20
+    VARIABLE        shift and go to state 18
+    FUNCTION        shift and go to state 22
+    IF              shift and go to state 26
+    SWITCH          shift and go to state 27
+    WHILE           shift and go to state 28
+    MAPLOWER        shift and go to state 29
     IZQPAREN        shift and go to state 23
     NUMBER          shift and go to state 25
     STRING          shift and go to state 31
@@ -4185,10 +4261,25 @@ state 140
     NULL            shift and go to state 34
     SYMBOL          shift and go to state 35
 
-    expresion                      shift and go to state 160
+    comparacion                    shift and go to state 7
+    js                             shift and go to state 160
+    instrucciones                  shift and go to state 2
+    declaracion                    shift and go to state 3
+    asignacion                     shift and go to state 4
+    funcion                        shift and go to state 5
+    expresion                      shift and go to state 6
+    logica                         shift and go to state 8
+    arreglo                        shift and go to state 9
+    map                            shift and go to state 10
+    if                             shift and go to state 11
+    switch                         shift and go to state 12
+    while                          shift and go to state 13
+    pop                            shift and go to state 14
+    push                           shift and go to state 15
+    mapSet                         shift and go to state 16
+    tipos_datos                    shift and go to state 21
     term                           shift and go to state 24
     factor                         shift and go to state 30
-    tipos_datos                    shift and go to state 21
 
 state 141
 
@@ -4480,7 +4571,7 @@ state 154
     (69) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
     (70) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
     (71) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE
-    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
     (99) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
     (100) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN
     (101) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
@@ -4596,13 +4687,9 @@ state 159
 
 state 160
 
-    (76) while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion . DERLLAVE
-    (32) expresion -> expresion . MAS term
-    (33) expresion -> expresion . MENOS term
+    (76) while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js . DERLLAVE
 
     DERLLAVE        shift and go to state 182
-    MAS             shift and go to state 37
-    MENOS           shift and go to state 38
 
 
 state 161
@@ -4993,26 +5080,26 @@ state 181
 
 state 182
 
-    (76) while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .
+    (76) while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .
 
-    VAR             reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    LET             reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    CONST           reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    VARIABLE        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    FUNCTION        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    IF              reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    SWITCH          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    WHILE           reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    MAPLOWER        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    IZQPAREN        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    NUMBER          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    STRING          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    BOOLEAN         reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    BIGINT          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    NULL            reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    SYMBOL          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    $end            reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
-    DERLLAVE        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE .)
+    VAR             reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    LET             reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    CONST           reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    VARIABLE        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    FUNCTION        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    IF              reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    SWITCH          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    WHILE           reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    MAPLOWER        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    IZQPAREN        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    NUMBER          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    STRING          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    BOOLEAN         reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    BIGINT          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    NULL            reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    SYMBOL          reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    $end            reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
+    DERLLAVE        reduce using rule 76 (while -> WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE .)
 
 
 state 183
@@ -5405,7 +5492,7 @@ state 198
     (69) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
     (70) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
     (71) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE
-    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
     (99) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
     (100) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN
     (101) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
@@ -5719,7 +5806,7 @@ state 207
     (69) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
     (70) if -> . IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
     (71) switch -> . SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE
-    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE expresion DERLLAVE
+    (76) while -> . WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
     (99) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN FINALDELINEA
     (100) pop -> . VAR VARIABLE IGUAL VARIABLE PUNTO POP IZQPAREN DERPAREN
     (101) push -> . VAR VARIABLE IGUAL VARIABLE PUNTO PUSH IZQPAREN lista DERPAREN FINALDELINEA
