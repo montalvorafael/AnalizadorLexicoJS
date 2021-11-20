@@ -29,17 +29,26 @@ def p_instrucciones(p):
 
 # Declaración =============================================================================
 def p_declaracion_SinAsig(p):
-    'declaracion : declarador VARIABLE final_linea'
+    '''declaracion : VAR VARIABLE final_linea
+                | LET VARIABLE final_linea
+                | CONST VARIABLE final_linea'''
 
 def p_declaracion_ConAsig(p):
-    'declaracion : declarador asignacion'
+    '''declaracion : VAR VARIABLE IGUAL tipos_datos final_linea
+                | LET VARIABLE IGUAL tipos_datos final_linea
+                | CONST VARIABLE IGUAL tipos_datos final_linea
+                | VAR VARIABLE IGUAL comparacion final_linea
+                | LET VARIABLE IGUAL comparacion final_linea
+                | CONST VARIABLE IGUAL comparacion final_linea
+                | VAR VARIABLE IGUAL expresion final_linea
+                | LET VARIABLE IGUAL expresion final_linea
+                | CONST VARIABLE IGUAL expresion final_linea'''
 
 # Asignación ==============================================================================
 def p_asignacion(p):
     '''asignacion : VARIABLE operadores_asig tipos_datos final_linea
     | VARIABLE IGUAL comparacion final_linea
     | VARIABLE IGUAL expresion final_linea'''
-    p[1] = p[3]
 
 # Expresión ===============================================================================
 def p_expresion_mas(p):
@@ -105,11 +114,6 @@ def p_operadores_comp(p):
 def p_operadores_log(p):
     '''operadores_log : AND
     | OR'''
-
-def p_declarador(p):
-    '''declarador : LET
-    | VAR
-    | CONST'''
 
 def p_final_linea(p):
     '''final_linea : FINALDELINEA
@@ -222,19 +226,16 @@ def p_push(p):
 
 # Map =====================================================================================
 def p_map(p):
-    '''map : LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN
-    | LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN FINALDELINEA
-    | VAR VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN
-    | VAR VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN FINALDELINEA
-    | CONST VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN
-    | CONST VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN FINALDELINEA'''
+    '''map : LET VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea
+    | VAR VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea
+    | CONST VARIABLE IGUAL NEW MAP IZQPAREN DERPAREN final_linea'''
+
 # let expr = new Map();
-# const map = new Map()
+# const expr2 = new Map()
 
 # Métodos.
 def p_mapSet(p):
-    '''mapSet : MAPLOWER PUNTO SET IZQPAREN tipos_datos COMA tipos_datos DERPAREN
-    | MAPLOWER PUNTO SET IZQPAREN tipos_datos COMA tipos_datos DERPAREN FINALDELINEA'''
+    '''mapSet : MAPLOWER PUNTO SET IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea'''
 # map.set('1', 2);
 
 # =========================================================================================
