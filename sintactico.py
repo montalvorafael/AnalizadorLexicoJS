@@ -58,6 +58,7 @@ def p_asignacion(p):
     '''asignacion : VARIABLE operadores_asig tipos_datos
     | VARIABLE IGUAL comparacion
     | VARIABLE IGUAL expresion
+    | VARIABLE operadores_asig VARIABLE
     '''
 
 # Expresión ===============================================================================
