@@ -27,6 +27,7 @@ def p_instrucciones(p):
     | switch
     | while
     | funcion
+    | reglasemanticaop final_linea
     '''
 
 # Declaración =============================================================================
@@ -40,6 +41,9 @@ def p_declaracion_ConAsig(p):
     '''declaracion : VAR VARIABLE IGUAL comparacion
     | LET VARIABLE IGUAL comparacion
     | CONST VARIABLE IGUAL comparacion
+    | VAR VARIABLE IGUAL reglasemanticaop
+    | LET VARIABLE IGUAL reglasemanticaop
+    | CONST VARIABLE IGUAL reglasemanticaop
     | VAR VARIABLE IGUAL expresion
     | LET VARIABLE IGUAL expresion
     | CONST VARIABLE IGUAL expresion
@@ -51,16 +55,10 @@ def p_asignacion(p):
     | VARIABLE operadores_asig VARIABLE
     | VARIABLE IGUAL comparacion
     | VARIABLE IGUAL expresion
+    | VARIABLE IGUAL reglasemanticaop
     '''
 
 # Expresión ===============================================================================
-def p_expresion_mas(p):
-    'expresion : expresion MAS term'
-    # p[0] = p[1] + p[3]
-
-def p_expresion_menos(p):     #NO SE PORQUE SALE SINTAXIS ERROR
-    'expresion : expresion MENOS term'
-    # p[0] = p[1] - p[3]
 
 def p_expresion_comp(p):
     'comparacion : expresion operadores_comp term'
@@ -78,13 +76,7 @@ def p_expresion_return(p):
     '''expresion : RETURN expresion'''
 
 # Termino =================================================================================
-def p_term_mult(p):
-    'term : term MULT factor'
-    # p[0] = p[1] * p[3]
 
-def p_term_div(p):
-    'term : term DIV factor'
-    # p[0] = p[1] / p[3]
 
 def p_term_factor(p):
     'term : factor'
@@ -264,6 +256,30 @@ def p_error(p):
     print("Error de sintaxis.")
 # =========================================================================================
 
+#regla semantica operaciones
+def p_valoroperaciones(p):
+    '''valoroperaciones : NUMBER
+    | BIGINT
+    | VARIABLE'''
+
+def p_reglasemanticaop_mas(p):
+    '''reglasemanticaop : valoroperaciones MAS valoroperaciones
+    | valoroperaciones MAS reglasemanticaop'''
+    # p[0] = p[1] + p[3]
+
+def p_reglasemanticaop_menos(p):
+    '''reglasemanticaop : valoroperaciones MENOS valoroperaciones
+    | valoroperaciones MENOS reglasemanticaop'''
+    # p[0] = p[1] - p[3]
+def p_reglasemanticaop_mult(p):
+    '''reglasemanticaop : valoroperaciones MULT valoroperaciones
+    | valoroperaciones MULT reglasemanticaop'''
+    # p[0] = p[1] * p[3]
+
+def p_reglasemanticaop_div(p):
+    '''reglasemanticaop : valoroperaciones DIV valoroperaciones
+    | valoroperaciones DIV reglasemanticaop'''
+    # p[0] = p[1] / p[3]
 
 # =========================================================================================
 # Construcción del parser.
@@ -284,7 +300,14 @@ parser_js = yacc.yacc(start=start_rule)
 # Algoritmo de prueba
 data = [
     # Declaración y asignacion.
-    'var x;',
+    'num2 = true',
+    '10/"hola"', #error semantico
+    'num = num-num3',
+    'num=100',
+    '5*2/1+1',
+    '1*1+1',
+    '4+5+5-true', #error semantico
+    '4+5+5+"ok"', #error semantico
     'var _nueva = 0xfff;',
     'var pruebaE = 23e-8;',
     'var NuevaVariable = true;',

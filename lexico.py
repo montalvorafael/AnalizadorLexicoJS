@@ -224,7 +224,7 @@ var sym1 = Symbol();
 var sym2 = Symbol("foo");
 var x;
 Array()
-.push .pop .has .add
+.push .pop .has .add //pl
 '''
 
 lexer_js = lex.lex()
