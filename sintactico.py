@@ -5,6 +5,7 @@ from lexico import lexer_js
 # =========================================================================================
 # Básico.
 # =========================================================================================
+resultado_gramatica = []
 start_rule = 'js'
 
 precedence = (
@@ -253,7 +254,17 @@ def p_set_has(p):
 # Error sintáctico.
 # =========================================================================================
 def p_error(p):
-    print("Error de sintaxis.")
+    error = "Error de sintaxis."
+    print(error)
+    
+    global resultado_gramatica
+    if p:
+        resultado = "Error de tipo {} en el valor {}".format(str(p.type), str(p.value))
+        print(resultado)
+    else:
+        resultado = "Error sintactico"
+        print(resultado)
+    resultado_gramatica.append(resultado)
 # =========================================================================================
 
 #regla semantica operaciones
@@ -306,8 +317,8 @@ data = [
     'num=100',
     '5*2/1+1',
     '1*1+1',
-    '4+5+5-true', #error semantico
-    '4+5+5+"ok"', #error semantico
+    '4+5+5-true',
+    '4+5+5+"ok"',
     'var _nueva = 0xfff;',
     'var pruebaE = 23e-8;',
     'var NuevaVariable = true;',
@@ -410,6 +421,19 @@ data = [
     }
     ''',
 ]
+def prueba_sintactica(data):
+    global resultado_gramatica
+    resultado_gramatica.clear()
+
+    for item in data.splitlines():
+        if item:
+            gram = parser_js.parse(item)
+            if gram:
+                resultado_gramatica.append(str(gram))
+        else: print("data vacia")
+
+    print("result: ", resultado_gramatica)
+    return resultado_gramatica
 
 for instruccion in data:
     print(instruccion)

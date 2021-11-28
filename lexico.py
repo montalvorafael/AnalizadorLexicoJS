@@ -10,6 +10,7 @@ import ply.lex as lex
 # Palabras reservadas.
 # =========================================================================================
 # Palabras reservadas fuertes.
+resultado_lexema = []
 reserved = {
     'class': 'CLASS',
     'new': 'NEW',
@@ -229,7 +230,19 @@ Array()
 
 lexer_js = lex.lex()
 lexer_js.input(data)
-
+def analizar(data):
+    global resultado_lexema
+    lexer_js.input(data)
+    resultado_lexema.clear()
+    # Tokenize
+    while True:
+        tok = lexer_js.token()
+        if not tok:
+            break  # No more input
+        print(tok)
+        estado = "Linea {:4} Tipo {:16} Valor {:16} Pos {:4}".format(str(tok.lineno), str(tok.type), str(tok.value), str(tok.lexpos))
+        resultado_lexema.append(estado)
+    return resultado_lexema
 # Comprobar búsqueda de tokens.
 while True:
     tok = lexer_js.token()
