@@ -19,25 +19,25 @@ reserved = {
     'else': 'ELSE',
     'catch': 'CATCH',
     'while': 'WHILE',
-    'void': 'VOID',
+    'void': 'VOID', #
     'const': 'CONST',
-    'import': 'IMPORT',
+    'import': 'IMPORT', #
     'default': 'DEFAULT',
     'continue': 'CONTINUE',
-    'debugger': 'DEBUGGER',
+    'debugger': 'DEBUGGER', #
     'for': 'FOR',
     'return': 'RETURN',
     'switch': 'SWITCH',
-    'delete': 'DELETE',
-    'await': 'AWAIT',
-    'export': 'EXPORT',
+    'delete': 'DELETE', #
+    'await': 'AWAIT', #
+    'export': 'EXPORT', #
     'if': 'IF',
     'var': 'VAR',
     'let': 'LET',
-    'do': 'DO',
-    'extends': 'EXTENDS',
+    'do': 'DO', #
+    'extends': 'EXTENDS', #
     'case': 'CASE',
-    'super': 'SUPER',
+    'super': 'SUPER', #
     'null': 'NULL',
     'Map' : 'MAP',
     'Array' : 'ARRAY',

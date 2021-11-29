@@ -62,10 +62,13 @@ def p_asignacion(p):
 # Expresión ===============================================================================
 
 def p_expresion_comp(p):
-    'comparacion : expresion operadores_comp term'
+   'comparacion : expresion operadores_comp term'
 
 def p_expresion_log(p):
-    'logica : expresion operadores_log term'
+    '''logica : comparacion operadores_log term
+                | comparacion operadores_log expresion
+                | comparacion operadores_log comparacion
+                | comparacion operadores_log logica'''
 
 def p_expresion_term(p):
     'expresion : term'
@@ -160,15 +163,18 @@ def p_funcion(p):
 # Estructuras condicionales.
 # =========================================================================================
 # If - if-else ============================================================================
-def p_if(p):
+def p_if_semantica(p):
     '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
-    | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if'''
+    | IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE if
+    | IF IZQPAREN logica DERPAREN IZQLLAVE js DERLLAVE
+    | IF IZQPAREN logica DERPAREN IZQLLAVE js DERLLAVE if'''
 
-def p_if_else(p):
-    '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
+def p_if_else_semantica(p):
+    '''if : IF IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE
+            | IF IZQPAREN logica DERPAREN IZQLLAVE js DERLLAVE ELSE IZQLLAVE js DERLLAVE'''
 
 # Switch ==================================================================================
-def p_switch(p):
+def p_switch_semantica(p):
     '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE'''
 
 def p_ncasos(p):
@@ -181,11 +187,12 @@ def p_casos(p):
     | CASE tipos_datos DOSPUNTOS'''
 
 # While ===================================================================================
-def p_while(p):
-    '''while : WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE'''
+def p_while_semantica(p):
+    '''while : WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
+            | WHILE IZQPAREN logica DERPAREN IZQLLAVE js DERLLAVE'''
 
 # =========================================================================================
-
+#Regla semantica para los condicionales lista - M. Mawyin
 
 # =========================================================================================
 # Estructuras de datos.
@@ -311,6 +318,8 @@ parser_js = yacc.yacc(start=start_rule)
 # Algoritmo de prueba
 data = [
     # Declaración y asignacion.
+    'var num;',
+    'var NULL;',
     'num2 = true',
     '10/"hola"', #error semantico
     'num = num-num3',
@@ -328,6 +337,13 @@ data = [
     'let t1posdat0s = 789.8;',
     'let $otranueva = false;',
     'let pruebasNega = -789n;',
+
+    # Operadores logicos.
+    'n>0 && n <5',
+    'num>5 || num ==10',
+    'num>5 || num ==10 || num <= 0',
+    'num>5 || num ==10 && num <= 0',
+    'num>5 || num && 10', # error semantico
 
     # Estructuras de datos.
     'arreglo[0] = -893.2;',
@@ -378,7 +394,21 @@ data = [
         }
     ''',
     '''
-    while (n < 3) {
+    if (num2 > num || num2 == 10) {
+            num2=num2-num
+        } if (num > num3) {
+            num =num-num3
+        } else {
+            num=100
+        }
+    ''',
+    '''
+    while (n < 3 ) {
+        x = n;
+    }
+    ''',
+    '''
+    while (n < 3 && n>0) {
         x = n;
     }
     ''',
@@ -419,7 +449,7 @@ data = [
         let suma = a + b + c;
         return 0;
     }
-    ''',
+    '''
 ]
 def prueba_sintactica(data):
     global resultado_gramatica
