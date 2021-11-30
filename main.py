@@ -3,15 +3,15 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.uic.properties import QtGui
 
-""" Importamos todas nuetras Ventana y funciones utiles"""
+# """ Importamos todas nuetras Ventana y funciones utiles"""
 from home import  *
 from lexico import *
 from sintactico import *
 
 class Main(QMainWindow):
-    """ Clase principal de nuestra app"""
+    # """ Clase principal de nuestra app"""
     def __init__(self):
-        """ Incializamos nuestra app"""
+        # """ Incializamos nuestra app"""
         QMainWindow.__init__(self)
 
         # Instaciamos nuestra ventanas widget home
@@ -72,6 +72,8 @@ class Main(QMainWindow):
             cadena += item + "\n"
         # mostramos en pantalla
         self.home.tx_sintactico.setText( cadena )
+        if (self.home.tx_sintactico.toPlainText().strip() == ""):
+            self.home.tx_sintactico.setText("Análisis sintáctico correcto.")
 
     def ev_archivo(self):
         '''
