@@ -215,9 +215,13 @@ def p_arreglo(p):
     '''
 
 def p_lista(p):
-    '''lista : term
-    | term COMA lista
+    '''lista : lista_elemento
+    | lista_elemento COMA lista
     | empty'''
+
+def p_lista_elemento(p):
+    '''lista_elemento : tipos_datos
+    | VARIABLE'''
 
 # Métodos.
 def p_pop(p):
@@ -236,10 +240,10 @@ def p_map(p):
 
 # Métodos.
 def p_map_set(p):
-    '''map_metodos : VARIABLE SET_METODO IZQPAREN factor COMA factor DERPAREN final_linea'''
+    '''map_metodos : VARIABLE SET_METODO IZQPAREN lista_elemento COMA lista_elemento DERPAREN final_linea'''
 
 def p_map_get(p):
-    'map_metodos : VARIABLE GET_METODO IZQPAREN factor DERPAREN final_linea'
+    'map_metodos : VARIABLE GET_METODO IZQPAREN lista_elemento DERPAREN final_linea'
 
 # Set =====================================================================================
 def p_set(p):
@@ -250,10 +254,10 @@ def p_set(p):
 
 # Métodos.
 def p_set_add(p):
-    '''set_metodos : VARIABLE ADD_METODO IZQPAREN factor DERPAREN'''
+    '''set_metodos : VARIABLE ADD_METODO IZQPAREN lista_elemento DERPAREN'''
 
 def p_set_has(p):
-    '''set_metodos : VARIABLE HAS_METODO IZQPAREN factor DERPAREN'''
+    '''set_metodos : VARIABLE HAS_METODO IZQPAREN lista_elemento DERPAREN'''
 # =========================================================================================
 
 
