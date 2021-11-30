@@ -459,9 +459,12 @@ def prueba_sintactica(data):
     global resultado_gramatica
     resultado_gramatica.clear()
 
-    gram = parser_js.parse(data)
-    if gram:
-        resultado_gramatica.append(str(gram))
+    for item in data.splitlines():
+        if item:
+            gram = parser_js.parse(item)
+            if gram:
+                resultado_gramatica.append(str(gram))
+        else: print("data vacia")
 
     print("result: ", resultado_gramatica)
     return resultado_gramatica
