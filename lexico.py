@@ -17,42 +17,24 @@ reserved = {
     'break': 'BREAK',
     'function': 'FUNCTION',
     'else': 'ELSE',
-    'catch': 'CATCH',
     'while': 'WHILE',
-    'void': 'VOID', #
     'const': 'CONST',
-    'import': 'IMPORT', #
     'default': 'DEFAULT',
     'continue': 'CONTINUE',
-    'debugger': 'DEBUGGER', #
     'for': 'FOR',
     'return': 'RETURN',
     'switch': 'SWITCH',
-    'delete': 'DELETE', #
-    'await': 'AWAIT', #
-    'export': 'EXPORT', #
     'if': 'IF',
     'var': 'VAR',
     'let': 'LET',
-    'do': 'DO', #
-    'extends': 'EXTENDS', #
     'case': 'CASE',
-    'super': 'SUPER', #
     'null': 'NULL',
     'Map' : 'MAP',
     'Array' : 'ARRAY',
     'Set': 'SET_ESTRUC',
+    'console' : 'CONSOLE',
+    'log' : 'LOG'
 
-# Palabras reservadas suaves.
-    'constructor': 'CONSTRUCTOR',
-    'get': 'GET',
-    'init': 'INIT',
-    'public': 'PUBLIC',
-    'interface': 'INTERFACE',
-    'implements': 'IMPLEMENTS',
-    'private': 'PRIVATE',
-    'protected': 'PROTECTED',
-    'package': 'PACKAGE'
 }
 # =========================================================================================
 
@@ -102,7 +84,8 @@ tokens = [
     'ADD_METODO',
     'HAS_METODO',
     'SET_METODO',
-    'GET_METODO'
+    'GET_METODO',
+
 ] + list(reserved.values())
 
 # =========================================================================================
@@ -158,13 +141,16 @@ t_AND = r'\&\&'
 t_OR = r'\|\|'
 
 # Tipos de datos primitivos.
-t_STRING= r'("[^"]*"|\'[^\']*\')'
+#t_STRING= r'("[^"]*"|\'[^\']*\')'
 t_NULL = r'null'
-
+def t_STRING(t):
+    r'("[^"]*"|\'[^\']*\')'
+    t.type = reserved.get(t.value, 'STRING')
+    return t
 
 def t_SYMBOL(t):
     r'Symbol\(\)|Symbol\("[^"]*"\)'
-    return t
+
 
 def t_BIGINT(t):
     r'-?\d+n'
@@ -226,6 +212,8 @@ var sym2 = Symbol("foo");
 var x;
 Array()
 .push .pop .has .add //pl
+"ESTO ES UNA CADENA"
+console.log('hola')
 '''
 
 lexer_js = lex.lex()

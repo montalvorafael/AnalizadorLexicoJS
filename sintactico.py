@@ -29,6 +29,7 @@ def p_instrucciones(p):
     | while
     | funcion
     | reglasemanticaop final_linea
+    | print_encabezado final_linea
     '''
 
 # Declaración =============================================================================
@@ -73,6 +74,14 @@ def p_expresion_log(p):
 def p_expresion_term(p):
     'expresion : term'
     # p[0] = p[1]
+
+def p_print_encabezado(p):
+    'print_encabezado : CONSOLE PUNTO LOG IZQPAREN print_linea DERPAREN'
+
+def p_print_linea(p):
+    '''print_linea : STRING COMA VARIABLE
+        | STRING COMA VARIABLE COMA print_linea'''
+
 
 # Return.
 # Si vale pero revisar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -408,7 +417,7 @@ data = [
     }
     ''',
     '''
-    while (n < 3 && n>0) {
+    while (n < 3; && n>0) { #error de sintaxis
         x = n;
     }
     ''',
@@ -442,6 +451,16 @@ data = [
     function cuadrado(numero) {
         let sopa de letras= "fndklañfdiafhwbnlewq"
         numero* numero;
+    }
+    ''',
+    '''
+    function presentacion(nombre){
+         console.log("Mi nombres es" , nombre );
+    }
+    ''',
+    '''
+    function presentacionCompleta(nombre,apellido){
+        console.log("Mi nombres es" , nombre ," y mi apelldio es " , apellido);
     }
     ''',
     '''
