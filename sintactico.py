@@ -58,10 +58,10 @@ def p_asignacion(p):
     | VARIABLE IGUAL comparacion
     | VARIABLE IGUAL expresion
     | VARIABLE IGUAL reglasemanticaop
+    | arreglo_slicing IGUAL tipos_datos
     '''
 
 # Expresión ===============================================================================
-
 def p_expresion_comp(p):
    'comparacion : expresion operadores_comp term'
 
@@ -84,13 +84,10 @@ def p_print_linea(p):
 
 
 # Return.
-# Si vale pero revisar!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 def p_expresion_return(p):
     '''expresion : RETURN expresion'''
 
 # Termino =================================================================================
-
-
 def p_term_factor(p):
     'term : factor'
     # p[0] = p[1]
@@ -105,7 +102,7 @@ def p_factor_num(p):
 def p_factor_expr(p):
     'factor : IZQPAREN expresion DERPAREN'
 
-# Agrapaciones de datos y operadores ======================================================
+# Agrupaciones de datos y operadores ======================================================
 def p_tipos_datos(p):
     '''tipos_datos : NUMBER
     | STRING
@@ -142,7 +139,6 @@ def p_final_linea(p):
 def p_empty(p):
     'empty :'
     pass
-
 # =========================================================================================
 
 
@@ -203,6 +199,7 @@ def p_while_semantica(p):
 # =========================================================================================
 #Regla semantica para los condicionales lista - M. Mawyin
 
+
 # =========================================================================================
 # Estructuras de datos.
 # =========================================================================================
@@ -221,15 +218,19 @@ def p_estructuras_datos_metod(p):
 # Array ===================================================================================
 def p_arreglo(p):
     '''arreglo : IZQCORCHETE lista DERCORCHETE
+    | IZQCORCHETE DERCORCHETE
     | NEW ARRAY IZQPAREN DERPAREN
     | NEW ARRAY IZQPAREN lista DERPAREN
-    | IZQCORCHETE DERCORCHETE
     '''
 
 def p_lista(p):
-    '''lista : tipos_datos
-    | tipos_datos COMA lista
+    '''lista : lista_elemento
+    | lista_elemento COMA lista
     | empty'''
+
+def p_lista_elemento(p):
+    '''lista_elemento : tipos_datos
+    | VARIABLE'''
 
 # Métodos.
 def p_pop(p):
@@ -239,17 +240,20 @@ def p_push(p):
     '''arreglo_metodos : VARIABLE PUSH_METODO IZQPAREN lista DERPAREN'''
 
 def p_arregloSlicing(p):
-    'arreglo_metodos : VARIABLE IZQCORCHETE NUMBER DERCORCHETE IGUAL tipos_datos'
+    'arreglo_slicing : VARIABLE IZQCORCHETE NUMBER DERCORCHETE'
+
 # Map =====================================================================================
 def p_map(p):
-    '''map : NEW MAP IZQPAREN DERPAREN final_linea'''
+    '''map : NEW MAP IZQPAREN DERPAREN final_linea
+    '''
 
 # Métodos.
 def p_map_set(p):
-    '''map_metodos : VARIABLE SET_METODO IZQPAREN tipos_datos COMA tipos_datos DERPAREN final_linea'''
+    '''map_metodos : VARIABLE SET_METODO IZQPAREN lista_elemento COMA lista_elemento DERPAREN final_linea'''
 
 def p_map_get(p):
-    'map_metodos : VARIABLE GET_METODO IZQPAREN tipos_datos DERPAREN final_linea'
+    'map_metodos : VARIABLE GET_METODO IZQPAREN lista_elemento DERPAREN final_linea'
+
 # Set =====================================================================================
 def p_set(p):
     '''set : NEW SET_ESTRUC IZQPAREN DERPAREN
@@ -259,10 +263,10 @@ def p_set(p):
 
 # Métodos.
 def p_set_add(p):
-    '''set_metodos : VARIABLE ADD_METODO IZQPAREN factor DERPAREN'''
+    '''set_metodos : VARIABLE ADD_METODO IZQPAREN lista_elemento DERPAREN'''
 
 def p_set_has(p):
-    '''set_metodos : VARIABLE HAS_METODO IZQPAREN factor DERPAREN'''
+    '''set_metodos : VARIABLE HAS_METODO IZQPAREN lista_elemento DERPAREN'''
 # =========================================================================================
 
 
@@ -272,7 +276,7 @@ def p_set_has(p):
 def p_error(p):
     error = "Error de sintaxis."
     print(error)
-    
+
     global resultado_gramatica
     if p:
         resultado = "Error de tipo {} en el valor {}".format(str(p.type), str(p.value))
@@ -283,7 +287,7 @@ def p_error(p):
     resultado_gramatica.append(resultado)
 # =========================================================================================
 
-#regla semantica operaciones
+# regla semantica operaciones
 def p_valoroperaciones(p):
     '''valoroperaciones : NUMBER
     | BIGINT
@@ -470,6 +474,7 @@ data = [
     }
     '''
 ]
+
 def prueba_sintactica(data):
     global resultado_gramatica
     resultado_gramatica.clear()
