@@ -63,6 +63,7 @@ tokens = [
     'MAS',
     'MENOS',
     'MULT',
+    'MODULO',
     'MULTIGUAL',
     'DIVIGUAL',
     'MODIGUAL',
@@ -118,6 +119,7 @@ t_MAS = r'\+'
 t_MENOS = r'\-'
 t_MULT = r'\*'
 t_DIV = r'/'
+t_MODULO = r'\%'
 
 # Operadores de asignación.
 t_IGUAL = r'='
@@ -150,6 +152,7 @@ def t_STRING(t):
 
 def t_SYMBOL(t):
     r'Symbol\(\)|Symbol\("[^"]*"\)'
+    return t
 
 
 def t_BIGINT(t):

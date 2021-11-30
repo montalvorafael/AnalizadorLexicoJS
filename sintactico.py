@@ -76,7 +76,8 @@ def p_expresion_term(p):
     # p[0] = p[1]
 
 def p_print_encabezado(p):
-    'print_encabezado : CONSOLE PUNTO LOG IZQPAREN print_linea DERPAREN'
+    '''print_encabezado : CONSOLE PUNTO LOG IZQPAREN print_linea DERPAREN
+    | CONSOLE PUNTO LOG IZQPAREN switchdatos DERPAREN'''
 
 def p_print_linea(p):
     '''print_linea : STRING COMA VARIABLE
@@ -180,7 +181,7 @@ def p_if_else_semantica(p):
 
 # Switch ==================================================================================
 def p_switch_semantica(p):
-    '''switch : SWITCH IZQPAREN VARIABLE DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE'''
+    '''switch : SWITCH IZQPAREN switchdatos DERPAREN IZQLLAVE ncasos DEFAULT DOSPUNTOS js DERLLAVE'''
 
 def p_ncasos(p):
     '''ncasos : casos
@@ -188,9 +189,14 @@ def p_ncasos(p):
     '''
 
 def p_casos(p):
-    '''casos : CASE tipos_datos DOSPUNTOS js BREAK final_linea
-    | CASE tipos_datos DOSPUNTOS'''
-
+    '''casos : CASE switchdatos DOSPUNTOS js BREAK final_linea
+    | CASE switchdatos DOSPUNTOS'''
+def p_switchdatos(p):
+    '''switchdatos : NUMBER
+    | STRING
+    | BOOLEAN
+    | BIGINT
+    | VARIABLE'''
 # While ===================================================================================
 def p_while_semantica(p):
     '''while : WHILE IZQPAREN comparacion DERPAREN IZQLLAVE js DERLLAVE
@@ -249,10 +255,10 @@ def p_map(p):
 
 # Métodos.
 def p_map_set(p):
-    '''map_metodos : VARIABLE SET_METODO IZQPAREN lista_elemento COMA lista_elemento DERPAREN final_linea'''
+    '''map_metodos : VARIABLE SET_METODO IZQPAREN switchdatos COMA switchdatos DERPAREN final_linea'''
 
 def p_map_get(p):
-    'map_metodos : VARIABLE GET_METODO IZQPAREN lista_elemento DERPAREN final_linea'
+    'map_metodos : VARIABLE GET_METODO IZQPAREN switchdatos DERPAREN final_linea'
 
 # Set =====================================================================================
 def p_set(p):
@@ -311,6 +317,9 @@ def p_reglasemanticaop_div(p):
     '''reglasemanticaop : valoroperaciones DIV valoroperaciones
     | valoroperaciones DIV reglasemanticaop'''
     # p[0] = p[1] / p[3]
+def p_reglasemanticaop_mod(p):
+    '''reglasemanticaop : valoroperaciones MODULO valoroperaciones
+    | valoroperaciones MODULO reglasemanticaop'''
 
 # =========================================================================================
 # Construcción del parser.
@@ -421,7 +430,7 @@ data = [
     }
     ''',
     '''
-    while (n < 3; && n>0) { #error de sintaxis
+    while (n < 3 && n>0) {
         x = n;
     }
     ''',

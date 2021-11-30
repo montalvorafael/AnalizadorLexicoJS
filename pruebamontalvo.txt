@@ -1,0 +1,17 @@
+function saludo(){exp='hola';}
+function noparam(){console.log("ok");}
+function noparam(){if (9318471394913n > -200) {var varNum = 0b010010011110; }}
+switch (expr) {case 1:exp=12;break;case 2:exp2='hola';break;case 3:default:x=true;}
+switch (true) {case true:console.log("ok")break default:x=2+2;}
+switch ("string") {case "1": case "2" : console.log("ok") break; default: console.log("yeah");}
+new Map();
+new Map()
+var ok = new Map();
+var ok = new Map();
+mapa.set("1",2)
+mapa.set(2,2)
+mapa.set(true,"ok")
+mapa.set(variable,variable)
+mapa.get("1")
+mapa.get(10)
+mapa.get(variable)
