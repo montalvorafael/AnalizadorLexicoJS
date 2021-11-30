@@ -455,6 +455,7 @@ data = [
     }
     '''
 ]
+
 def prueba_sintactica(data):
     global resultado_gramatica
     resultado_gramatica.clear()
