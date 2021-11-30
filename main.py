@@ -29,7 +29,7 @@ class Main(QMainWindow):
     def ev_lexico(self):
         '''
         Manejo de analisis de expresion lexemas
-        :return: 
+        :return:
         '''
         # print("lexico")
 
@@ -52,7 +52,7 @@ class Main(QMainWindow):
     def ev_sintactico(self):
         '''
         Manejo de analisis gramatico
-        :return: 
+        :return:
         '''
         # print("sintactico")
 
@@ -75,8 +75,8 @@ class Main(QMainWindow):
 
     def ev_archivo(self):
         '''
-        Manejo de subir archivo 
-        :return: 
+        Manejo de subir archivo
+        :return:
         '''
         dlg = QFileDialog()
 
@@ -92,7 +92,7 @@ class Main(QMainWindow):
     def ev_limpiar(self):
         '''
         Manejo de limpieza de campos
-        :return: 
+        :return:
         '''
         self.home.tx_ingreso.setText('')
         self.home.tx_lexico.setText('')
