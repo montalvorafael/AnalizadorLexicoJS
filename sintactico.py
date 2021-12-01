@@ -5,6 +5,9 @@ from lexico import lexer_js
 # =========================================================================================
 # Básico.
 # =========================================================================================
+#Rafael Montalvo : Switch, funcion sin parametros, mapa ( metodos set y get ), semantica de operaciones
+#Willy Mateo: While, funcion con retorno, set ( metodos add y has), semantica metodos de las estructuras.
+#Margarita Mawyin : if, funciones con parametros, array ( metodos pop y push), semantica de condicionales
 resultado_gramatica = []
 start_rule = 'js'
 

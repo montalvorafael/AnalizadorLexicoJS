@@ -192,25 +192,25 @@ class Ui_home(object):
 
     def retranslateUi(self, home):
         _translate = QtCore.QCoreApplication.translate
-        home.setWindowTitle(_translate("home", "Compilador Javascript"))
-        self.label.setText(_translate("home", "Compilador JavaScript"))
+        home.setWindowTitle(_translate("home", "Analizador Javascript"))
+        self.label.setText(_translate("home", "Analizador JavaScript"))
         self.label_2.setText(_translate("home", "Analisis Lexico"))
         self.tx_lexico.setHtml(_translate("home", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.tx_lexico.setPlaceholderText(_translate("home", "Analisis de lexemas"))
+        self.tx_lexico.setPlaceholderText(_translate("home", "Analisis lexico"))
         self.label_3.setText(_translate("home", "Analisis Sintactico"))
-        self.tx_sintactico.setPlaceholderText(_translate("home", "Analisis de gramatica libre de contexto"))
+        self.tx_sintactico.setPlaceholderText(_translate("home", "Analisis sintactico y semantico"))
         self.label_5.setText(_translate("home", "Prueba de código"))
         self.tx_ingreso.setHtml(_translate("home", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'Sans Serif\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.tx_ingreso.setPlaceholderText(_translate("home", "Ingrese el texto analizay o suba un archivo"))
-        self.bt_lexico.setText(_translate("home", "Analizar Lexico"))
+        self.tx_ingreso.setPlaceholderText(_translate("home", "Ingrese el texto o suba un archivo para analizar"))
+        self.bt_lexico.setText(_translate("home", "Analisis Lexico"))
         self.bt_sintactico.setText(_translate("home", "Analisis Sintactico"))
         self.bt_archivo.setText(_translate("home", "Cargar archivo"))
         self.bt_limpiar.setText(_translate("home", "Borrar"))
