@@ -227,6 +227,7 @@ def p_arreglo(p):
     | IZQCORCHETE DERCORCHETE
     | NEW ARRAY IZQPAREN DERPAREN
     | NEW ARRAY IZQPAREN lista DERPAREN
+    | arreglo_slicing
     '''
 
 def p_lista(p):
@@ -369,6 +370,7 @@ data = [
 
     # Estructuras de datos.
     'arreglo[0] = -893.2;',
+    'let array_slicing = array[1]',
     'let array = new Array()',
     'var nombres = new Array();',
     'var nombres = new Array(5);',
