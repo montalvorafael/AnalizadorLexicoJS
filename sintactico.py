@@ -66,7 +66,14 @@ def p_asignacion(p):
 
 # Expresión ===============================================================================
 def p_expresion_comp(p):
-   'comparacion : expresion operadores_comp term'
+   'comparacion :  comparadores operadores_comp comparadores'
+
+def p_comparadores_validos(p):
+    '''comparadores : NUMBER
+                   | VARIABLE
+                   | BIGINT'''
+
+
 
 def p_expresion_log(p):
     '''logica : comparacion operadores_log term
@@ -344,6 +351,7 @@ parser_js = yacc.yacc(start=start_rule)
 # Algoritmo de prueba
 data = [
     # Declaración y asignacion.
+
     'var num;',
     'var NULL;',
     'num2 = true',
@@ -352,8 +360,8 @@ data = [
     'num=100',
     '5*2/1+1',
     '1*1+1',
-    '4+5+5-true',
-    '4+5+5+"ok"',
+    '4+5+5-true',#error semantico
+    '4+5+5+"ok"',#error semantico
     'var _nueva = 0xfff;',
     'var pruebaE = 23e-8;',
     'var NuevaVariable = true;',
@@ -369,7 +377,7 @@ data = [
     'num>5 || num ==10',
     'num>5 || num ==10 || num <= 0',
     'num>5 || num ==10 && num <= 0',
-    'num>5 || num && 10', # error semantico
+    'num>5 || num && 10', # error sintactico
 
     # Estructuras de datos.
     'arreglo[0] = -893.2;',
@@ -486,7 +494,9 @@ data = [
         let suma = a + b + c;
         return 0;
     }
-    '''
+    
+    ''',
+    'true > false' #error sintactico
 ]
 
 def prueba_sintactica(data):
