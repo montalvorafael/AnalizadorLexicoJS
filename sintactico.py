@@ -79,7 +79,8 @@ def p_expresion_log(p):
     '''logica : comparacion operadores_log term
                 | comparacion operadores_log expresion
                 | comparacion operadores_log comparacion
-                | comparacion operadores_log logica'''
+                | comparacion operadores_log logica
+                | BOOLEAN operadores_log BOOLEAN'''
 
 def p_expresion_term(p):
     'expresion : term'
@@ -443,8 +444,14 @@ data = [
     }
     ''',
     '''
-    while (n < 3 && n>0) {
+    while (n < 3 && n>0 || true) {
         x = n;
+        while (true && false) {
+            var variable1;
+        }
+        if(z==5) {
+            let hola=1;
+        }
     }
     ''',
     '''
@@ -457,6 +464,9 @@ data = [
     switch (expr) {
         case 1:
             exp=12;
+            while (n<4) {
+            x=false;
+            }
             break;
         case 2:
             exp2='hola';
@@ -494,7 +504,6 @@ data = [
         let suma = a + b + c;
         return 0;
     }
-    
     ''',
     'true > false' #error sintactico
 ]
