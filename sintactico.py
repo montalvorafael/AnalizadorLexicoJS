@@ -267,10 +267,10 @@ def p_map(p):
 
 # Métodos.
 def p_map_set(p):
-    '''map_metodos : VARIABLE SET_METODO IZQPAREN switchdatos COMA switchdatos DERPAREN final_linea'''
+    '''map_metodos : VARIABLE SET_METODO IZQPAREN lista_elemento COMA lista_elemento DERPAREN final_linea'''
 
 def p_map_get(p):
-    'map_metodos : VARIABLE GET_METODO IZQPAREN switchdatos DERPAREN final_linea'
+    'map_metodos : VARIABLE GET_METODO IZQPAREN lista_elemento DERPAREN final_linea'
 
 # Set =====================================================================================
 def p_set(p):
